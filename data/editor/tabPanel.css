@@ -1,0 +1,68 @@
+.gwt-TabPanel {
+    background-color: #f8f8f8;
+}
+
+.gwt-TabBar {
+    height: 43px;
+    margin-top: 20px;
+}
+
+.gwt-TabBarRest-wrapper {
+    width: 0px;
+}
+
+.gwt-TabBar .gwt-TabBarItem {
+    height: 43px;
+    background-color: transparent;
+    background: url("imagesForGui/tabButton.png");
+    background-repeat: repeat-x;
+    padding: 0px;
+    border-radius: 0;
+    border: 0;
+    position: relative;
+    border-right: 1px solid darkGray;
+    text-align: center;
+}
+
+.gwt-TabBar .gwt-TabBarItem {
+    text-align: center;
+}
+
+.gwt-TabBar .gwt-TabBarItem:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -0.25em; /* Adjusts for spacing */
+}
+
+.gwt-TabBarItem .gwt-Label {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.gwt-TabBar .gwt-TabBarItem-selected {
+    background: url("imagesForGui/tabButtonActive.png");
+    color: whiteSmoke;
+}
+
+.gwt-TabBarFirst-wrapper + .gwt-TabBarItem-wrapper .gwt-TabBarItem.gwt-TabBarItem-selected {
+    /*First selected tab*/
+}
+
+.gwt-TabBarFirst-wrapper + .gwt-TabBarItem-wrapper .gwt-TabBarItem {
+    /*First unselected tab*/
+    border-radius: 6px 0 0 6px;
+}
+
+.gwt-TabBarItem-wrapper .gwt-TabBarItem.last {
+    /*Last unselected tab*/
+    border-radius: 0 6px 6px 0;
+}
+
+.gwt-TabBarItem-wrapper {
+    width: 25%;
+}
+
+
+

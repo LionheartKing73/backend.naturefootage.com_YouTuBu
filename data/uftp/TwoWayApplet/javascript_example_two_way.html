@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>FileCatalyst Login Sample</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script>
+
+      function parseQueryString (str) {
+        str = str ? str : location.search;
+        var query = str.charAt(0) == '?' ? str.substring(1) : str;
+        var args = new Object();
+        if (query) {
+          var fields = query.split('&');
+          for (var f = 0; f < fields.length; f++) {
+            var field = fields[f].split('=');
+            args[unescape(field[0].replace(/\+/g, ' '))] =
+              unescape(field[1].replace(/\+/g, ' '));
+          }
+        }
+        return args;
+      }
+
+      var args = parseQueryString ();
+
+
+      var user		= args["u"];
+      var pass 		= args["p"];
+      var ek			= args["k"];
+      var server		= args["s"];
+      var port		= args["prt"];
+
+      function decode(sstring,skey) {
+        var i;
+        var keyLength = skey.length;
+        var newstring = "";
+        for (i = 0; i < sstring.length; i++){
+          var value = sstring.charCodeAt(i);
+          var newval = value-skey.charCodeAt(i%keyLength);
+          while (newval<=32||newval>126||newval==34||newval==39)
+            newval=(newval<=32)?126-Math.abs(32-newval):(newval>126)?newval-94:newval-skey.charCodeAt(i%keyLength);
+          newstring = newstring + String.fromCharCode(newval);
+        }
+        return newstring;
+      }
+
+    </script>
+    <script type="text/javascript" src="deployJava.js"></script> <!-- use https://java.com/js/deployJava.js if you want to always be up to date-->
+  </head>
+
+  <body id="applet_body">
+
+    <!-- Begin Wrapper -->
+    <div id="wrapper">
+      <!-- Begin Header -->
+      <header>
+        <div id="logo"><img src="images/logo.png" alt="FileCatalyst Home" /></div>
+        <div id="infoTools">
+          <a href="javascript_example_login.html">Disconnect <img src="images/icons/control-power.png" class="icon" title="Log out" alt="log out"/></a>
+        </div>
+		</header>
+      <!-- End Header -->
+      <div id="content">
+        <div id="single_wrap" class="center">
+
+          <script>
+
+            // Use these Javascript variables to control the applet parameters
+            //
+            // WARNING: use the \ escape character for quotes (single or double)
+
+
+            var parameters = {
+
+              // Connection related parameters
+
+              server                      :server,
+              port                        :port,
+              user                        :user,
+              pass                        :pass,
+              autoconnect                 :"true",
+              autoreconnect               :"true",
+              passive                     :"",
+              encrypt                     :"true",
+              ek                          :ek,
+              connecttimeout              :"",
+              sotimeout                   :"",
+              waitRetry                   :"",
+              maxRetries                  :"",
+              servletLocation             :"",
+
+
+              clientConnectKey            :"",  // In order to conenct to non-FileCatalyst FTP or FTPS servers, this key must be present
+
+              // FileCatalyst parameters
+
+              mode                        :"UDP", //AUTO, UDP, TCP or HTTP (HTTP will only work if servletLocation is specified)
+              blocksize                   :"",
+              unitsize                    :"",
+              numEncoders                 :"",
+
+              bandwidth                   :"",  // defaults to 100000
+
+              verifyIntegrity             :"",  //true or false
+              verifyIntegrityMode         :"",  //0 for after transfer, 1 for on the fly
+
+              enableSSL                   :"",
+
+              keepFileAttributes          :"",
+              congestionControl           :"",  //true or false default is true
+              startRate                   :"",  // this is the rate at which the transfer will start, should be lower than the target rate.  Default is 1000
+              congestionControlAggression :"", // 1 - 10, default is 5
+              congestionControlStrategy   :"", // 0 for RTT based, 1 for Loss based.  default 1
+
+              numFTPStreams               :"", // number of concurrent TCP streams to use in FTP mode (default 5)
+
+              incremental                 :"", // true or false
+              incrementalMode             :"", // 0 for transfer entire file, 1 for deltas
+
+              useTempName                 :"", // true or false
+              useTempNameMode             :"", // 0 for prefix , 1 for suffix
+
+              compression                 :"",
+              compLevel                   :"",
+
+              // Proxy related settings for IE only
+
+              autodetectproxy             :"",
+              socksproxy                  :"",
+              socksProxyHost              :"",
+              socksProxyPort              :"",
+              ftpproxy                    :"",
+              ftpProxyHost                :"",
+              ftpProxyPort                :"",
+
+              // Functionallity related values
+
+              ascbin                      :"",
+              showascbin                  :"",
+              asciiextensions             :"",
+              extensions                  :"",
+              exclude                     :"",
+              invertExclude               :"",
+              lockinitialdir              :"",
+              remotedir                   :"",
+              localdir                    :"",
+              deleteoncancel              :"",
+              enableCookies               :"",
+              doubleClickTransfer         :"",
+              enablerightclick            :"",
+              enablekeyboardshortcuts     :"",
+              confirmoverwrite            :"",
+              syncpriority                :"",
+
+              selectalllocal              :"",
+              selectallremote             :"",
+              autoupload                  :"",
+              autodownload                :"",
+              autoallo                    :"",
+              hostsAllowed                :"",
+              createdirectoryonconnect    :"",
+              confirmTransfer             :"",
+              totalProgress               :"",
+              enableResume                :"",
+              customFileOptions           :"",
+              customDirOptions            :"",
+              sendLogsToURL               :"",
+              helplocation                :"documentation.html",
+
+              // Values that effect the color of the client
+
+              background                  :"",
+              buttonTextColorOnMouseOver  :"",
+              buttonTextColor             :"",
+              buttonColorOnMouseOver      :"",
+              buttonbackground            :"",
+              headerTextColor             :"",
+              headerBackgroundColor       :"",
+              drivesForegroundColor       :"",
+              drivesBackgroundColor       :"",
+              ascBinTextColor             :"",
+
+              // values that effect the interface layout of the client
+
+              language                    :"",
+              showsizeanddate             :"true",
+              LocalOptions                :"",
+              RemoteOptions               :"",
+              strechButtons               :"",
+              display                     :"",
+              showhelpbutton              :"",
+              showputbutton               :"",
+              showgetbutton               :"",
+              showsyncbutton              :"",
+              showaboutbutton             :"",
+              showconnectbutton           :"false",
+              showdisconnectbutton        :"",
+              showlocallist               :"",
+              showremotelist              :"",
+              showSizeInKB                :"",
+              showlocaladdressbar         :"",
+              showremoteaddressbar        :"",
+              showFileInfoBar             :"",
+              showStatusBar               :"",
+              useBottomToolbar            :"",
+              remoteheader                :"",
+
+              showAdvancedTab             :"false",
+              showSitename                :"false",
+              showHostname                :"false",
+              showUsername                :"",
+              showPassword                :"",
+              showAnonymous               :"false",
+              showSaveConnection          :"false",
+
+              // some customizable error pages
+
+              rejectPermissionURL         :"rejectPerms.html",
+              errNavWin                   :"errNavWin.html",
+              errIEWin                    :"errIEWin.html",
+              errIEWinVM                  :"errIEWinVM.html",
+              errNavUnix                  :"errNavUnix.html",
+              errIEMac                    :"errIEMac.html",
+              errNavMac                   :"errNavMac.html",
+              errOperaWin                 :"errOperaWin.html",
+
+
+              // Use this to add additional Java arguments to increase Memory, etc...
+              java_arguments		    	:"-Xmx512m -Djava.net.preferIPv4Stack:true",
+
+              //used for debug finctionality
+              debug			    :"false",   // increase logging on the Java console.  Can be used for troubleshooting.
+              debugRate                   :"false"
+            };
+
+
+
+            var attributes = {name: "FileCatalyst",
+              code: "unlimited.ftp.FileCatalystTransferApplet.class",
+              archive: "fctransferapplet.jar",
+              width:720,
+              height:500};
+
+            var version = '1.5';
+
+            deployJava.runApplet(attributes, parameters, version);
+
+          </script>
+        </div>
+      </div>
+	  <p>&nbsp;</p>
+      <p class="center"><a href="http://www.java.com" target="new" id="getJava">The file transfer tool requires Java to run. If it does not load,&nbsp; please click here to get Java.</a></p>
+	  <p>&nbsp;</p>
+      <footer>
+        <div class="left">
+          <a href="http://www.filecatalyst.com">www.filecatalyst.com</a>
+        </div>
+        <div class="right">
+          &copy; <script>document.write(new Date().getFullYear())</script> Unlimi-Tech Software, Inc.
+        </div>
+        <div class="clear">
+
+        </div>
+      </footer>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,6 @@
+.clipsOfSet { font-weight: bold; margin: 10px 0 0 0; text-align: left }
+
+.requestSent { color: #489803; font-size: 1.25em; font-weight: bold;
+  margin: 0 0 10px 0 }
+  
+a.action { text-decoration: underline }

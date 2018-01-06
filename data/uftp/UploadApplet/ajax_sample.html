@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<meta http-equiv="x-ua-compatible" content="IE=8">
+    <title>FileCatalyst Web Applets with Ajax</title>
+    <link rel="stylesheet" href="ajax_sample/style.css" />
+    <script type="text/javascript" src="ajax_sample/jquery-1.5.2.js"></script>
+	<script type="text/javascript" src="deployJava.js"></script>
+    <script type="text/javascript" src="ajax_sample/filecatalyst_application.js"></script>
+  </head>
+  <body>
+    <div id="top"></div>
+
+    <div id="outer">
+      <div id="inner">
+        <div id="header">
+          <h1>Logo</h1>
+        </div>
+
+        <div id="navigation">
+          <ul>
+            <li><a href="ajax_sample/overview.html">Overview</a></li>
+            <li><a href="ajax_sample/notifications.html">Notifications</a></li>
+            <li class="current"><a href="ajax_sample/uploads.html">Uploads</a></li>
+          </ul>
+        </div>
+
+        <div id="content">
+        </div>
+
+        <!-- Warning about cross-site scripting exceptions being raised by Chrome
+             when running the sample directly from file.  Exceptions go away when
+             run from any web server -->
+        <p class="disclaimer">
+		Note:  this example should be run from a web server.  Some browsers (Chrome) restrict javascript calls when running directly from file.
+        </p>
+
+        <div id="footer">&copy 2013 Unlimi-Tech Software, Inc.</div>
+      </div>
+
+      <div id="applet" class="shadow">
+        <div id="toggleButton">
+          <a id="close" class="open" style="display: none;" href="#">Hide Uploads</a>
+          <a id="open" class="close" href="#">Show Uploads</a>
+        </div>
+		
+		<!-- Main Javascript file to load parameters -->
+        
+		<p id="appletContainer">&nbsp;<script type="text/javascript" src="ajax_sample/fcupload.js"></script></p>
+		
+        <div id="noTransfers">
+          There are no current transfers.
+        </div>
+		
+		
+        <div id="progress" style="display:none">
+          <div class="progressReadout">Status: <span id="status"></span></div>
+          <div class="progressReadout"><span id="filename">-</span></div>
+          <div id="progressBar">
+            <span id="fillBar"><span id="barText"></span></span><span id="emptyBar"><span id="emptyText"></span></span>
+          </div>
+          <div class="progressReadout">Sent: <span id="sent"></span></div>
+          <div class="progressReadout">Time Left: <span id="timeLeft"></span></div>
+          <div class="progressReadout">Rate: <span id="rate"></span></div>
+        </div>
+      </div>
+
+      <div id="bottom"></div>
+
+    </div>
+  </body>
+</html>

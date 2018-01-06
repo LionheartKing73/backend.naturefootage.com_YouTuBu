@@ -1,0 +1,35 @@
+#cart_content{
+    float: left;
+    width: 645px;
+    margin-right: 30px;
+}
+#cart_details {
+    float: right;
+    width: 290px;
+}
+
+#cart_content td{
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+td.cart_item_usage{
+    padding-top: 28px;
+    width: 300px;
+}
+
+th.cart_item_start{
+    width: 225px;
+}
+
+th.cart_item_end{
+    width: 255px;
+}
+
+th.cart_item_actions{
+    width: 100px;
+}
+
+td.paddedtd{
+    padding-top: 28px;
+}

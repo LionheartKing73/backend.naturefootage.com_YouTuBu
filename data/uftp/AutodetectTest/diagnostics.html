@@ -1,0 +1,73 @@
+<html>
+  <!--
+   Copyright FileCatalyst 2012
+   Autodetect test applet, used to help customers with debugging connection issues.
+
+   Written in conjunction with Kunaal Malhotra.
+  -->
+  <head>
+    <title>FileCatalyst Diagnostics</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="shortcut icon" href="img/favicon.ico"/>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body>
+    <script type="text/javascript" src="js/Presentation-Harness.js"></script>
+    <script type="text/javascript" src="js/Tests-Harness.js" ></script>
+    <div id="wrapper">
+      <div id="logo"><a id="top"></a>
+        <a href="http://www.filecatalyst.com"><img src="img/header.jpg" alt="FileCatalyst Header Logo"/></a>
+        <h1>File<em>Catalyst</em> Diagnostics</h1>
+      </div>
+
+      <div id="mainContent">
+        <h2>Overview</h2>
+		<h4>Requirements</h4><p>Java 1.6 or higher; a FileCatalyst Server (trial or production).</p>
+		<h4>How it works</h4><p>A Java applet loads in the background, enabling a true client-side connection; 
+		you are not simply testing the website hosting this page. This applet connects to a FileCatalyst Server (it will not
+		test any other type of server), runs a suite of tests, and displays results in a table.<p>
+		<h2>Test File Transfer Connectivity</h2>
+          <label for="hostname">Hostname:</label>
+          <input id="hostname" name="hostname" type="text"/>
+          <br/>
+          <label for="port">Port:</label>
+          <input id="port" name="port" type="text" value="21"/>
+          <br/>
+          <label for="username">Username:</label>
+          <input id="username" name="username" type="text"/>
+          <br/>
+          <label for="password">Password:</label>
+          <input id="password" name="password" type="password"/>
+          <br/>
+          <label for="servlet">Servlet location:</label>
+          <input id="servlet" name="servlet" type="text"/>
+          <br/>
+
+          <label for="chbxUseSSL">Use SSL?</label>
+          <input id="chbxUseSSL" type="checkbox" name="chbxUseSSL" />
+          <br/>
+
+
+
+        </p>
+        <p>
+          <button id="TestBtn" value="Test" onclick="return TestBtn_onclick()">Test Now</button>
+          <img alt="Loading Framework" src="img/loading.gif" id="LoadingImg" />
+        </p>
+        <script type="text/javascript" >
+          ShowPageLoading();
+        </script>
+        <div id="ResultDiv"></div>
+        <APPLET name="FileCatalystUpload" code="unlimited.fc.client.FileCatalystCart.class" height="0" width="0" archive="assets/FileCatalystApplets.jar" MAYSCRIPT>
+          <PARAM name = "debug"   VALUE = "true" />
+        </APPLET>
+
+        <APPLET name="FileCatalystDownload" code="unlimited.fc.client.FileCatalystDownloadApplet.class" height="0" width="0" archive="assets/FileCatalystApplets.jar" MAYSCRIPT>
+          <PARAM name = "debug"   VALUE = "true" />
+        </APPLET>
+
+      </div>
+    </div>
+  </body>
+</html>

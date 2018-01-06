@@ -1,0 +1,388 @@
+<html>
+
+<head>
+ <meta http-equiv="x-ua-compatible" content="IE=8">
+<script type="text/javascript" src="deployJava.js"></script>
+<script>
+// For more information, see the documentation provided inside the applet package, and lookup
+// on-line documentation regarding the LIVE api:  TransferHook, DownloadAppletLiveConnect, and UploadAppletLiveConnect
+// classes provided here:
+// http://www.filecatalyst.com/download/files/documentation/api/index.html
+
+// Constants returned by document.FileCatalyst.getStatusCode()
+
+var NOTATTEMPTED = 0;
+var SUCCESS = 1;
+var CANCELLED = 2;
+var ERROR = 3;
+var TRANSFERRING = 4;
+var VERIFYING = 5;
+var COMPRESSING = 6;
+var INITIALIZING = 7;
+var DOINGMDTM = 8;
+var DOINGCHMOD = 9;
+var FINISHED = 10;
+var DONEFILE = 11;
+var CHECKING = 12;
+var SIGNATURE = 13;
+var DELTA = 14;
+var REBUILD = 15;
+var CREATINGDMG = 16;
+var MOVINGFILES = 17;
+var RECONNECTING = 18;
+
+var hasTransferred = false;
+
+var zip = "false";
+var passive = "true";
+
+var browsePath = "";
+var logandstuff = "";
+var appletSuccessfullyLoaded = "false";
+
+// if you set the callurlonload, you can be notified when the applet is loaded properly.
+// resolves some synchronization issues found in some browsers
+function appletLoaded() {
+     appletSuccessfullyLoaded = "true";
+     alert("applet has loaded!!!");
+}
+
+// calls the FileCatalyst file/directory browser method.  Path selected is returned.
+function browse() {
+     browsePath = document.FileCatalyst.browseLive(false);
+     alert("path selected: " + browsePath);
+}
+
+// calls the FileCatalyst file/directory browser method, and also adds files to the queue.
+// Path selected is returned.
+function browseAndAdd() {
+     browsePath = document.FileCatalyst.browseLive(true);
+     alert("path selected: " + browsePath);
+}
+
+// Add files selected by the browser file chooser to the queue
+function addBrowserFilesToQueue() {
+     document.FileCatalyst.addFilesToQueue(document.uploadform.files.value,";");
+}
+
+// Add multiple files selected by the browser file chooser to the queue
+function addBrowserMultipleFilesToQueue() {
+     document.FileCatalyst.browseLiveMultiple(true,";");
+}
+
+
+// Add files according to the browserPath (FC file chooser) to the queue
+function addFCFilesToQueue() {
+     document.FileCatalyst.addFilesToQueue(browsePath,";");
+}
+
+// Add a file to the queue, additionally set the file to be renamed to the specified filename or full file path
+function browseAndAddWithRename() {
+	browsePath = document.FileCatalyst.browseLive(true);
+	document.FileCatalyst.addFileToQueueWithRename (browsePath,document.uploadform.rename.value);
+}
+
+
+function upload() {
+     document.FileCatalyst.uploadLive();
+}
+
+function cancel() {
+     document.FileCatalyst.setCancelled();
+}
+
+// Clear the transfer queue.  May only be called if a transfer is not in progress.
+function clearQueue() {
+     document.FileCatalyst.clearQueue();
+}
+
+// Set the remote directory files will be uploaded to.
+function setRemoteDir() {
+     document.FileCatalyst.setRemoteDir(document.uploadform.remotedir.value);
+}
+
+// Set the local directory file chooser will start off.
+function setLocalDir() {
+     document.FileCatalyst.setLocalDir(document.uploadform.localDirectory.value);
+}
+
+
+// removes an item from the queue
+function removeFileFromQueue() {
+	var wasRemoved = document.FileCatalyst.removeFileFromQueue(document.uploadform.queueRemove.value);
+	if (wasRemoved) {
+		alert("Item was removed");
+	} else {
+		alert("Item was not removed");
+	}
+}
+
+function getQueueItemsRecursive() {
+
+	var items = document.FileCatalyst.getQueueItemsRecursive();
+
+	var splitItems = items.split(";");
+
+	var toDisplay = "";
+
+	for(i = 0; i < splitItems.length; i++){
+		toDisplay += splitItems[i] + "\n";
+	}
+
+	alert(toDisplay);
+
+}
+
+
+// Display status/logging/queue information.
+function showVariousInfo() {
+     logandstuff = "<hr>Various information displayed below: ";
+     logandstuff += "<br><b>Queue items selected:</b> " + document.FileCatalyst.getQueueItemSelected();
+     logandstuff += "<br><b>Total queue items:</b> " + document.FileCatalyst.getQueueItems();
+     logandstuff += "<br><b>Local dir:</b> " + document.FileCatalyst.getLocalDir();
+     logandstuff += "<br><b>Applet loaded: " + appletSuccessfullyLoaded;
+     logandstuff += "<br><b>Transfer bytes: " + document.FileCatalyst.getTransferSizeBytes();
+     logandstuff += "<br><b>Transfer bytes (full): " + document.FileCatalyst.getTransferFullSizeBytes();
+     logandstuff += "<br><b>Transfer duration (s): " + document.FileCatalyst.getTransferDurationSeconds();
+     logandstuff += "<br><b>Transfer mode: " + document.FileCatalyst.getTransferMode();
+
+     // add a status line following this format:  "Applet status: 1 (SUCCESS)"
+     var currentStatus = document.FileCatalyst.getStatusCode();
+     logandstuff += "<br><b>Applet status:</b> " + currentStatus + " (";
+     //
+     switch(currentStatus) {
+          case 0:
+            logandstuff += "NOTATTEMPTED";
+            break;
+          case 1:
+            logandstuff += "SUCCESS";
+            break;
+          case 2:
+            logandstuff += "CANCELLED";
+            break;
+          case 3:
+            logandstuff += "ERROR";
+            break;
+          case 4:
+            logandstuff += "TRANSFERRING";
+            break;
+          case 5:
+            logandstuff += "VERIFYING";
+            break;
+          case 6:
+            logandstuff += "COMPRESSING";
+            break;
+          case 7:
+            logandstuff += "INITIALIZING";
+            break;
+          case 8:
+            logandstuff += "DOINGMDTM";
+            break;
+          case 9:
+            logandstuff += "DOINGCHMOD";
+            break;
+          case 10:
+            logandstuff += "FINISHED";
+            break;
+          case 11:
+            logandstuff += "DONEFILE";
+            break;
+          case 12:
+            logandstuff += "CHECKING";
+            break;
+          case 13:
+            logandstuff += "SIGNATURE";
+            break;
+          case 14:
+            logandstuff += "DELTA";
+            break;
+          case 15:
+            logandstuff += "REBUILD";
+            break;
+          case 16:
+            logandstuff += "CREATINGDMG";
+            break;
+          case 17:
+            logandstuff += "MOVINGFILES";
+            break;
+          case 18:
+            logandstuff += "RECONNECTING";
+            break;
+          default:
+            logandstuff += "unknown state";
+     }
+     logandstuff += ")";
+     logandstuff += "<br><b>CancelStateCalledByPause: " + document.FileCatalyst.isCancelledStateCalledByPause();
+
+     document.getElementById('logandstuffDIV').innerHTML=logandstuff;
+
+  // modify the addFilesToQueue buttons in the demo so you know which files you are adding (may not be obvious)
+     document.uploadform.addFilesBrowserChooser.value = "Add File to Queue (" + document.uploadform.files.value + ")";
+     document.uploadform.addFilesFCChooser.value = "Add File to Queue (" + browsePath + ")";
+}
+
+// Display progress information for the user.
+function updateProgress() {
+     var progress = "Progress information will appear here when transfer begins";
+
+     // Update the list of items currently found in the queue and display them on the page
+     showVariousInfo();
+
+     if (!document.FileCatalyst.isTransferError() && !document.FileCatalyst.isTransferCancelled() && !document.FileCatalyst.isTransferComplete()) {
+          if (document.FileCatalyst.getStatusCode() == TRANSFERRING) {
+
+               hasTransferred = true;
+
+               var filename = document.FileCatalyst.getCurrentFilename();
+               var percent = document.FileCatalyst.getPercent();
+               var fileNo = document.FileCatalyst.getFilesSoFar();
+               var numFiles = document.FileCatalyst.getTotalFiles();
+               var rate = document.FileCatalyst.getRateInKBperSecond();
+               var eta = document.FileCatalyst.getTimeRemaining();
+               var sofarKB = document.FileCatalyst.getBytesSoFarAllFiles()/1024;
+               var totalKB = document.FileCatalyst.getSizeAllFiles()/1024;
+
+               if (document.FileCatalyst.isTransferWarning()) {
+                    progress =     "Status: "+document.FileCatalyst.getTransferWarningMessage()+"<br>";
+               } else {
+                    progress =     "Status: "+document.FileCatalyst.getStatusMessage()+"<br>";
+               }
+               progress += filename + " ("+fileNo+" of "+numFiles+")<br>";
+               progress += "      <table width='200' style='border: 1px solid #000000;' cellpadding='0' cellspacing='0'>";
+               progress += "        <tr> ";
+               progress += "          <td align=right bgcolor='#4A69AD' width=" + percent + "% height=16><font  face='Verdana, Arial, Helvetica, sans-serif' style='font-size: 11px' color='white'>" + (percent >= 50 ? percent + "%" : "") + "&nbsp;</font></td>";
+               progress += "          <td align=left bgcolor='#FFFFFF' width=" + (100 - percent) + "% height=16><font  face='Verdana, Arial, Helvetica, sans-serif' style='font-size: 11px' color='black'>&nbsp;" + (percent < 50 ? percent + "%" : "") + "</font></td>";
+               progress += "        </tr>";
+               progress += "      </table>";
+               progress += "Estimated Time Left: "+eta+" ("+sofarKB.toFixed(2)+" KB of "+totalKB.toFixed(2)+" KB)<br>";
+               progress += "Rate: "+rate+" KB/s<br>";
+          } else {
+               if (document.FileCatalyst.isTransferWarning()) {
+                    progress =     "Status: "+document.FileCatalyst.getTransferWarningMessage()+"<br>";
+               } else {
+                    progress =     "Status: "+document.FileCatalyst.getStatusMessage()+"<br>";
+               }
+          }
+     }
+
+     if (hasTransferred) {
+          // This means transfer was occuring but is not finished, lets see the result
+          if (document.FileCatalyst.isTransferError()) {
+               progress = "Transfer Error: "+ document.FileCatalyst.getErrorMessage();
+          } else if (document.FileCatalyst.isTransferCancelled()) {
+               progress = "Transfer Cancelled.";
+          } else if (document.FileCatalyst.isTransferComplete()) {
+               progress = "Transfer Complete.";
+          }
+          hasTransferred = false;
+     }
+
+     document.getElementById('progress').innerHTML=progress;
+}
+
+
+function startProgress () {
+     setInterval  ( 'updateProgress()', 1000 );
+}
+
+
+
+</script>
+
+</head>
+
+<body onLoad="startProgress()">
+
+<p>This page demonstrates the ability to control the FileCatalyst applets via JavaScript calls.  To fully understand how the this page works, you should view the source of this page, and refer to the documentation located under &quot;js_api_docs&quot;.</p>
+ <script language="javascript" src="fcupload.js"></script>
+
+<hr>
+<div id="progress">
+</div>
+
+<hr>
+Sample Javascript controls
+<hr>
+
+<form name=uploadform>
+
+<!-- Manually choose a file. -->
+Manually choose a file
+<p>
+
+<input type=text name=files>
+
+
+<!-- Adds a file to queue, based on the value chosen by the browser file chooser. -->
+<input type=button onClick="javascript:addBrowserFilesToQueue();" value="Add File to Queue" name="addFilesBrowserChooser">
+
+<hr>
+Utilize FileCatalyst applet file/directory browser to choose a file/directory
+<br>
+<!-- provides a button to bring up a file/directory chooser. -->
+<input type=button onClick="javascript:browse();" value="Browse...">
+<!-- Adds a file to queue, based on the value chosen by the applet file chooser. -->
+<input type=button onClick="javascript:addFCFilesToQueue();" value="Add File to Queue" name="addFilesFCChooser"><br>
+
+<hr>
+Browse/Add files in one step
+<br>
+<!-- provides a button to bring up a file/directory chooser, and automatically add the file to queue -->
+<input type=button onClick="javascript:browseAndAdd();" value="Browse and Add to Queue..">
+
+<hr>
+Browse/Add multiple files in one step
+<br>
+<!-- provides a button to bring up a file/directory chooser, and automatically add the file to queue -->
+<input type=button onClick="javascript:addBrowserMultipleFilesToQueue();" value="Browse and Add multiple to Queue..">
+
+<hr>
+Browse/Add/Rename a file in one step
+<br>
+<!-- provides a button to bring up a file/directory chooser, and automatically add the file to queue -->
+<input type=button onClick="javascript:browseAndAddWithRename();" value="Browse and Add to Queue..">
+Rename file to:  <input type=text name=rename>
+<hr>
+Start upload:
+<!-- Force upload of whatever is currently found in the transfer queue -->
+<input type=button onClick="javascript:upload();" value="Upload"><br>
+
+Cancel upload:
+<!-- Cancel ongoing transfer -->
+<input type=button onClick="javascript:cancel();" value="Cancel"><br>
+
+<!-- Remove a file from the queue -->
+Specify a file to remove from the queue:
+<input type=text name=queueRemove>
+<input type=button onClick="javascript:removeFileFromQueue();" value="Remove"><br>
+
+
+Clear the file queue:
+<!-- Clear transfer queue (can be called only if no transfers are in progress) -->
+<input type=button onClick="javascript:clearQueue();" value="Clear Queue"><br>
+
+Display recursive list of files in queue
+<input type=button onClick="javascript:getQueueItemsRecursive();" value="Display Queue Items (recursive)"><br>
+
+<hr>
+<!-- Set the server-side sub directory where files will be uploaded to -->
+Specify remote directory to upload files to:
+<input type=text name=remotedir>
+<input type=button onClick="javascript:setRemoteDir();" value="Set Remote Directory">
+<hr>
+Set LOCALDIR value:
+<input type=text name=localDirectory>
+<input type=button onClick="javascript:setLocalDir();" value="Set Local Directory"><br>
+<br>LOCALDIR also has special values:
+<br>  Windows-only: "MYDOCS", "DESKTOP", "NETHOOD"
+<br>  ALL OS's:  "HOME"
+<hr>
+
+</form>
+
+
+<div id="logandstuffDIV">
+</div>
+
+</body>
+</html>

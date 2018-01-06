@@ -1,0 +1,24 @@
+<h1>Send Files</h1>
+<input id="browseButton" type=button value="Browse and Add to Queue">
+<input id="uploadButton" type=button value="Upload">
+<input id="cancelButton" type=button value="Cancel">
+<input id="queueButton" type=button value="Display Queue Items">
+<h2>Persistent FileCatalyst Web Uploads</h2>
+<p>This sample page shows that you may navigate freely through an Ajax-powered website without interrupting a FileCatalyst transfer.
+  All visible elements (including status area and its contents on bottom right) are created using pure HTML and CSS. To proceed, first
+  configure &ldquo;ajax_sample/fcupload.js&rdquo; with the hostname (&ldquo;server&rdquo;), username
+  (&ldquo;user&rdquo;), port, and password (&ldquo;pass&rdquo;). Once correctly configured, the intended scenario is as follows:</p>
+<ol>
+  <li>Click <em>Show Uploads</em> on the transfer status area (bottom right).</li>
+  <li>Click <em>Browse and Add to Queue</em> to select a file for transfer.</li>
+  <li>Click <em>Display Queue Items</em> to confirm that the file is indeed queued for transfer.</li>
+  <li>Click <em>Upload</em>. The FileCatalyst applet will connect to the FileCatalyst Server and the transfer will begin.</li>
+  <li><strong>While the transfer is still active, use the main navigation to go the other sample pages.</strong> New content is loaded via Ajax and the transfer is not
+  interrupted.</li>
+  <li>With the transfer active, you may also:
+    <ul>
+      <li><em>Cancel</em> the transfer. Once canceled, click <em>Upload</em> again. The transfer will restart or resume depending on how much data has been sent (determined by a configurable block size)</li>
+      <li>Click <em>Browse and Add to Queue</em> again to add another file. "1 of 1" in the status area will increment to "1 of 2"; clicking <em>Display Queue Items</em> will show the new file added.</li>
+    </ul>
+  </li>
+</ol>

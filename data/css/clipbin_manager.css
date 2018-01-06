@@ -1,0 +1,68 @@
+.clipbin-manager-filter{
+    float: left;
+    width: 185px;
+    background: #f9f9f9;
+    border: 1px solid #dfdfdf;
+    moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.clipbin-manager-list{
+    margin-left: 200px;
+}
+
+.clipbin-manager-filter ul{
+    margin: 0;
+    list-style: none;
+}
+
+.clipbin-manager-filter li{
+    border-top: 1px solid #dfdfdf;
+    font-size: 12px;
+    color: #2d2d2d;
+    background: url("../img/admin/cliplog/view/cliplog_tree_item_bg.jpg") repeat-x;
+}
+
+.clipbin-manager-filter li.first{
+    border-top: none;
+}
+
+.clipbin-manager-filter li span{
+    height: 36px;
+    display: block;
+    padding-left: 15px;
+    line-height: 36px;
+    background: url("../img/admin/cliplog/view/collapsed_bg.png") no-repeat right 15px center;;
+    padding-right: 20px;
+    cursor: pointer;
+}
+
+.clipbin-manager-filter li.expanded span{
+    background: url("../img/admin/cliplog/view/expanded_bg.png") no-repeat right 15px center;
+}
+
+.clipbin-manager-filter ul ul{
+    display: none;
+    border-top: 1px solid #dfdfdf;
+    padding: 15px 0 15px 15px;
+}
+
+.clipbin-manager-filter li.expanded ul{
+    display: block;
+}
+
+.clipbin-manager-filter ul ul li{
+    border: none;
+    background: none;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #474747;
+    padding: 3px 0 3px 0;
+}
+
+.clipbin-manager-filter ul ul li a{
+    color: #474747;
+    text-decoration: none;
+}

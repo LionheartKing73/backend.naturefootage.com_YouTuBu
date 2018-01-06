@@ -1,0 +1,1430 @@
+<html>
+  <head>
+    <title>FileCatalyst Two-Way Applet Documentation</title>
+
+    <style type="text/css">
+      <!--
+      /* Special style for paragraphs describing features only in Webmail / Workflow */
+      .fcweb {
+        font-style: italic;
+        color: #09337B;
+      }
+
+      #wrapper {
+        width: 920px;
+        margin-left:auto;
+        margin-right:auto;
+        background-color: #FFFFFF;
+        padding:20px;
+        padding-top: 6px;
+      }
+
+      body {
+        font-size: 1em;
+        background:url("images/bk.jpg") repeat scroll 0 0 #FFFFFF;
+        font-family: Aria, sans-serif;
+      }
+
+      h1,h2,h3,h4,h5 {
+        font-family: "Trebuchet MS", sans-serif;
+        color: #09337B;
+        letter-spacing: -0.5pt;
+        margin: 0  0 0.5em 0;
+        padding: 0;
+      }
+
+      h4, h5, .faqQuestion {
+        margin-bottom: 0;
+
+      }
+
+      h1, h2, h5 {
+        color: #F15C22;
+      }
+
+
+      #mainContent h4, .faqQuestion {
+        color: #326ABC;
+      }
+
+      h1 {
+        font-size: 2.5em;
+        text-align: center;
+      }
+      h2 { font-size: 1.6em }
+      h3 { font-size: 1.3em }
+      h4 { font-size: 1.1em; }
+
+      h5 {
+        font-size: 1em;
+        font-weight: normal;
+        font-style: italic;
+        display: block;
+        letter-spacing: 0;
+      }
+
+      p {
+        line-height: 1.5em;
+        vertical-align: baseline;
+        margin-bottom: 1em;
+        margin-top: 0;
+      }
+
+      .small {
+        font-size: 11px;
+      }
+
+      blockquote{
+        margin-left:20px;
+      }
+
+      .figure {
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        font-style: italic;
+      }
+
+      .cell {
+        display: table-cell;
+        padding-bottom: 20px;
+      }
+
+      a {
+        color: #F15C22;
+        text-decoration: none;
+        font-weight: normal;
+      }
+
+      #tableOfContents li, #tableOfContents ol {
+        list-style: decimal inside none;
+        margin: 0;
+        padding: 0;
+        color: #04265B
+      }
+
+      table {
+        border-collapse: collapse;
+        border: 1px solid #09337B;
+        margin-bottom: 1.5em;
+      }
+
+      table th {
+        background-color: #09337B;
+        color: white;
+      }
+
+      table td {
+        padding: 6px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+      }
+
+      tr>td:first-child {
+        text-align:center;
+      }
+
+      #tableOfContents a {
+        color: #09337B;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      #tableOfContents ol li, .section ol li {
+        margin-top: 10px;
+      }
+
+      #tableOfContents ol>li {
+        font-weight: bold;
+      }
+
+      #tableOfContents ol>li>ol>li{
+        list-style-type: lower-alpha;
+        margin-left: 1.5em;
+      }
+
+      #tableOfContents ol>li>ol>li>ol>li {
+        list-style-type: square;
+        margin-top: 0;
+      }
+
+      #mainContent div {
+        margin-left: 1em;
+      }
+
+      #mainContent li {
+        margin-bottom: 12px;
+      }
+
+      .monospace {
+        font-family: monospace;
+      }
+      -->
+    </style>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="shortcut icon" href="images/favicon.ico"/>
+  </head>
+
+  <body>
+    <div id="wrapper">
+      <div id="logo"><a id="top"></a>
+        <img src="images/header.jpg" alt="FileCatalyst Header Logo">
+        <h1>File<em>Catalyst</em> Two-Way Applet</h1>
+      </div>
+
+      <div id="tableOfContents">
+        <h2>Table of Contents</h2>
+        <ol>
+          <li>Overview
+            <ol>
+              <li><a href="#introduction">Introduction</a></li>
+              <li><a href="#features">Features</a></li>
+            </ol>
+          </li>
+
+          <li>Installation
+            <ol>
+              <li><a href="#deployment">Deploying to a web server</a></li>
+            </ol>
+          </li>
+
+          <li>Using the FileCatalyst Applet
+            <ol>
+              <li><a href="#reqs">Minimum System Requirements</a></li>
+              <li><a href="#interface">User Interface</a></li>
+              <li><a href="#connecting">Connecting to a FileCatalyst server</a></li>
+              <li><a href="#browsing">Directory browsing </a></li>
+              <li><a href="#selecting">Selecting files and directories</a></li>
+              <li><a href="#deleting">Deleting files and directories</a></li>
+              <li><a href="#renaming">Renaming files and directories</a></li>
+              <li><a href="#transferring">Transferring files and directories</a></li>
+              <li><a href="#creating">Creating a directory</a></li>
+              <li><a href="#popup">Popup menu </a></li>
+            </ol>
+          </li>
+
+          <li>Configuring the FileCatalyst Applet
+            <ol>
+              <li><a href="#param_connection">Connection parameters</a></li>
+              <li><a href="#param_tuning">FileCatalyst tuning</a></li>
+              <li><a href="#param_functionality">Functionality related parameters</a></li>
+              <li><a href="#param_color">Color settings</a> </li>
+              <li><a href="#param_UI">User Interface parameters</a></li>
+              <li><a href="#param_error">Error URL parameters </a></li>
+              <li><a href="#param_language">Language settings and internationalization </a></li>
+            </ol>
+          </li>
+
+          <li>Advanced Features
+            <ol>
+              <li><a href="#hiding_buttons">Hiding Connect, Disconnect, Help and About buttons</a></li>
+              <li><a href="#disabling_buttons">Disabling individual buttons </a></li>
+              <li><a href="#helpfile">Customizing the help location</a></li>
+              <li><a href="#rightclick">Customizable right click options</a></li>
+              <li><a href="#advanced_filtering">Advanced file filtering</a></li>
+              <li><a href="#resuming">Resuming broken or interrupted transfers </a></li>
+            </ol>
+          </li>
+
+          <li>Support
+            <ol>
+              <li><a href="#support">Online Support Options</a></li>
+            </ol>
+          </li>
+        </ol>
+      </div>
+
+      <p>&nbsp;</p>
+      <hr/>
+
+      <div id="mainContent">
+        <h2>1 Overview </h2>
+        <div>
+          <h3 id="introduction">1.a Introduction</h3>
+          <p>To customize FileCatalyst applet, you must edit "fcappletscript.js" with an HTML/text editor. You can then use the following tables as a guide to customizing each of FileCatalyst's parameters. </p>
+          <p>Then add the following line to your HTML file:</p>
+          <p>&lt;script language=&quot;javascript&quot; src=&quot;fcappletscript.js&quot;&gt;&lt;/script&gt;</p>
+          <p>You must also make sure that you either put fcappletscript.js in the same directory as your page, or the src parameter reflects the location of the script file.</p>
+          <p>If you require further assistance with setup, or are interested in related products and customization services, please visit our <a href="http://www.filecatalyst.com">website</a>. </p>
+
+          <h3 id="features">1.b Features</h3>
+          <p>The following is a list of the main features of FileCatalyst.</p>
+          <ul>
+            <li>Can run from any web page using Internet Explorer, Firefox, or Safari browsers</li>
+            <li>Can run from any browser with Java 1.4 or higher enabled. </li>
+            <li>Runs on many OS's including Windows, Linux, Mac 10.2 or higher, and any other platform with a Java 1.4 or higher VM </li>
+            <li>Local and Remote Directory browsing through a Windows-like interface. </li>
+            <li>The ability to transfer multiple files and/or directories and directory tree structures. </li>
+            <li>Smart file viewing in Windows. Files with certain file extensions automatically open in the default application. </li>
+            <li>File filtering allows you to configure FileCatalyst to view and transfer only files with specific extensions or file name. </li>
+            <li>Ability to limit browsing to initial directory and its sub-directories. </li>
+            <li>Incremental transfers </li>
+            <li>Resume broken transfers automatically </li>
+            <li>Recover from several types of transfer errors, with ability to specify number of retries. </li>
+            <li>Auto-upload/auto-download capabilities. </li>
+            <li>Progress dialog with transfer speed and cancel button. </li>
+            <li>Configurable display options. </li>
+            <li>Customizable right click file options</li>
+          </ul>
+        </div>
+
+        <h2>2 Installation</h2>
+        <div>
+          <h3 id="deployment">2.a Deploying to a web server</h3>
+          <ol>
+            <li>Extract the contents of fc_applet.zip to your local hard disk using a zip utility </li>
+            <li>Create a directory on your web server. For example /filecatalyst.</li>
+            <li>Upload all files extracted in Step 1. to the directory you created on the web server in Step 2.</li>
+            <li>Go to test page located at the URL http://yourserver.com/dir/index.html, where yourserver.com is replaced by your domain name. Example: http://www.utechsoft.com/FileCatalyst/index.html</li>
+            <li>To customize the Functionality of FileCatalyst, edit the file fcappletscript.js with a text editor such as Notepad. Each of the customizable parameters is defined below in <a href="#param_connection">Section 4</a> </li>
+            <li>Upload the new fcappletscript.js to your web server.</li>
+          </ol>
+        </div>
+
+        <h2>3 Using FileCatalyst</h2>
+        <div>
+          <h3 id="reqs">3.a Minimum System Requirements</h3>
+          <p>The minimum system requirements for using FileCatalyst are as follows:</p>
+          <ul>
+            <li>Operating Systems: Windows 2000/XP/Vista, Mac OS 10.2 or higher, Linux, Unix</li>
+            <li>Browser: Internet Explorer, Safari, Firefox</li>
+            <li>Browser Java VM: Java 1.4 or above</li>
+            <li>FileCatalyst server (must be accessible from your machine)</li>
+          </ul>
+
+          <h3 id="interface">3.b User Interface</h3>
+          <p>Below is a screen shot of the FileCatalyst user interface. Depending on your Operating System and browser, as well as the parameters you have configured, your display may differ slightly.</p>
+          <div class="figure">
+            <img src="images/main_labeled.png">
+            <br/>
+            The FileCatalyst Interface for Windows
+          </div>
+          <ol>
+            <li>Current local directory - Displays the full path of your current local directory. </li>
+            <li>Local toolbar - Buttons for performing actions on your local directory. </li>
+            <li>Current remote directory - Displays the path of your current remote directory. </li>
+            <li>Remote toolbar - Buttons for performing actions on your remote directory. </li>
+            <li>Local file listing - Displays files and child folders in your current local directory. </li>
+            <li>Upload / Download - these buttons initiate upload or download of selected files.</li>
+            <li>Remote file listing - Displays files and child folders in your current remote directory. </li>
+            <li>FileCatalyst message display  - Displays messages sent to and received from the FileCatalyst server. </li>
+            <li>Connect / Disconnect - Unless autoconnect is set to true, these buttons allow user to connect or disconnect.</li>
+          </ol>
+          <div class="figure">
+            <img src="images/main_labeled_mac.png">
+            <br/>
+            The FileCatalyst Interface for OSX
+          </div>
+
+          <h3 id="connecting">3.c Connecting to a FileCatalyst Server</h3>
+          <p>To load FileCatalyst applet, use your web browser to open the test page you uploaded during installation. See <a href="#21">Deploying to a web server</a>. Upon loading FileCatalyst a dialog will be presented similar to the one shown below asking you to confirm that you trust the certificate used to sign the applet. The dialog may vary depending on the browser you use. You must accept this dialog for the applet to continue loading. To avoid this dialog from being displayed each time you connect click on the &quot;Always&quot; button. This dialog ensures that FileCatalyst is a trusted application, and you wish to allow it to run with full permissions. </p>
+          <div class="figure">
+            <img src="images/certplugin.gif" width="513" height="344"><br/>
+             Java Plugin Security Warning in Windows
+          </div>
+           <div class="figure">
+               <img src="images/security_mac.jpg" alt="Security warning on Mac OSX Safari"/><br>
+            Java Security Warning on MacOSX in Safari
+          </div>
+          <p>Once you have accepted the certificate dialog, FileCatalyst will continue loading. Depending on how FileCatalyst was configured (See <a href="#41">Configuring FileCatalyst</a>) it may connect you to your FileCatalyst server automatically. </p>
+          <p>To connect manually, click on the "Connect" button. The following dialog (Fig. 3.4) will be displayed prompting you for hostname, port, username and password. If you wish to use an anonymous connection click on the "Anonymous" checkbox to generate an anonymous username and password. If you are behind a firewall or proxy server click the &quot;Passive&quot; checkbox. Click on the "Connect" button to connect to the FileCatalyst server.</p>
+          <div class="figure cell">
+            <img src="images/connect.png"> <br/>
+            Connect dialog Windows 7
+          </div>
+          <div class="figure cell">
+            <img src="images/connect_mac.png"> <br/>
+            Connect dialog OSX
+          </div>
+          <p>Once a connection has been established the remote directory listing will be loaded with the files and directories from your FileCatalyst server.</p>
+
+          <h3 id="browsing">3.d Directory browsing</h3>
+          <p>The remote and local file list displays the files and folders in your current working directory. Folders are identified by the folder icon <img src="images/folder.gif"> and files are identified by the file icon <img src="images/file.gif">. To see the contents of a sub folder, double click on its   icon. You may return to a parent folder by clicking on the parent folder icon <img src="images/cdup.gif">. The parent folder icon is shown at the top of the remote and local lists at all times for easy access. </p>
+          <p>Directory browsing may also be done using the keyboard using the up/down arrows and the Enter key. You may quickly move the list to a file beginning with a certain letter by pressing the first letter of that file won your keyboard. Pressing enter on a folder will automatically enter that folder for browsing. Pressing enter with a file selected will initiate an upload or download depending on which list, local or remote, you are browsing. </p>
+          <p>FileCatalyst also provides quick access to the Desktop and My Documents folders on Windows, and the Home and Finder folders on Mac platform. </p>
+
+          <h3 id="selecting">3.e Selecting files and directories</h3>
+          <p>To select a file or folder, click on the item in the directory listing using your mouse. You may select multiple  files by holding down the SHIFT key and selecting the first and last file in the desired range. Alternatively, you may select multiple items by holding the CTRL key and selecting each item using your mouse. You may also select all files in the current working directory by right clicking and choosing the &quot;Select All&quot; Option. </p>
+
+          <h3 id="deleting">3.f Deleting files and directories</h3>
+          <p>To delete one or more items in a directory listing, select the items  you wish to delete and click on the Delete button or press the delete key on your keyboard. A confirmation dialog will be displayed asking you to confirm this action. Click Yes to confirm or No to abort this operation. Internet Explorer users will see the familiar Recycle bin dialog when they attempt to delete files from the local file system. These files will be recoverable after they are deleted. All other users who do not see the recycle bin dialog, will be deleting files permanently and they will not be recoverable. Please take care when deleting files or folders. </p>
+          <div class="figure">
+            <img src="images/delete.gif"> <br/>
+            Delete dialog
+          </div>
+
+          <h3 id="renaming">3.g Renaming files and directories</h3>
+          <p>To rename a file or directory, select the file you wish to rename and click the Rename button. The rename dialog will appear (Fig. 3.6) and will be pre-populated with the current file name. Type in the new name and click Ok to confirm or Cancel if you do not want to rename the file.</p>
+          <div class="figure">
+            <img src="images/rename.gif"> <br/>
+            Rename dialog
+          </div>
+
+          <h3 id="transferring">3.h Transferring files and directories</h3>
+          <p>To upload or download files and  directories, select the items you wish to transfer and check that the proper transfer mode is selected. (See <a href="#310">Setting transfer mode</a>). To upload selected items from your local directory listing, click on the Upload button. To download selected items from your remote directory listing, click on the Download button. </p>
+          <p>Once you initiate a file transfer, a progress dialog will appear (Fig. 3.7) and display the percentage complete,  the current rate of transfer, and the estimated time to completion. To cancel the  transfer click  the "Cancel" button. Canceling the transfer will not delete any files already transferred, unless you have enabled the &quot;deleteOnCancel&quot; parameter. If you restart the transfer, you will be prompted to resume any files that were not completed in the previous transfer. </p>
+          <div class="figure">
+            <img src="images/progress.png"> <br/>
+            Transfer progress Windows 7
+          </div>
+          <div class="figure">
+            <img src="images/progress_mac.png"> <br/>
+            Transfer progress OSX
+          </div>
+
+          <h3 id="creating">3.i Creating a directory</h3>
+          <p>To create a directory, click on the Mkdir button. A dialog will be displayed prompting you for the name of the new directory. Click the Ok button to create the directory.</p>
+          <div class="figure">
+            <img src="images/create.gif"> <br/>
+            Make directory dialog
+          </div>
+
+          <h3 id="popup">3.j Popup Menu</h3>
+          <p>FileCatalyst provides a convenient way to access various functions that are applicable to the files or folders that you have selected. To access these functions, simply select the file(s) and or folder(s) you wish to work with, and right click on them. You will be presented with a popup similar to the one below (Fig. 3.9) . The popup you see will vary if you click remote or local files or directories, and depending on how many files you select.</p>
+          <div class="figure">
+            <img src="images/popup.gif" width="300" height="300"><br/>
+            Popup menu options
+          </div>
+          <p>Some of the options do the same as their Button counterpart. However, here is a description of the functions that are only in the right click popup menu.</p>
+          <h5>Download/Upload As... </h5><p>options will upload or download the selected file but will save it under the name you specify rather than using the current name of the file. This is useful if you know the filename already exists, and you do not wish to overwrite. </p>
+          <h5>Open With... </h5><p>is a Windows specific option that will allow you to choose the application with which you would like to Open the selected file. </p>
+          <h5>Chmod (UNIX) </h5><p>is a Unix specific command, and allows you to set the file permissions on files on your FileCatalyst server. This is sometimes required when you upload HTML pages for a website. </p>
+          <h5>Command Prompt Here</h5><p> will open a Windows Command prompt and automatically place you in the selected directory. </p>
+          <h5>Windows Explorer Here</h5><p> will open a Windows Explorer window and automatically place you in the selected directory.  </p>
+          <h5>Properties</h5><p> will display the Filename, Size, and Last modified date of the selected file. </p>
+          <h5>Select All</h5><p> will select all files in the current working directory. </p>
+          <p><em>NOTE: </em>To access the popup on Mac systems with a single button mouse, hold down the CTRL key when the mouse is clicked. </p>
+        </div>
+
+        <h2>4 Configuring FileCatalyst</h2>
+        <div>
+          <h3 id="param_connection">4.a Connection parameters</h3>
+          <p>These parameters control how FileCatalyst will establish the connection to the FileCatalyst server.
+            Please note that some parameters are only available in certain versions. The FileCatalyst version that supports the particular parameter is noted under the description of each parameter.</p>
+          <table>
+            <tr>
+              <th colspan="2">Connection related settings</th>
+            </tr>
+            <tr>
+              <td width="26%">server</td>
+              <td> <p>The host name or IP address of the FileCatalyst server.</p>
+                <p>Default value: &quot;&quot;<br/>
+                  Valid values: &quot;&lt;valid hostname or IP address&gt;&quot;</p>
+                <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+              </td>
+            </tr>
+            <tr>
+              <td>port</td>
+              <td> <p>The port number of the FileCatalyst server. Usually the default FileCatalyst port is 21.</p>
+                <p>Default value: &quot;21&quot;<br/>
+                  Valid values: &quot;&lt;valid port number&gt;&quot;</p>
+                <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+              </td>
+            </tr>
+            <tr>
+              <td>pass</td>
+              <td> <p>The password for the FileCatalyst server account.</p>
+                <p>Default value: &quot;&quot;</p>
+                <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+              </td>
+            </tr>
+            <tr>
+              <td>user</td>
+              <td> <p>The username for the FileCatalyst server account.</p>
+                <p>Default value: &quot;&quot;</p>
+                <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+              </td>
+            </tr>
+            <tr>
+              <td>passive</td>
+              <td> <p>If set to &quot;true&quot;, all data connections will be outgoing. FileCatalyst works through firewalls when this value is set to &quot;true&quot;. </p>
+                <p>Default value: &quot;true&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+                <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+              </td>
+            </tr>
+            <tr>
+              <td>autoconnect</td>
+              <td> <p>If this value is set to &quot;true&quot;, FileCatalyst will automatically connect based on the connection credentials supplied in the above parameters. The default value is &quot;false&quot;.</p>
+                <p>Default value: &quot;false&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+                <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+              </td>
+            </tr>
+            <tr>
+              <td>autoreconnect</td>
+              <td> <p>If this value is set to &quot;true&quot;, FileCatalyst will automatically ask the user if they would like to reconnect after a time-out has occurred, or they have been disconnected for some other reason. If &quot;autoconnect&quot; is set to true, it will log them directly in to the server. If not, the user will be presented with the Connect dialog, pre-populated with the connection info.</p>
+                <p>Default value: &quot;true&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+                <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+              </td>
+            </tr>
+            <tr>
+              <td>encrypt</td>
+              <td> <p>If set to &quot;true&quot; you must pass encrypted user/pass/server parameters to FileCatalyst, which will decrypt them and perform the login. The encryption is based on a key value that is specified by the &quot;ek&quot; parameter below. To encrypt parameters you can use encrypt.html that was downloaded with FileCatalyst. This provides at least some measure of protection from prying eyes, and people who love to snoop through your HTML.</p>
+                <p>Although this seems very un-secure to include the encryption algorithm along with the applet, keep in mind this is only a way to hide login credentials from users who try to view the HTML source of your page. Determined hackers will easily be able to sniff the network to retrieve user and password info regardless of the encryption done in the HTML.</p>
+                <p>Default value: &quot;false&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+                <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+              </td>
+            </tr>
+            <tr>
+              <td>ek</td>
+              <td> <p>This parameter works in conjunction with the &quot;encrypt&quot; parameter. This is the key that is used to encode/decode the string value you pass to the user, pass, and server parameters. Here is an example configuration. In this example, the server/user/pass strings are 192.168.1.100/anonymous/fc@FileCatalyst.com respectively. This illustrates how the parameters will look to anyone who inspects the connection values in your HTML:</p>
+                <p>var server = &quot;8I7BLHN;8I8@5&quot;;<br/>
+                  var port = &quot;21&quot;;<br/>
+                  var pass = &quot;|vy&amp;[)&amp;yp*p&amp;jx#((;j,t&quot;;<br/>
+                  var user = &quot;h~t$6!=$z&quot;;<br/>
+                  var autoconnect = &quot;true&quot;;<br/>
+                  var autoreconnect = &quot;true&quot;;<br/>
+                  var passive = &quot;true&quot;; <br/>
+                  var encrypt = &quot;true&quot;; <br/>
+                  var ek = &quot;encryptkey&quot;; </p>
+                <p>Default value: &quot;&quot;<br/>
+                  Valid values: &quot;&lt;string value&gt;&quot;</p>
+                <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+              </td>
+            </tr>
+            <tr>
+              <td>connecttimeout</td>
+              <td> <p>This value (in milliseconds) specifies how long FileCatalyst will try to connect to an FileCatalyst server before giving up and timing out. </p>
+                <p>Default value: &quot;20000&quot;<br/>
+                  Valid values: &quot;&lt;integer value&gt;&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>sotimeout</td>
+              <td> <p>This value (in milliseconds) specifies how long a data connection will wait to read data before giving up and timing out. </p>
+                <p>Default value: &quot;-1&quot; means no timeout<br/>
+                  Valid values: &quot;&lt;integer value&gt;&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>waitRetry</td>
+              <td><p>This value  (in milliseconds) specifies how long FileCatalyst will wait, if a transfer error occurs, before it tries to reconnect and resume the transfer.</p>
+                <p>Default value: &quot;3000&quot; (3 seconds) <br/>
+                  Valid values: &quot;&lt;integer value&gt;&quot; </p>
+              </td>
+            </tr>
+            <tr>
+              <td>maxRetries</td>
+              <td><p>This value specifies how many times FileCatalyst will try, if a transfer error occurs, to reconnect and resume the transfer.</p>
+                <p>Default value: &quot;1&quot; <br/>
+                  Valid values: &quot;&lt;integer value&gt;&quot; </p>
+                <p> </p></td>
+            </tr>
+          </table>
+
+          <h3 id="param_tuning">4.b FileCatalyst Tuning</h3>
+          <p>These parameters allow you to configure FileCatalyst to perform properly over your specific network conditions. </p>
+          <table>
+            <tr>
+              <th colspan="2">FileCatalyst tuning parameters</th>
+            </tr>
+            <tr>
+              <td width="26%">mode</td>
+              <td>
+                <p>Specifies protocol used to transfer files.</p>
+                <p>UDP -- Utilizes the FileCatalyst protocol for fast network transfers.  Immune to latency on the network.</p>
+                <p>FTP -- Utilizes a passive multi-stream TCP connection (data ports).  If failure occurs, protocol attempts a
+                  passive TCP connection (both control and data are sent through main transfer port).
+                  Fast transfers over LAN, slow transfers over WAN.</p>
+                <p>HTTP -- Data sent via HTTP posts to HTTP Servlet (default web port 80), where the data is captured reconstructed
+                  on the servlet and forwarded to the FileCatalyst server. Slower transfers, but able to navigate through most firewalls.</p>
+                <p>AUTO -- Protocol will attempt to transfer via UDP.  If connections cannot be established, failover cascades to other
+                  protocols in this order to attempt a successful connections:</p>
+                <ol>
+                  <li>UDP</li>
+                  <li>Passive TCP</li>
+                  <li>Port TCP</li>
+                  <li>HTTP (if http servletLocation is configured)</li>
+                </ol>
+                <p>
+                  Default value: UDP<br/>
+                  Valid values: AUTO, UDP, FTP, HTTP
+                </p>
+                <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+              </td>
+            </tr>
+            <tr>
+              <td>servletLocation</td>
+              <td>
+                <p>HTTP Servlet location.  Used in conjuction with the Unlimited FTP Servelet to allow HTTP transfers.</p>
+                <p>
+                  Default value: &quot;&quot;<br/>
+                  Valid values: <i>Network address for the HTTL servlet (example: &quot;http://192.168.1.100:8080/uftps/ftpservlet&quot;)</i>
+                </p>
+                <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+              </td>
+            </tr>
+            <tr>
+              <td>servletUploadMultiplier</td>
+              <td>
+                <p>Adjusts the size of data passed into each HTTP post (n * 2048 bytes)</p>
+                <p>Default value: 2<br/>
+                  Valid values: 1-10 <i>(may be servlet limit)</i><br/>
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td>blocksize</td>
+              <td>
+                <p>The block size in bytes</p>
+                <p>Default value: &quot;4096000&quot;<br/>
+                  Valid values: &quot;&lt;integer value&gt;&quot;</p>
+                <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+              </td>
+            </tr>
+            <tr>
+              <td>unitsize</td>
+              <td>
+                <p>The packet size in bytes</p>
+                <p>Default value: &quot;1024&quot;<br/>
+                  Valid values: &quot;&lt;integer value&gt;&quot;</p>
+                <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+              </td>
+            </tr>
+            <tr>
+              <td>numencoders</td>
+              <td>
+                <p>Specify the number of encoders for the FileCatalyst applet to use</p>
+                <p>Default value: &quot;3&quot;<br/>
+                  Valid values: &quot;&lt;integer value&gt;&quot;</p>
+                <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+              </td>
+            </tr>
+            <tr>
+              <td>bandwidth</td>
+              <td>
+                <p>Target rate in kbps (including UDP and IP headers) to transmit </p>
+                <p>Default value: &quot;10000&quot;<br/>
+                  Valid values: &quot;&lt;integer value&gt;&quot;</p>
+                <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+              </td>
+            </tr>
+            <tr>
+              <td>verifyIntegrity</td>
+              <td>
+                <p>If set to true the server will verify if file was corrupted during transfer</p>
+                <p>Default value: &quot;false&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>verifyIntegrityMode</td>
+              <td>
+                <p>If verifyIntegrity is set to &quot;true&quot;, use this to choose between verifying after file transfer (0) or on the fly (1).</p>
+                <p>Default value: &quot;0&quot;<br/>
+                  Valid values: &quot;0&quot;, &quot;1&quot;</p></td>
+            </tr>
+            <tr>
+              <td>enableSSL</td>
+              <td>
+                <p>If set to true the applet will try to connect with SSL mode </p>
+                <p>Default value: &quot;false&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+                <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+              </td>
+            </tr>
+            <tr>
+              <td>keepFileAttributes</td>
+              <td>
+                <p>true/false will preserve the file modification date/time and <br/>
+                  UNIX file permissions if applicable (default false)Default value: &quot;&quot;</p>
+                <p>Default value: &quot;false&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>congestionControl</td>
+              <td>
+                <p>If set to true, applet will start with a slow transfer speed and ramp up to a maximum. This is best used if
+                  you do not know your linespeed</p>
+                <p>Default value: &quot;true&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+                <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+              </td>
+            </tr>
+            <tr>
+              <td>startRate</td>
+              <td>
+                <p>Specifies the rate in Kbps at which transfer will start before ramping up to target bandwidth.</p>
+                <p>Default value: &quot;384&quot;<br/>
+                  Valid values: &quot;&lt;integer value&gt;&quot;</p>
+                <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="style3">congestionControlAggression</td>
+              <td>
+                <p>Specifies the congestion control aggression between 1 and 10. 1 is least aggressive and 10 is most aggressive. </p>
+                <p>Default value: &quot;2&quot;<br/>
+                  Valid values: &quot;&lt;integer value between 1 and 10 &gt;&quot;</p>
+                <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="style3">congestionControlStrategy</td>
+              <td>
+                <p>Specifies the congestion control Strategy (0 = RTT based and 1 = Loss based).</p>
+                <p>Default value: &quot;0&quot;<br/>
+                  Valid values: &quot;&lt;integer value 0 or 1&gt;&quot;</p>
+                <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+              </td>
+            </tr>
+
+            <tr>
+              <td>numFTPStreams</td>
+              <td>
+                <p>When transferring in FTP mode, this specifies how many concurrent streams to use for data transfer</p>
+                <p>Default value: &quot;3&quot;<br/>
+                  Valid values: &quot;&lt;integer value&gt;&quot;</p>
+                <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+              </td>
+            </tr>
+            <tr>
+              <td>incremental</td>
+              <td>
+                <p>If set to &quot;true&quot;, files will be compared prior to transfer to check for duplicates.  Based on the value of the &quot;incrementalMode&quot; variable, either the entire file will be sent again, or a file &quot;delta&quot; will be sent and applied.</p>
+                <p>Default value: &quot;false&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>incrementalMode</td>
+              <td>
+                <p>If incremental is set to &quot;true&quot;, this variable determines whether the entire file is sent (0), or a file delta is sent (1).  File deltas are partial files which are applied as a patch to the destination file in order to create a duplicate of the source.</p>
+                <p>Default value: &quot;0&quot;<br/>
+                  Valid values: &quot;0&quot;, &quot;1&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>useTempName</td>
+              <td>
+                <p>If set to &quot;true&quot;, destination file will be transferred using a temporary file name, and only renamed after the transfer has completed.</p>
+                <p>Default value: &quot;false&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>useTempNameMode</td>
+              <td>
+                <p>If &quot;useTempName&quot; is true, determines whether temporary filenames use a prefix (0) or a suffix (1).</p>
+                <p>Default value: &quot;0&quot;<br/>
+                  Valid values: &quot;0&quot;, &quot;1&quot;</p>
+              </td>
+            </tr>
+          </table>
+
+          <h3 id="param_functionality">4.c Functionality related settings</h3>
+
+          <p>These parameters determine how FileCatalyst will behave under certain circumstances after a connection is established. Please read the descriptions carefully before attempting to use these settings.</p>
+          <table>
+            <tr>
+              <th colspan="2">Functionality related Settings</th>
+            </tr>
+            <tr>
+              <td width="26%">ascbin</td>
+              <td>
+                <p>Can be either &quot;asc&quot;,&quot;bin&quot; or &quot;auto&quot;, you can set the default file transfer mode. When this parameter is set to auto, FileCatalyst will set the transfer mode automatically by comparing the file extension to the list of file extensions specified in the &quot;asciiextensions&quot; parameter below. </p>
+                <p>Default value: &quot;bin&quot;<br/>
+                  Valid values: &quot;bin&quot;, &quot;asc&quot;, &quot;auto&quot;, and &quot;macbin&quot;(MacOS only)</p>
+              </td>
+            </tr>
+            <tr>
+              <td>showascbin</td>
+              <td>
+                <p>If this value is set to &quot;true&quot;, FileCatalyst will hide the ASCII/BINARY or TEXT/DATA/MACBINARY radio buttons.</p>
+                <p>Default value: &quot;false&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>asciiextensions</td>
+              <td>
+                <p>Transfer all the files with these extensions in Ascii Mode. Used in conjunction with &quot;ascbin&quot; parameter when it is set to &quot;auto&quot;.</p>
+                <p>Default value: &quot;&quot;<br/>
+                  Valid values: &quot;&lt;comma delimited list of extensions&gt;&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>extensions</td>
+              <td>
+                <p>Only files with these extensions will be displayed/affected by FileCatalyst. </p>
+                <p>Default value: &quot;&quot;<br/>
+                  Valid values: &quot;&lt;comma delimited list of extensions&gt;&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>exclude</td>
+              <td>
+                <p>Allows you to exclude  files or directories whose names contain strings specified in this parameter. For example, if you wanted to exclude all files starting with the letters &quot;re&quot;, exclude the Program Files directory, and also hide the D:\\ drive this parameter would be set like this: &quot;*re*,Program Files,D:\\&quot;. This parameter also allows you to use wildcards to exclude files of a certain pattern. For example, to exclude files that are numbered file1_of_10.txt you could set this parameter to &quot;file*_of_*.txt&quot;. See <a href="#rightclick">Section 5.d</a> for more details.</p>
+                <p>Default value: &quot;&quot;<br/>
+                  Valid values: &quot;&lt;comma delimited list of strings&gt;&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>invertExclude</td>
+              <td>
+                <p>If set to &quot;true&quot;, FileCatalyst will treat the &quot;exclude&quot; parameter as an &quot;include&quot; parameter. See <a href="#56">Section 5.5</a> for more details. </p>
+                <p>Default value: &quot;false&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>lockinitialdir</td>
+              <td>
+                <p>If set to &quot;true&quot;, FileCatalyst locks the user to the initial directory, and its sub-directories, preventing the user from navigating up the hierarchy. This only applies to the remote directory.</p>
+                <p>Default value: &quot;false&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+                <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+              </td>
+            </tr>
+            <tr>
+              <td>localdir</td>
+              <td>
+                <p>FileCatalyst will automatically switch to this local directory when FileCatalyst initializes. Example would be &quot;c:\\windows&quot; or &quot;/etc&quot;. There are also 3 special starting directories that are platform independent. They are&quot;HOME&quot;, &quot;DESKTOP&quot; and &quot;ROOT&quot;. Note that for Windows paths, you must use a double back slash to seperate paths. i.e. use \\ instead of \. </p>
+                <p>Default value: &quot;&quot;<br/>
+                  Valid values: &quot;&lt;valid local directory&gt;&quot;, &quot;HOME&quot;, &quot;DESKTOP&quot;, &quot;ROOT&quot; </p>
+              </td>
+            </tr>
+            <tr>
+              <td>remotedir</td>
+              <td>
+                <p>FileCatalyst will automatically switch to this directory on the FileCatalyst server after a successful login. Example would be &quot;/initialdir&quot;.</p>
+                <p>Default value: &quot;&quot;<br/>
+                  Valid values: &quot;&lt;valid remote directory&gt;&quot;</p>
+                <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+              </td>
+            </tr>
+            <tr>
+              <td>enableCookies</td>
+              <td>
+                <p>FileCatalyst will store cookies to remember the last site and username if this value is set to &quot;true&quot;.</p>
+                <p>Default value: &quot;true&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>doubleClickTransfer</td>
+              <td>
+                <p>If this value is set to &quot;true&quot;, double clicking on a file will initiate a transfer of the selected file(s). </p>
+                <p>Default value: &quot;true&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>confirmOverwrite</td>
+              <td>
+                <p>If this value is set to &quot;true&quot;, FileCatalyst will prompt you if the file(s) already exist when a transfer is attempted. You will have the choice to overwrite if you want to. If it is set to false, FileCatalyst will always overwrite.</p>
+                <p>Default value: &quot;true&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>enablerightclick</td>
+              <td>
+                <p>If this value is set to false, users will not be able to right click on files and execute the available options for that file.</p>
+                <p>Default value: &quot;true&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>helpLocation</td>
+              <td>
+                <p>When the &quot;Help&quot; button is pressed, it will open a new browser window and is sent to the URL specified.</p>
+                <p>Default value: &quot;documentation.html&quot;<br/>
+                  Valid values: &quot;&lt;valid URL&gt;&quot;</p>
+                <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+              </td>
+            </tr>
+            <tr>
+              <td>syncpriority</td>
+              <td>
+                <p>While using the &quot;Sync&quot; button, if a file exists on both the local and remote file system, this parameter determines which file is considered to be the master file. The other file will be overwritten. If the value is set to &quot;local&quot;, any remote file that exists on the local side as well, will be overwritten by the local version.</p>
+                <p>Default value: &quot;local&quot;<br/>
+                  Valid values: &quot;local&quot;, &quot;remote&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>selectalllocal </td>
+              <td>
+                <p>All files in the initial local directory will be selected when FileCatalyst initializes. </p>
+                <p>Default value: &quot;&quot;<br/>
+                  Valid values: &quot;&lt;valid local directory&gt;&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>selectallremote</td>
+              <td>
+                <p>All files in the initial remote directory will be selected when FileCatalyst connects successfully to an FileCatalyst server.</p>
+                <p>Default value: &quot;&quot;<br/>
+                  Valid values: &quot;&lt;valid remote directory&gt;&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>selectfileremote</td>
+              <td>
+                <p>The specified file  will be selected when FileCatalyst connects successfully to an FileCatalyst server.</p>
+                <p>Default value: &quot;&quot;<br/>
+                  Valid values: &quot;&lt;valid filename&gt;&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>autoupload</td>
+              <td>
+                <p>Used in conjunction with &quot;selectalllocal&quot;, this parameter allows you to automatically upload files. This parameter is only functional when FileCatalyst is licensed.</p>
+                <p>Default value: &quot;false&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>autodownload</td>
+              <td>
+                <p>Used in conjunction with &quot;selectallremote&quot;, this parameter allows you to automatically download files. This parameter is only functional when FileCatalyst is licensed.</p>
+                <p>Default value: &quot;false&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>createdirectoryonconnect</td>
+              <td>
+                <p>This parameter specifies a remote directory that should be created when an FileCatalyst connection is established.</p>
+                <p>Default value: &quot;&quot;<br/>
+                  Valid values: &quot;&lt;valid remote directory&gt;&quot;</p>
+                <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+              </td>
+            </tr>
+            <tr>
+              <td>showsizeanddate</td>
+              <td>If set to true, the browse dialog will display file size and date attributes as well as just the file name.
+                <p>Default value: &quot;false&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>deleteoncancel</td>
+              <td>
+                <p>If set to true, partially transferred files will automatically be deleted. </p>
+                <p>Default value: &quot;false&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>showSizeInKB</td>
+              <td>
+                <p>If set to true, and &quot;showsizeanddate&quot; is also set to true, sizes of files will be displayed in KB rather than in bytes.</p>
+                <p>Default value: &quot;false&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>hostsAllowed</td>
+              <td>
+                <p>This parameter allows you to limit the hosts and IPs FileCatalyst is allowed to connect to. You can list individual IPs/domains, or you can use wildcards to cover subdomains, subnets, etc... For example, &quot;192.168.1.*,*.FileCatalyst.ca&quot; would limit connections to any IP that starts with 192.168.1 and any subdomain of FileCatalyst.ca</p>
+                <p>Default value: &quot;&quot;<br/>
+                  Valid values: &quot;&lt;comma delimited list of URLs, wildcards are allowed&gt;&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>confirmTransfer</td>
+              <td>
+                <p>If set to &quot;true&quot;, FileCatalyst will prompt with a confirmation dialog before every upload or download to confirm the target directory. </p>
+                <p>Default value: &quot;false&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>totalProgress</td>
+              <td>
+                <p>FileCatalyst can show the progress of an entire upload, or progress of individual files. By default, the progress of the entire upload is shown. </p>
+                <p>Default value: &quot;true&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>enableResume</td>
+              <td>
+                <p>This parameter allows you to control whether FileCatalyst allows transfers to be resumed. It can be set to &quot;true&quot;, the user will be prompted to resume is possible, &quot;false&quot;, the user can not resume, and &quot;auto&quot;, FileCatalyst will resume whenever possible without asking. </p>
+                <p>Default value: &quot;true&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;, &quot;auto&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>customFileOptions</td>
+              <td>
+                <p>This parameter allows you to customize the right click options for files in the remote list. See <a href="#55">Section 5.5</a> for more details. </p>
+                <p>Default value: &quot;&quot;<br/>
+                  Valid values: &quot;&lt;label1&gt;|&lt;valid URL1&gt;,&lt;label2&gt;|&lt;valid URL2&gt;, etc... &quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>customDirOptions</td>
+              <td>
+                <p>This parameter allows you to customize the right click options for directories in the remote list. See <a href="#55">Section 5.5</a> for more details. </p>
+                <p>Default value: &quot;&quot;<br/>
+                  Valid values: &quot;&lt;label1&gt;|&lt;valid URL1&gt;,&lt;label2&gt;|&lt;valid URL2&gt;, etc... &quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>sendLogsToURL</td>
+              <td>
+                <p>If set to a valid URL,  FileCatalyst will do an HTTP POST to the specified URL with a log of the FileCatalyst session when the applet is exited (browser closed, or page unloaded). The POST will contain a parameter called &quot;logs&quot;, and the value will be the FileCatalyst session log. </p>
+                <p>Default value: &quot;&quot;<br/>
+                  Valid values: &quot;&lt;valid URL&gt;&quot;</p>
+                <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+              </td>
+            </tr>
+            <tr>
+              <td>preserveModificationTime</td>
+              <td>
+                <p>If set to &quot;true&quot;, after each successful file upload, FileCatalyst will issue an MDTM command to synchronize the file's timestamp on the FileCatalyst server with the file's timestamp on the local file system.</p>
+                <p>NOTE: This feature is not supported on all FileCatalyst server software. Check your servers documentation for more information. </p>
+                <p>Default value: &quot;false&quot;<br/>
+                  Valid values: &quot;&lt;valid URL&gt;&quot;</p>
+              </td>
+            </tr>
+          </table>
+
+          <h3 id="param_color">4.d Color settings</h3>
+          <p>These parameters control the various colors of the FileCatalyst interface. They allow you to blend the color scheme of FileCatalyst with that of your existing web page. </p>
+          <table>
+            <tr>
+              <th colspan="2">Color Settings</th>
+            </tr>
+            <tr>
+              <td width="26%">background</td>
+              <td>
+                <p>Allows you to change the background of the applet using comma seperated, standard RGB (Red, Green, Blue) values. For example <br/>
+                  white = 255,255,255</p>
+                <p>Default value: &quot;255,255,255&quot;<br/>
+                  Valid values: &quot;&lt;valid RGB values between 0 and 255&gt;&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>buttonTextColorOnMouseOver</td>
+              <td>
+                <p>The color of the text on the buttons when the mouse moves over them.</p>
+                <p>Default value: &quot;255,255,255&quot;<br/>
+                  Valid values: &quot;&lt;valid RGB values between 0 and 255&gt;&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>buttonTextColor</td>
+              <td>
+                <p>The color of the text on the buttons.</p>
+                <p>Default value: &quot;0,0,0&quot;<br/>
+                  Valid values: &quot;&lt;valid RGB values between 0 and 255&gt;&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>buttonColorOnMouseOver</td>
+              <td>
+                <p>The background color of the buttons when the mouse moves over them.</p>
+                <p>Default value: &quot;10,50,10&quot;<br/>
+                  Valid values: &quot;&lt;valid RGB values between 0 and 255&gt;&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>buttonbackground</td>
+              <td>
+                <p>The background color of the buttons.</p>
+                <p>Default value: &quot;81,132,81&quot;<br/>
+                  Valid values: &quot;&lt;valid RGB values between 0 and 255&gt;&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>headerTextColor</td>
+              <td>
+                <p>The color of the local and remote list headers.</p>
+                <p>Default value: &quot;0,0,255&quot;<br/>
+                  Valid values: &quot;&lt;valid RGB values between 0 and 255&gt;&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>headerBackgroundColor</td>
+              <td>
+                <p>The background color of the local and remote list headers.</p>
+                <p>Default value: &lt;defaults to color specified in &quot;background&quot; parameter&gt;<br/>
+                  Valid values: &quot;&lt;valid RGB values between 0 and 255&gt;&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>drivesForegroundColor</td>
+              <td>
+                <p>The color of the drive selection combo box text in the Windows version of FileCatalyst.</p>
+                <p>Default value: &quot;0,0,0&quot;<br/>
+                  Valid values: &quot;&lt;valid RGB values between 0 and 255&gt;&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>drivesBackgroundColor</td>
+              <td>
+                <p>The color of the drive selection combo box background in the Windows version of FileCatalyst.</p>
+                <p>Default value: &quot;255,255,255&quot;<br/>
+                  Valid values: &quot;&lt;valid RGB values between 0 and 255&gt;&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>ascBinTextColor</td>
+              <td>
+                <p>The ASCII/BINARY (Windows/Unix) and TEXT/DATA/MACBINARY (Mac) radio buttons text.</p>
+                <p>Default value: &quot;0,0,0&quot;<br/>
+                  Valid values: &quot;&lt;valid RGB values between 0 and 255&gt;&quot;</p>
+              </td>
+            </tr>
+          </table>
+
+          <h3 id="param_UI">4.e Interface and Layout Settings</h3>
+          <p>These parameters allow you to adjust, add, and remove various elements of FileCatalysts user interface. This allows you to add/remove various functions that you do not want  the users of FileCatalyst to have access to.</p>
+          <table>
+            <tr>
+              <th colspan="2">Interface and Layout Settings</th>
+            </tr>
+            <tr>
+              <td width="26%">language</td>
+              <td>
+                <p>FileCatalyst allows you to customize the language of the text on the interface. To do this, edit the contents of &quot;lang_en.txt&quot; which is included in the download archive. Save the file with an appropriate language code. Example for French might be &quot;lang_fr.txt&quot;. This parameter should then be set to &quot;fr&quot;.</p>
+                <p>Default value: &quot;en&quot;<br/>
+                  Valid values: &quot;&lt;language code&gt;&quot; - There must also be a file defined lang_&lt;language code&gt;.txt in the same directory as FileCatalyst.jar, and FileCatalyst.cab.</p>
+                <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+              </td>
+            </tr>
+            <tr>
+              <td>classicfilelist</td>
+              <td>
+                <p>FileCatalyst uses a custom file list that is sometimes slow on some platforms. If this becomes a problem, this value should be set to &quot;true&quot; and FileCatalyst will use a simplified file list with no icons or graphics. This option will only function on Mac OS 9, and in Netscape 4.x's default VM. Enabling this feature will override the &quot;showsizeanddate&quot; parameter on these platforms. </p>
+                <p>Default value: &quot;false&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>LocalOptions</td>
+              <td>
+                <p>If this value is set to &quot;false&quot; all of the local buttons will become invisible. </p>
+                <p>Default value: &quot;true&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;, list of 7 1's and 0'1</p>
+                <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+              </td>
+            </tr>
+            <tr>
+              <td>RemoteOptions</td>
+              <td>
+                <p>If this value is set to &quot;false&quot; all of the remote buttons will become invisible.</p>
+                <p>Default value: &quot;true&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;, list of 8 1's and 0'1</p>
+                <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+              </td>
+            </tr>
+            <tr>
+              <td>strechButtons</td>
+              <td>
+                <p>If set to true, buttons will be stretched to fit the size of the lists. Creates a more uniform looking interface. If set to false, the buttons will take their default size.</p>
+                <p>Default value: &quot;true&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>display</td>
+              <td>
+                <p>If this value is set to &quot;false&quot; the FileCatalyst message display will become invisible.</p>
+                <p>Default value: &quot;true&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>showhelpbutton</td>
+              <td>
+                <p>Setting this value to &quot;false&quot; will hide the &quot;Help&quot; button.</p>
+                <p>Default value: &quot;true&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>showputbutton</td>
+              <td>
+                <p>Setting this value to &quot;false&quot; will hide the &quot;Upload&quot; button.</p>
+                <p>Default value: &quot;true&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+                <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+              </td>
+            </tr>
+            <tr>
+              <td>showgetbutton</td>
+              <td>
+                <p>Setting this value to &quot;false&quot; will hide the &quot;Download&quot; button.</p>
+                <p>Default value: &quot;true&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+                <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+              </td>
+            </tr>
+            <tr>
+              <td>showsyncbutton</td>
+              <td>
+                <p>Setting this value to &quot;false&quot; will hide the &quot;Sync&quot; button.</p>
+                <p>Default value: &quot;true&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>showaboutbutton</td>
+              <td>
+                <p>Setting this value to &quot;false&quot; will hide the &quot;About&quot; button.</p>
+                <p>Default value: &quot;true&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>showconnectbutton</td>
+              <td>
+                <p>Setting this value to &quot;false&quot; will hide the &quot;Connect&quot; button.</p>
+                <p>Default value: &quot;true&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+                <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+              </td>
+            </tr>
+            <tr>
+              <td>showdisconnectbutton </td>
+              <td>
+                <p>Setting this value to &quot;false&quot; will hide the &quot;Disconnect&quot; button.</p>
+                <p>Default value: &quot;true&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>showlocallist</td>
+              <td>
+                <p>Setting this value to &quot;false&quot; will hide the local file list and all of the local buttons.</p>
+                <p>Default value: &quot;true&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>showremotelist</td>
+              <td>
+                <p>Setting this value to &quot;false&quot; will hide the remote file list and all of the remote buttons.</p>
+                <p>Default value: &quot;true&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>showlocaladdressbar</td>
+              <td>
+                <p>Setting this value to &quot;false&quot; will hide area above the local file list that displays the current path info.</p>
+                <p>Default value: &quot;true&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>showremoteaddressbar</td>
+              <td>
+                <p>Setting this value to &quot;false&quot; will hide area above the remote file list that displays the current path info.</p>
+                <p>Default value: &quot;true&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>remoteheader</td>
+              <td>
+                <p>Specifies the text to display above the remote file list when connected to an FileCatalyst server.  Note that this value only has an effect if "autoconnect" is true, or if "showSiteName" is set to "false".  Otherwise the site name selected by the user is shown as the remote header.</p>
+                <p>Default value: The hostname or IP of the remote server<br/>
+                  Valid values: &quot;Any text you want&quot;</p>
+                <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+              </td>
+            </tr>
+            <tr>
+              <td>showFileInfoBar</td>
+              <td>
+                <p>If set to &quot;true&quot;, FileCatalyst will display the Filename, Date, and Size of the currently selected file below the appropriate file list. </p>
+                <p>Default value: &quot;false&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>showStatusBar</td>
+              <td>
+                <p>If set to &quot;true&quot;, FileCatalyst will display a status bar that indicated whether the client is currently connected/disconnected and whether the current connection is secure.</p>
+                <p>Default value: &quot;false&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>showTree</td>
+              <td>
+                <p>If set to false, the tree view of the remote list will be supressed and only contents of current directory will be shown. </p>
+                <p>Default value: &quot;true&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>enablekeyboardshortcuts</td>
+              <td>
+                <p>If set to &quot;false&quot;, All keyboard shortcuts will be disabled. </p>
+                <p>Default value: &quot;true&quot;<br/>
+                  Valid values: &quot;true&quot;, &quot;false&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>width</td>
+              <td>
+                <p>Default value: &quot;600&quot;<br/>
+                  Valid values: &quot;&lt;integer value (in pixels)&gt;&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>height</td>
+              <td>
+                <p>Default value: &quot;480&quot;<br/>
+                  Valid values: &quot;&lt;integer value (in pixels)&gt;&quot;</p>
+              </td>
+            </tr>
+          </table>
+
+          <h3 id="param_error">4.f Error Page URLs</h3>
+          <p>These parameters allow you to define your own error pages for different types of errors that can occur when a user attempts to load FileCatalyst. </p>
+          <table>
+            <tr>
+              <th colspan="2">Error Page URLs</th>
+            </tr>
+            <tr>
+              <td width="26%"> errNavWin <br/>
+              </td>
+              <td>
+                <p>This error page will be called when the user is running Windows, and their Netscape version is not sufficient to run FileCatalyst.</p>
+                <p>Default value: &quot;&quot;<br/>
+                  Valid values: &quot;&lt;valid URL&gt;&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>errIEWin</td>
+              <td>
+                <p>This error page will be called when the user is running Windows, and their Internet Explorer version is not sufficient to run FileCatalyst.</p>
+                <p>Default value: &quot;&quot;<br/>
+                  Valid values: &quot;&lt;valid URL&gt;&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>errIEWinVM</td>
+              <td>
+                <p>This error page will be called when the user is running Windows with Internet Explorer and the Microsoft VM for Java is not sufficient to run FileCatalyst.</p>
+                <p>Default value: &quot;&quot;<br/>
+                  Valid values: &quot;&lt;valid URL&gt;&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>errNavUnix</td>
+              <td>
+                <p>This error page will be called when the user is running Unix, and their Netscape version is not sufficient to run FileCatalyst.</p>
+                <p>Default value: &quot;&quot;<br/>
+                  Valid values: &quot;&lt;valid URL&gt;&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>errIEMac</td>
+              <td>
+                <p>This error page will be called when the user is running Mac OS, and their Internet Explorer version is not sufficient to run FileCatalyst.</p>
+                <p>Default value: &quot;&quot;<br/>
+                  Valid values: &quot;&lt;valid URL&gt;&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>errNavMac</td>
+              <td>
+                <p>This error page will be called when the user is running Mac OS, and their Netscape version is not sufficient to run FileCatalyst.</p>
+                <p>Default value: &quot;&quot;<br/>
+                  Valid values: &quot;&lt;valid URL&gt;&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>errOperaWin</td>
+              <td>
+                <p>This error page will be called when the user is running Opera browser, and the version is not sufficient to run FileCatalyst.</p>
+                <p>Default value: &quot;&quot;<br/>
+                  Valid values: &quot;&lt;valid URL&gt;&quot;</p>
+              </td>
+            </tr>
+            <tr>
+              <td>rejectPermissionURL</td>
+              <td>
+                <p>This error page will be called when the user rejects the security certificate or does not grant the permissions required for FileCatalyst to run. </p>
+                <p>Default value: &quot;&quot;<br/>
+                  Valid values: &quot;&lt;valid URL&gt;&quot;</p>
+                <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+              </td>
+            </tr>
+          </table>
+
+          <h3 id="param_language">4.g Language settings</h3>
+          <p>FileCatalyst's language settings allow you to customize  the text on the applet. This can be accomplished by modifying the text elements provided in the lang_en.txt file. Alternatively if you wish to provide support for multiple languages you may create a separate language file for each language you wish to support. Using this method you can dynamically load the language file based on the "language" parameter provided to FileCatalyst. </p>
+          <p>For example, if you wish to create a language file that contains the text elements for the German language then follow these steps: </p>
+          <ol>
+            <li>Copy the default lang_en.txt file to a new file named lang_de.txt</li>
+            <li>Update the text element values in lang_de.txt providing the German equivalents. </li>
+            <li>Adjust the  language parameter of FileCatalyst with the value of "de". </li>
+            <li>Upload  lang_de.txt and the modified fcappletscript.js files to the web server directory that contains FileCatalyst. </li>
+          </ol>
+          <p>Note: If no language parameter is provided then the default lang_en.txt file is used. If a custom language file is used, and it is missing any entries, the corresponding entries from the default file will be used. </p>
+        </div>
+
+        <h2>5 Advanced Features</h2>
+        <div>
+          <h3 id="hiding_buttons">5.a Performing automatic login</h3>
+          <p>You may login to an FileCatalyst server automatically by setting the autoconnect  parameter to the applet to &quot;true&quot;. You must also provide the  server, port, user and pass  parameters. </p>
+          <p>Example:</p>
+          <blockquote><pre>var server = &quot;myserver.com&quot;;
+var port = &quot;21&quot;;
+var user = &quot;myusername&quot;;
+var pass = &quot;mypassword&quot;;
+var autoconnect = &quot;true&quot;;</pre></blockquote>
+
+          <h3 id="disabling_buttons">5.b Disabling individual buttons</h3>
+          <p>FileCatalyst allows you to enable/disable each of the buttons on the local and remote toolbar. The Local toolbar has 7 buttons and the Remote toolbar has 8. All buttons default to &quot;on&quot;, and thus the default value for LocalOptions is &quot;1,1,1,1,1,1,1&quot; and the default value for RemoteOptions is &quot;1,1,1,1,1,1,1,1&quot; where each 1 means the corresponding button is on. In order to turn off an individual button, you must set its value to 0. For example, if you want to disable the Open, and MakeDir buttons on both the local and remote toolbars, you would set the values like this: </p>
+          <blockquote><pre>var LocalOptions = &quot;1,0,1,1,1,1,0&quot;;
+var RemoteOptions = &quot;1,0,1,1,1,1,0,1&quot;;</pre></blockquote>
+          <p>When you remove buttons, the remaining buttons may appear stretched. To overcome this issue, try setting the &quot;strechButtons&quot; parameter to &quot;false&quot;. </p>
+
+          <h3 id="helpfile">5.c Setting custom help file location</h3>
+          <p>You may define a custom help file to be used when clicking on the "Help" button by passing the helplocation applet parameter with a value of the URL to the help file contents.</p>
+          <p>Example:</p>
+          <blockquote><pre>var helplocation = &quot;help.html&quot;;</pre></blockquote>
+
+          <h3 id="rightclick">5.d Customizable right click options</h3>
+          <p>FileCatalyst gives you  the ability to define your own right click options on the Remote file list. You can specify separate options for both files and directories. You define both a label for the action in the right click popup, and a URL that will be called when the action is executed. FileCatalyst will call the specified URL, and append the parameter &quot;uftpdiritem=/directory/file.txt&quot; to the URL giving you the full path of the file in question on the FileCatalyst server. This will allow you to execute  processes on specific files and directories. </p>
+          <p>Example:</p>
+          <blockquote><pre>var customFileOptions = &quot;File Option | http://localhost/processfile.jsp&quot;;
+var customDirOptions = &quot;Directory Option | http://localhost/processdir.jsp&quot;; </pre></blockquote>
+          <p>In this case, when the user right clicks a file on the remote list, they will see &quot;File Option&quot; as an option on the popup. When clicked, FileCatalyst will call the specified URL with the selected path. </p>
+          <p>The format for these parameters is &lt;label&gt;|&lt;url&gt;, and you can define multiple options, by separating them with a comma. Here is an example:</p>
+          <blockquote><pre>var customFileOptions = &quot;&lt;label1&gt;|&lt;url1&gt;,&lt;label2&gt;|&lt;url3&gt;,&lt;label3&gt;|&lt;url3&gt;&quot;; </pre></blockquote>
+
+          <h3 id="advanced_filtering">5.e Advanced file filtering</h3>
+          <p>If you need to filter files by more than just extension, FileCatalyst allows you to filter using wildcard expressions as well. FileCatalyst has a parameter called &quot;exclude&quot; which allows you to list expressions like file*.* or *.doc or even *file*.doc. This allows you to exclude all files that match any of the expressions you list. There is also an &quot;invertexclude&quot; parameter which allows you to only include the files that match the given expressions.</p>
+          <p>Example:</p>
+          <blockquote><pre>var exclude = &quot;file*.txt&quot;;
+var invertexclude = &quot;true&quot;; </pre></blockquote>
+          <p>In this example, only files that match file*.txt will be displayed in the file list. </p>
+          <p>Example 2:</p>
+          <blockquote><pre>var exclude = &quot;*.mp3, *.exe, Program Files &quot;;
+var invertexclude = &quot;false&quot;; </pre></blockquote>
+          <p>In this example, all files will be shown except MP3's, EXE's, and the Program Files directory.</p>
+
+          <h3 id="resuming">5.f Resuming broken or interrupted transfers</h3>
+          <p>FileCatalyst has the ability to resume broken or cancelled transfers. If a transfer is interrupted due to network problems, FileCatalyst will automatically try to resume the transfer. If you cancel a transfer and wish to resume the transfer at a later time, simply select the file you wish to resume, and click Upload or Download. You will be prompted to resume the transfer if possible. </p>
+        </div>
+
+        <h2>6 Support </h2>
+        <div>
+          <h3 id="support">6.a Chat and trouble tickets support</h3>
+           <p><a href="http://support.filecatalyst.com/index.php?_m=knowledgebase&_a=view">Browse our Knowledgebase</a> for existing questions and solutions</p>
+
+                    <p><a href="http://support.filecatalyst.com">Submit a Ticket</a> for best response-time and proper tracking of individual issues.</p>
+
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,314 @@
+.cliplog-filter-cont{
+    float: left;
+    width: 215px;
+    margin: 0 10px 10px 0;
+    font-family: Arial, Verdana, sans-serif;
+    font-size: 12px;
+    position: fixed;
+    height: 500px;
+    overflow: auto;
+    overflow-x: hidden;
+    padding-right: 35px;
+}
+.cliplog-filter-cont.frontend{margin: -50px 10px 10px 0 !important;}
+.clips-list{
+    margin-left: 250px;
+}
+.clips-list.frontend{margin-top: -50px;}
+.clips-list .selected-title{
+    font-size: 18px;
+    font-weight: normal;
+    color: #121212;
+    margin: 0 20px 10px 0;
+    float: left;
+    line-height: 1;
+}
+
+.cliplog-btn{
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+    padding: 0 20px;
+    background: url("../img/admin/cliplog/view/btn_bg.jpg") repeat-x;
+    border: 1px solid #c3c3c3;
+    moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #6a6a6a;
+}
+
+.cliplog-filter-cont .add-btn{
+    width: 187px;
+    height: 29px;
+    padding: 0 10px 0 67px;
+    margin-bottom: 10px;
+    font-size: 10px;
+    font-weight: bold;
+    line-height: 29px;
+    color: #6a6a6a;
+    text-transform: uppercase;
+    background: transparent url("../img/admin/cliplog/view/add_btn_bg.jpg") no-repeat;
+    border: none;
+}
+
+.cliplog-search-form{
+    margin-bottom: 3px;
+}
+
+.cliplog-advanced-search-cont{
+    text-align: right;
+    margin-bottom: 5px;
+}
+
+.cliplog-tree-cont{
+    width: 240px;
+    background: #f9f9f9;
+    border: 1px solid #dfdfdf;
+    border-top: none;
+    moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    border-radius: 3px;
+}
+
+a.cliplog-tree-tab{
+    display: block;
+    width: 120px;
+    float: left;
+    height: 38px;
+    line-height: 38px;
+    text-align: center;
+    font-size: 11px;
+    color: #474747;
+    background: url("../img/admin/cliplog/view/selected_tab_bg.jpg") repeat-x;
+    text-decoration: none;
+}
+
+.cliplog-tree-tab.first{
+    width: 119px;
+    border-right: 1px solid #c3c3c3;
+}
+
+.cliplog-tree-tab.selected{
+    background: none;
+}
+
+.cliplog-tree{
+    list-style: none;
+    margin: 0;
+}
+
+.cliplog-tree ul{
+    list-style: none;
+    margin: 0;
+}
+
+.cliplog-tree li{
+    border-top: 1px solid #dfdfdf;
+    font-size: 12px;
+    color: #2d2d2d;
+    background: url("../img/admin/cliplog/view/cliplog_tree_item_bg.jpg") repeat-x;
+}
+
+.cliplog-tree li span{
+    height: 36px;
+    display: block;
+    padding-left: 15px;
+    line-height: 36px;
+    background: url("../img/admin/cliplog/view/collapsed_bg.png") no-repeat right 15px center;;
+    padding-right: 20px;
+    cursor: pointer;
+}
+
+.cliplog-tree li.expanded span{
+    background: url("../img/admin/cliplog/view/expanded_bg.png") no-repeat right 15px center;
+}
+
+.cliplog-tree ul{
+    display: none;
+    border-top: 1px solid #dfdfdf;
+    padding: 15px 0 15px 15px;
+}
+
+.cliplog-tree .cliplog-list-cont{
+    display: none;
+    border-top: 1px solid #dfdfdf;
+    padding-top: 15px;
+}
+
+.cliplog-list-filter{
+    padding-left: 15px;
+}
+
+.cliplog-tree li.expanded ul{
+    display: block;
+}
+
+.cliplog-tree li.expanded .cliplog-list-cont{
+    display: block;
+}
+
+.cliplog-tree ul li{
+    border: none;
+    background: none;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #474747;
+    padding: 3px 0 3px 20px;
+    background: url("../img/admin/cliplog/view/list_bin_item_bg.jpg") no-repeat left center;
+}
+
+.cliplog-tree ul li.selected{
+    font-weight: bold;
+}
+
+.cliplog-tree ul li.active{
+    background: #f3f3f3 url("../img/admin/cliplog/view/list_bin_item_bg.jpg") no-repeat left center;
+}
+
+.cliplog-tree ul li a{
+    color: #474747;
+    text-decoration: none;
+}
+
+.cliplog-tree ul li a:hover{
+    text-decoration: underline;
+}
+
+.cliplog-modal{
+
+}
+
+.cliplog-modal .alert{
+    display: none;
+}
+
+
+.cliplog-tree .cliplog-submissions-list ul {
+    border: none;
+    padding: 0;
+}
+
+
+.cliplog-tree .cliplog-submissions-list li {
+    background: url("../img/admin/cliplog/view/submission_folder.png") no-repeat left top 5px;
+
+}
+
+.cliplog-tree .cliplog-submissions-list ul ul li {
+    background: url("../img/admin/cliplog/view/list_bin_item_bg.jpg") no-repeat left center;
+}
+
+.cliplog-tree .cliplog-submissions-list li.collapsed ul {
+    display: none;
+}
+
+.cliplog-submissions-scroll {
+    /*max-height: 130px;
+    overflow-x: hidden;
+    overflow-y: auto;*/
+    overflow: hidden;
+    border-top: 1px solid #eee;
+
+}
+
+.cliplog-submissions-actions {
+    font-size: 11px;
+    margin-left: 15px;
+    padding: 3px 0;
+}
+
+.cliplog-list-filter input[type="text"] {
+    border-radius: 0;
+    font-size: 11px;
+    height: 14px;
+    width: 200px;
+}
+
+.clipbin-list .clipbins-list-filter input[type="text"] {
+    position: relative;
+    border-radius: 0;
+    font-size: 11px;
+    height: 14px;
+    width: 188px;
+    left: 3px;
+}
+
+.cliplog-list-filter input[type="submit"],
+.clipbin-list .clipbins-list-filter input[type="submit"] {
+    border-radius: 0;
+    font-size: 11px;
+    height: 24px;
+    margin-left: 3px;
+    padding: 0 4px;
+}
+.submissions-provider-select {
+    width: 208px;
+    border-radius: 0;
+}
+.submissions-list-filter input[type="text"] {
+    width: 159px;
+}
+
+.jspContainer {
+    overflow: hidden;
+    position: relative;
+}
+
+.jspPane {
+    position: absolute;
+}
+
+.jspVerticalBar {
+    position: absolute;
+    width: 12px;
+    height: 100%;
+    background: none;
+    border: 1px solid #cecece;
+    top: -1px;
+    right: -1px;
+}
+
+.jspHorizontalBar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 16px;
+    border: 0;
+    background: red;
+}
+
+.jspVerticalBar *,
+.jspHorizontalBar * {
+    margin: 0;
+    padding: 0;
+}
+
+.jspCap {
+    display: none;
+}
+
+.jspHorizontalBar .jspCap {
+    float: left;
+}
+
+.jspTrack {
+    position: relative;
+}
+
+.jspDrag {
+    position: relative;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    width: 8px;
+    margin: 1px;
+    background: #cfcfcf;
+    border-radius: 2px;
+    border: 1px solid #bbb;
+}

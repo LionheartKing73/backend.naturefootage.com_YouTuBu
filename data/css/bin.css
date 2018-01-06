@@ -1,0 +1,31 @@
+#bin_items {
+    float: left;
+    width: 760px;
+}
+#bin_manage {
+    float: right;
+    width: 230px;
+    margin-top: 15px;
+}
+
+#bin_actions ul{
+    list-style: none;
+}
+
+#bin_actions li{
+    margin:5px 0;
+}
+
+#bin_actions li .action{
+    width: 170px;
+    text-align: left;
+}
+
+#bin_actions li button.action{
+    width: 212px;
+    text-align: left;
+}
+
+#bin_items .result{
+    margin-right: 40px;
+}

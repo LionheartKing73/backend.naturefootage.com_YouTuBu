@@ -1,0 +1,392 @@
+body {
+    background: #fff
+}
+
+body, form {
+    margin: 0;
+    padding: 1px;
+}
+
+body, input, textarea, select, table {
+    font: 8pt tahoma, verdana;
+    color: #333333;
+}
+
+img {
+    border: none
+}
+
+h3 {
+    font: bold 10pt tahoma;
+    margin: 10px 0 5px 10px;
+    padding: 0;
+    text-align: left
+}
+
+label input[type="radio"], label input[type="checkbox"] {
+    position: relative;
+    top: 3px
+}
+
+tr.tdata1 td, tr.tdata1 th, tr.table_title td, tr.table_title th {
+    padding: 4px
+}
+
+#admin {
+    background: #ffffff;
+    background-repeat: repeat-x;
+    background-position: top;
+    margin: 0px auto;
+    width: 98%;
+}
+
+body#admin {
+    overflow-x: hidden;
+    overflow-y: auto !important;
+}
+
+.clear {
+    clear: both
+}
+
+.tab {
+    border: solid 1px #cccccc;
+    padding: 2px;
+    margin-bottom: 3px;
+    background-color: #ffffff;
+}
+
+.tablabel {
+    font-weight: bold;
+    text-align: right;
+    vertical-align: top;
+    white-space: nowrap;
+    background: #f0f2f4;
+}
+
+input.field, textarea.ta {
+    color: #403F3A;
+    padding-left: 2px;
+    margin: 0px 0px 0px 0px;
+    border: solid 1px #777777;
+}
+
+input.sub {
+    color: #ffffff;
+    border: solid 1px #0093c2;
+    background-color: #00afe7;
+    height: 18px;
+}
+
+.error {
+    color: #ff0000;
+    text-align: center;
+}
+
+div.menu {
+    background-color: #f0f0f1;
+    padding: 5px;
+    margin-bottom: 1px;
+}
+
+div.menu a, div.menu a:hover {
+    color: #555555;
+    text-decoration: none;
+}
+
+div.submenu {
+    height: 22px;
+    background-color: #ffffff;
+    padding: 3px 0px 0px 15px;
+    border-bottom: 1px solid #ebebec;
+}
+
+.action_title {
+    background-color: #F6F7F7;
+}
+
+div.action_title {
+    padding: 10px
+}
+
+.table_title {
+    background-color: #D4D0C8;
+}
+
+.table_title td {
+    font-weight: bold;
+}
+
+table.listview td {
+    background-color: #f6f6f3;
+    vertical-align: top
+}
+
+table.listview tr:hover td {
+    background-color: #e4f3fa;
+}
+
+table.listview th {
+    background-color: #D4D0C8;
+    font-weight: bold;
+    text-align: left
+}
+
+table.itemview {
+    border: 1px solid #777777;
+}
+
+table.itemview tr.table_title td {
+    background-color: #D4D0C8;
+    font-weight: bold;
+    text-align: center
+}
+
+table.itemview th {
+    background: #F0F2F4;
+    font-weight: bold;
+    text-align: right
+}
+
+.form_label, .form_table th {
+    font-weight: bold;
+    text-align: right;
+    vertical-align: top;
+    white-space: nowrap;
+    background: #F0F2F4;
+}
+
+.form_table {
+    border: 0
+}
+
+a {
+    color: #5D98C4;
+}
+
+a:hover {
+    color: #8D9AA4;
+}
+
+a.title {
+    color: #000000;
+}
+
+a.title:visited {
+    color: #000000;
+}
+
+a.title:hover {
+    color: #000000;
+}
+
+a.action, a.action:visited, input.action {
+    border: none;
+    color: #ffffff;
+    background: #B1BDC8;
+    padding: 2px;
+    text-decoration: none;
+}
+
+a.action:hover, input.action:hover {
+    background: #5D98C4;
+    text-decoration: none;
+}
+
+.tdata1, .tdatas1 {
+    background-color: #F6F6F3;
+}
+
+.tdata2 {
+    background-color: #F0F2F4;
+}
+
+.tdatas2 {
+    background-color: #fce8e8;
+}
+
+.tdatas3 {
+    background-color: #d8fee2;
+}
+
+#pagination {
+    padding-top: 5px;
+    border-top: solid 1px #cccccc;
+}
+
+.mand {
+    color: #ff0000;
+}
+
+.disabled {
+    color: #ccc
+}
+
+.message {
+    color: #3b3;
+}
+
+#content {
+    padding: 10px;
+    background-color: #e9eef2;
+}
+
+.bg_blue {
+    background-color: #e4f3fa;
+}
+
+.bg_grey {
+    background-color: #aaaaaa;
+    color: #ffffff;
+}
+
+.code {
+    padding: 3px 0px 5px 0px;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+a.lightlink {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+a.lightlink:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.thumb {
+    float: left;
+    margin: 10px 0;
+    width: 140px;
+    overflow: hidden
+}
+
+.thumb .field {
+    text-align: right;
+    width: 20px
+}
+
+.form {
+    display: block;
+    margin: 10px
+}
+
+.simpleForm {
+    float: left
+}
+
+.simpleForm label {
+    float: left;
+    margin: 5px 0;
+    width: 80px
+}
+
+option.country {
+    color: #cd2228
+}
+
+.path {
+    color: #aaa;
+    padding-left: 5px;
+    text-align: left
+}
+
+.arrow-top {
+    border: 5px solid transparent;
+    border-bottom: 0;
+    border-top-color: #000;
+    width: 0;
+    height: 0;
+    display: inline-block;
+    margin: 0 5px;
+}
+
+.arrow-right {
+    border: 5px solid transparent;
+    border-left: 0;
+    border-right-color: #000;
+    width: 0;
+    height: 0;
+    display: inline-block;
+    margin: 0 5px;
+}
+
+.arrow-bottom {
+    border: 5px solid transparent;
+    border-top: 0;
+    border-bottom-color: #000;
+    width: 0;
+    height: 0;
+    display: inline-block;
+    margin: 0 5px;
+}
+
+.arrow-left {
+    border: 5px solid transparent;
+    border-right: 0;
+    border-left-color: #000;
+    width: 0;
+    height: 0;
+    display: inline-block;
+    margin: 0 5px;
+}
+
+table th {
+    cursor: pointer;
+    text-align: left;
+}
+
+.right-text {
+    text-align: right !important;
+}
+
+.center-text {
+    text-align: center !important;
+}
+
+.left-text {
+    text-align: left !important;
+}
+
+.sorting label {
+    display: inline-block !important;
+}
+
+.sorting select {
+    max-width: 150px !important;
+}
+
+.frontend.paddingdel {
+    padding: 0 !important;
+}
+
+/*.cliplog-manage-button{display: none;}*/
+.front-margin {
+    margin: 5px 15px;
+}
+
+.delete-icon {
+    color: #f00;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+    margin: 70px 0 0 15px;
+    border-radius: 20%;
+    padding: 3px;
+    cursor: pointer;
+    content: 'X';
+    display: inline-block;
+}
+
+.delete-icon:hover {
+    box-shadow: 0px 0px 1px #f00;
+}
+
+.delete-icon:before {
+    content: "\00d7";
+}

@@ -1,0 +1,191 @@
+/*********************** Reset ***********************/
+html, body, div, span, a, img,
+h1, h2, h3, h4, h5, h6, p,
+ol, ul, li, blockquote, em, pre,
+object, iframe, form, label,
+table, tbody, tfoot, thead, tr, th, td,
+article, aside, footer, header, nav, section,
+menu                                 									{ font-family: inherit; font-size: 100%; font-weight: inherit; vertical-align: baseline; white-space: normal; text-align: left; margin: 0; padding: 0; border: 0; outline: 0; background: transparent; }
+textarea													{ font-family: inherit; font-size: 100%; font-weight: normal; font-style: normal; white-space: normal; text-align: left; margin: 0; padding: 0; }
+footer, header, nav, section, dialog, figure, menu      			{ display: block; }
+del, ins													{ text-decoration: none; }
+nav ul													{ list-style-type: none; }
+table													{ border-collapse: separate; border-spacing: 0; background-color: transparent; width: auto; height: auto; }
+blockquote:before, blockquote:after, q:before, q:after		{ content: ""; }
+blockquote, q												{ quotes: "" ""; }
+input														{ margin: 0; }
+
+
+/********************** General  ****************/
+body {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  font-size: 0.75em;
+  background: url("../images/bk.png") repeat scroll 0 0 #3C3C3C;
+}
+
+p { margin-bottom: 0.75em; line-height: 1.5em;}
+a, a:hover, a:active { color:#000000; text-decoration: none;}
+td a:hover {text-decoration:underline}
+h1{ font-size: 35px;}
+h2 { font-size: 24px; }
+img{border:none;}
+embed {display:none;}
+
+/********************* Theme and layout **************/
+#wrapper {
+  margin: 0 auto;
+  width: 960px;
+  padding: 0 20px 20px 20px;
+  background: #FFFFFF;
+  overflow:hidden;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+header {
+  color: #333;
+  height:90px;
+  background: url("../images/headerbk.jpg") no-repeat;
+  position: relative;
+}
+
+#logo{
+  float: left; 
+  margin-top:5px; 
+  width: 250px;
+}
+
+#customHeader {
+  float: left;
+  margin-top: 52px;
+  font-size: 1.5em;
+}
+
+#infoTools {
+  position: absolute;
+  right: 0;
+  top: 20px;
+  width: auto;
+}
+
+#infoTools span {font-weight: bold; color: #E85311;}
+#logout_button, #infoTools>p { float:left; padding-left:10px;}
+#login_wrap td {padding: 2px;}
+
+#tools-menu {display: inline-block;}
+
+#tools-menu, #tools-menu ul {list-style: none;}
+
+#tools-menu li ul {
+  display: none;
+  width: 80px;
+  position: absolute;
+  top: 20px;
+  right: -12px;
+}
+
+#tools-menu li:hover > ul {display: block;}
+#tools-menu li {cursor: pointer;}
+#tools-menu li a {width: 100%; display: inline-block;}
+
+#content {
+  background: #FFFFFF;
+  color:#333333;
+  margin:20px 0 0 0;
+  clear:both;
+  overflow: hidden;
+}
+
+#single_wrap {overflow:hidden; width:100%;}
+
+footer {
+  color: #333;
+  margin: 10px 0;
+  padding-top: 10px;
+  border-top: 1px dotted #CCCCCC;
+  clear:both;
+}
+
+/** login page and license invalid page only **/
+#login_page #wrapper, #messagePage #wrapper {
+  margin-top: 50px;
+  width:500px;
+  border-radius: 4px;
+}
+
+#appletPage #wrapper {width:800px;}
+
+#login_page table {
+  font-size: inherit;
+  width: auto;
+  margin: 15px auto;
+  border: none;
+}
+
+#login_page input, #login_page select {color: #333333;}
+
+#messagePage ol {margin-left: 25px;}
+
+#messageBox, .messageBox {
+  color: #E85311;
+  font-weight: bold;
+  padding: 8px;
+  border: 1px dotted #E85311;
+}
+
+.clear {clear:both;}
+
+
+/******************************* Tables ****************************************/
+table{width: 100%; border: 1px solid #ccc;}
+
+
+
+/************************************* Styles ****************************************/
+.rtl { direction: rtl; }
+.textRight { text-align: right }
+.textLeft { text-align: left }
+.textCenter { text-align: center }
+.right { float: right;}
+.left { float: left;}
+.center {margin-left: auto; margin-right: auto; text-align:center;}
+
+.hidden {display:none;}
+
+.underline {text-decoration: underline;}
+.highlight {color: #E85311;}
+
+.shadowbox {
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 8px rgba(0,0,0,0.5);
+  z-index: 99;
+  padding: 13px;
+}
+
+.shadowbox a {line-height: 2em;}
+.shadowbox a:hover {text-decoration: underline;}
+
+.icon {
+  cursor: pointer;
+  height: 16px;
+  width: 16px;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 2px;
+}
+
+input.icon {border: none;}
+.icon-tools { background: transparent url("../images/icons/gear.png") no-repeat left center; }
+
+
+/*************** Media Queries ****************/
+
+/*@media screen and (max-width: 768px) {}*/
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+
+  #wrapper {
+    width: 728px;
+  }
+}

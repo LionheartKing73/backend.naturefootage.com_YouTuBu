@@ -1,0 +1,13 @@
+#requestForm { float: left; margin: 20px 0; width: 620px }
+#requestForm h2 { border-bottom: solid 1px #999; font-size: 18px; font-weight: normal; margin: 0 0 15px 0 }
+#requestForm label { display: block; margin: 0 0 15px 0 }
+#requestForm label#clipReferenceNo, #requestForm label#clipTitle { float: left; width: 250px }
+#requestForm label#clipTitle  { margin-left: 100px }
+#requestForm input { width: 240px }
+#requestForm input, #requestForm textarea { background: #d9ffb1; border: solid 1px #9bf70e; padding: 5px }
+
+#freeClip { background: #e9e9e9; float: right; margin-top: 20px; text-align: center; width: 300px }
+#freeClip h2 { background: #86ca1d; color: #191919; font-size: 18px; font-weight: normal; padding: 2px 8px;
+  text-align: left }
+#freeClip img { margin: 20px 0; width: 270px; }
+#freeClip #playButton { position: absolute; margin: 55px 0 0 110px; width: 80px }

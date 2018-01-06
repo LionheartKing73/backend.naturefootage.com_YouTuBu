@@ -1,0 +1,50 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (WinNT; I) [Netscape]">
+   <meta name="Author" content="Elton Carneiro">
+<link rel="stylesheet" href="styles.css" />
+   <title>FileCatalyst Download Example</title>
+
+</head>
+<body bgcolor="#FFFFFF">
+<center>
+<img src="images/fileCatalystLogo.jpg" width="301" height="155">
+<h1>
+FileCatalyst Download Applet demo page.
+</h1>
+<h3>This page demonstrates how a client can use a server side scripting language to customize the FileCatalyst Download applet dynamically. </h3>
+<p>
+All the user has to do is log in to the FileCatalyst Server using the correct credentials, choose what files they want to download, and then download them their local computer.
+</p>
+   <form name="login" action="displayList.jsp" method="POST">
+    <table width="293" class="variables">
+        <tbody>
+            <tr>
+                <td>Server</td>
+                <td><input type="text" name="server" value="" size="35" /></td>
+            </tr>
+            <tr>
+                <td>Port</td>
+                <td><input type="text" name="port" value="21" size="6" /></td>
+            </tr>
+            <tr>
+                <td>Username:</td>
+                <td><input type="text" name="username" value="" size="35" /></td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td><input type="password" name="password" value="" size="35" /></td>
+            </tr>
+            <tr>
+                <td><input type="reset" value="Reset" name="reset" /></td>
+                <td><input type="submit" value="Log In" name="submit" /></td>
+            </tr>
+        </tbody>
+    </table>
+  </form>
+
+</center> 
+</body>
+</html>

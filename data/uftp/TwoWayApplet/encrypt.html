@@ -1,0 +1,63 @@
+<html>
+<head>
+<title>FileCatalyst String Encryption</title>
+</head>
+<body>
+<SCRIPT>                                                                     
+<!--          
+
+function encode(sstring,skey) {
+    var i;
+    var keyLength = skey.length;
+    var newstring = "";
+    for (i = 0; i < sstring.length; i++){
+      var value = sstring.charCodeAt(i);
+      var newval = value+skey.charCodeAt(i%keyLength);
+      while (newval<=32||newval>126||newval==34||newval==39)
+        newval=(newval<=32)?126-Math.abs(32-newval):(newval>126)?newval-94:newval+skey.charCodeAt(i%keyLength);
+      newstring = newstring + String.fromCharCode(newval);
+    }
+    return newstring;
+}
+  
+function decode(sstring,skey) {
+    var i;
+    var keyLength = skey.length;
+    var newstring = "";
+    for (i = 0; i < sstring.length; i++){
+      var value = sstring.charCodeAt(i);
+      var newval = value-skey.charCodeAt(i%keyLength);
+      while (newval<=32||newval>126||newval==34||newval==39)
+        newval=(newval<=32)?126-Math.abs(32-newval):(newval>126)?newval-94:newval-skey.charCodeAt(i%keyLength);
+      newstring = newstring + String.fromCharCode(newval);
+    }
+    return newstring;
+}                                                             
+
+
+function doEncode()
+{
+var Estring = encode(document.encrypt.sstring.value,document.encrypt.skey.value);
+document.encrypt.encoded.value=Estring;
+}    
+function doDecode()
+{
+var Dstring = decode(document.encrypt.encoded.value,document.encrypt.skey.value);
+document.encrypt.decoded.value=Dstring;
+}                                                                          
+// -->                                                                       
+</SCRIPT>           
+Strings containing spaces ( ), single (') or double quotes (") will not be encrypted/decrypted properly.                                                         
+<form name="encrypt">
+Enter a string to encrypt:
+<input type=text value="" name=sstring size=26 maxlength=26><br>
+Enter an encryption key:
+<input type=text value="" name=skey size=26 maxlength=26><br>
+<input type=button value="Encode" onclick="javascript:doEncode()"><br>
+Encoded string:<input type=text value="" name=encoded size=26 maxlength=26>
+<BR>
+<input type=button value="Decode" onclick="javascript:doDecode()"><br>
+Decoded string:<input type=text value="" name=decoded size=26 maxlength=26>
+</body>
+</html>
+

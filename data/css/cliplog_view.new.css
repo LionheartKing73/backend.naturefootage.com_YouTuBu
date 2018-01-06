@@ -1,0 +1,617 @@
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    .ios-scrollable::-webkit-scrollbar {
+        -webkit-appearance:none
+    }
+    .ios-scrollable::-webkit-scrollbar:vertical {
+        width:11px
+    }
+    .ios-scrollable::-webkit-scrollbar:horizontal {
+        height:11px
+    }
+    .ios-scrollable::-webkit-scrollbar-thumb {
+        border-radius:8px;
+        border:2px solid white;
+        background-color:rgba(0,0,0,0.5)
+    }
+    .ios-scrollable::-webkit-scrollbar-track {
+        background-color:#fff;
+        border-radius:8px
+    }
+    .ios-scrollable-invisible::-webkit-scrollbar-track {
+        background-color:#fff;
+        border-radius:8px
+    }
+    .ios-scrollable-invisible::-webkit-scrollbar {
+        -webkit-appearance:none
+    }
+    .ios-scrollable-invisible::-webkit-scrollbar:vertical {
+        width:0px
+    }
+    .ios-scrollable-invisible::-webkit-scrollbar:horizontal {
+        height:0px
+    }
+    .ios-scrollable-invisible::-webkit-scrollbar-thumb {
+        border-radius:8px;
+        border:0px solid white;
+        background-color:rgba(0,0,0,0)
+    }
+    .ios-scrollable-invisible::-webkit-scrollbar-track {
+        background-color:#fff;
+        border-radius:8px
+    }
+}
+
+.left-box-list {
+    width: 240px;
+    margin: 20px 0;
+}
+
+.left-box-list form {
+    margin: 0;
+    padding: 0;
+}
+
+.left-box-list .drop-active {
+    border-color: #27cc50;
+    background-color: #8ed6af !important;
+}
+
+.left-box-list .left-box {
+    border: 1px solid #dfdfdf;
+    background: #f9f9f9;
+    margin: -15px 0 0 0;
+}
+
+.left-box-list .left-box .left-box-header {
+    height: 36px;
+    padding: 0 20px;
+    line-height: 36px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.left-box-list .left-box .left-box-header.collapsed {
+    background: url("/data/img/admin/cliplog/view/collapsed_bg.png") no-repeat right 15px center, url("/data/img/admin/cliplog/view/cliplog_tree_item_bg.jpg") repeat-x;
+}
+
+.left-box-list .left-box .left-box-header.expanded {
+    background: url("/data/img/admin/cliplog/view/expanded_bg.png") no-repeat right 15px center, url("/data/img/admin/cliplog/view/cliplog_tree_item_bg.jpg") repeat-x;
+}
+
+.left-box-list .left-box .clipbin-list {
+    border-top: 1px solid #dfdfdf;
+    padding-left: 15px;
+}
+
+.left-box-list .clipbin-list.collapsed {
+    display: none;
+}
+
+.left-box-list .left-box .clipbin-list .clipbin-current {
+    height: 28px;
+    background: url("/data/img/admin/cliplog/view/bin_icon.png") no-repeat left center;
+    padding: 3px 0 3px 17px;
+    margin-left: 3px;
+    position: relative;
+    font-size: 12px;
+}
+
+.left-box-list .left-box .clipbin-list .items-count {
+    display: inline-block;
+    color: #27ae60;
+    font-size: 12px;
+}
+
+.left-box-list .left-box .clipbin-list .clipbin-well {
+    height: 80px;
+    margin: 0 0 10px 3px;
+    padding: 2px 0 0 2px;
+    overflow: hidden;
+    overflow-y: auto;
+    width: 195px;
+    word-spacing: 0;
+}
+
+.left-box-list .left-box .clipbin-list .clipbin-well .small-item {
+    width: 56px;
+    display: inline-block;
+    cursor: pointer;
+    max-height: 35px;
+    overflow: hidden;
+    padding: 0 2px 2px 0 !important;
+}
+
+.left-box-list .left-box .clipbin-list .clipbin-well .small-item img {
+    width: 56px;
+    height: 35px;
+    overflow: hidden;
+}
+
+.left-box-list .left-box .clipbin-list .clipbin-well:not(.empty) {
+    border: 1px solid #ccc;
+    padding: 4px 0 0 4px;
+    width: 192px;
+}
+
+.left-box-list .left-box .clipbin-list .clipbin-well.empty {
+    border: 1px dashed #ccc;
+}
+
+.left-box-list .left-box .clipbin-list .clipbin-well.empty img {
+    margin: 10px 90px 8px 90px;
+}
+
+.left-box-list .left-box .clipbin-list .clipbin-well.empty span {
+    display: inline-block;
+    margin: 0 20px;
+    text-align: center;
+    color: #aaa;
+}
+
+.left-box-list .left-box .clipbin-list .clipbin-view-actions {
+    font-size: 10px;
+    color: #aaa;
+    margin-left: 3px;
+}
+
+.left-box-list .left-box .clipbin-list .clipbin-view-actions a {
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.left-box-list .left-box .clipbin-list .clipbin-edit-actions {
+    padding: 5px 0 10px 0;
+    margin-left: 3px;
+}
+
+.left-box-list .left-box .clipbin-list .clipbin-edit-actions img {
+    cursor: pointer;
+}
+
+.left-box-list .left-box .clipbin-list .clipbin-edit-actions .edit-action-clipbin,
+.left-box-list .left-box .clipbin-list .clipbin-edit-actions .edit-action-folder {
+    display: none;
+    padding-top: 10px;
+}
+
+.left-box-list .left-box .clipbin-list .clipbin-edit-actions .edit-action-clipbin form,
+.left-box-list .left-box .clipbin-list .clipbin-edit-actions .edit-action-folder form {
+    padding: 0;
+    margin: 0;
+}
+
+.left-box-list .left-box .clipbin-list .clipbin-edit-actions .edit-action-clipbin select {
+    width: 147px;
+    font-size: 11px;
+    height: 25px;
+}
+
+.left-box-list .left-box .clipbin-list .clipbin-edit-actions .edit-action-clipbin input[type="text"],
+.left-box-list .left-box .clipbin-list .clipbin-edit-actions .edit-action-folder input[type="text"] {
+    width: 190px;
+    font-size: 11px;
+    height: 15px;
+}
+
+.left-box-list .left-box .clipbin-list .clipbin-edit-actions .edit-action-clipbin input[type="text"].empty-error,
+.left-box-list .left-box .clipbin-list .clipbin-edit-actions .edit-action-folder input[type="text"].empty-error {
+    border-color: rgb(231, 104, 104);
+    background: rgb(250, 220, 220);
+    box-shadow: 0 0 3px rgb(248, 182, 182);
+}
+
+.left-box-list .left-box .clipbin-list .clipbin-edit-actions .edit-action-clipbin input[type="submit"],
+.left-box-list .left-box .clipbin-list .clipbin-edit-actions .edit-action-folder input[type="submit"] {
+    font-size: 11px;
+    height: 25px;
+    line-height: 25px;
+    vertical-align: middle;
+    padding: 0 8px;
+}
+
+.left-box-list .left-box .clipbin-list .clipbin-scroll {
+    /*max-height: 130px;
+    overflow-x: hidden;
+    overflow-y: auto;*/
+    border-top: 1px solid #eee;
+}
+
+.left-box-list .left-box .clipbin-list .no-folder {
+    padding: 3px 0 0 7px;
+}
+
+.left-box-list .left-box .clipbin-list .no-folder.empty {
+    width: 180px;
+    height: 25px;
+    border: 1px dashed gray;
+    color: gray;
+    text-align: center;
+    font-size: larger;
+    margin: 0 auto;
+}
+.left-box-list .left-box .clipbin-list .folder {
+    padding: 3px 0 10px 0;
+}
+
+.left-box-list .left-box .clipbin-list .no-folder .clipbin-item {
+    font-size: 11px;
+    background: url("/data/img/admin/cliplog/view/bin_icon.png") no-repeat left center;
+    padding: 3px 6px 3px 17px;
+    position: relative;
+}
+
+.left-box-list .left-box .clipbin-list .no-folder .clipbin-item.gallery,
+.left-box-list .left-box .clipbin-list .folder .clipbin-item.gallery{
+    background-image: url("/data/img/admin/cliplog/view/gallery_icon.png");
+}
+
+.left-box-list .left-box .clipbin-list .no-folder .clipbin-item.sequence,
+.left-box-list .left-box .clipbin-list .folder .clipbin-item.sequence{
+    background-image: url("/data/img/admin/cliplog/view/sequence_icon.png");
+}
+
+.left-box-list .left-box .clipbin-list .folder .clipbin-item .items-count {
+    position: relative;
+    top: -5px;
+}
+
+.left-box-list .left-box .clipbin-list .no-folder .clipbin-item a {
+    color: #999;
+    font-size: 12px;
+}
+
+.left-box-list .left-box .clipbin-list .no-folder .clipbin-item.selected {
+    font-weight: bold;
+}
+
+.left-box-list .left-box .clipbin-list .no-folder .clipbin-item img {
+    float: right;
+    cursor: pointer;
+    position: relative;
+    top: 3px;
+}
+
+.left-box-list .left-box .clipbin-list .folder .clipbin-item {
+    font-size: 11px;
+    background: url("/data/img/admin/cliplog/view/bin_icon.png") no-repeat 10px 6px;
+    padding: 3px 6px 3px 27px;
+    position: relative;
+    max-height: 18px;
+}
+
+.left-box-list .left-box .clipbin-list .folder .clipbin-item.selected {
+    font-weight: bold;
+}
+
+.left-box-list .left-box .clipbin-list .folder .clipbin-item .nowrap {
+    display: inline-block;
+    max-width: 120px;
+    overflow: hidden;
+}
+
+.left-box-list .left-box .clipbin-list .folder .clipbin-item a {
+    color: #999;
+    font-size: 12px;
+}
+
+.left-box-list .left-box .clipbin-list .folder .clipbin-item img {
+    float: right;
+    cursor: pointer;
+    position: relative;
+    top: 3px;
+}
+
+.clipbin-item.ui-draggable-dragging {
+    display: block;
+    position: absolute;
+    padding: 4px 9px 4px 20px;
+    border-radius: 3px;
+    list-style: none;
+    width: 140px;
+    z-index: 150;
+    background-color: #cdcdcd;
+}
+
+.clipbin-item.ui-draggable-dragging a{
+    text-decoration: none;
+    color: #95a5a6;
+}
+
+.clipbin-item.ui-draggable-dragging img{
+    float:right;
+    margin-top: 3px;
+}
+
+.left-box-list .left-box .clipbin-list .folder .clipbin-folder-item.clipbin-state-active{
+    background-color: #efefef!important;
+}
+
+.left-box-list .left-box .clipbin-list .no-folder.clipbin-state-hover{
+    background-color: #efefef!important;
+}
+
+.left-box-list .left-box .clipbin-list .folder .clipbin-folder-item {
+    background: url("/data/img/admin/cliplog/view/folder_icon.png") no-repeat left 3px !important;
+    padding: 3px 6px 3px 26px;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+}
+
+.left-box-list .left-box .clipbin-list .folder .clipbin-folder-item img {
+    float: right;
+    cursor: pointer;
+    position: absolute;
+    top: 7px;
+    right: 6px;
+}
+
+.left-box-list .left-box .clipbin-list .folder .clipbin-folder-item .nowrap {
+    display: inline-block;
+    max-width: 120px;
+    overflow: hidden;
+}
+
+.left-box-list .left-box .clipbin-list .folder .clipbin-folder-item .items-count {
+    top: -5px;
+}
+
+.left-box-list .left-box .clipbin-list .folder .clipbin-folder-list.collapsed {
+    background: url("/data/img/admin/cliplog/view/collapsed_bg.png") no-repeat right 25px top 10px;
+}
+
+.left-box-list .left-box .clipbin-list .folder .clipbin-folder-list.expanded {
+    background: url("/data/img/admin/cliplog/view/expanded_bg.png") no-repeat right 25px top 10px;
+}
+
+.left-box-list .left-box .clipbin-list .folder .clipbin-folder-list.collapsed .clipbin-folder-items {
+    display: none;
+}
+
+/*
+ * Навигация
+ */
+
+.top-navigation {
+    width: 100%;
+    margin-top: 65px;
+    padding: 4px;
+}
+.top-navigation .toolbar-item {
+    margin: 0;
+}
+.top-navigation td {
+    height: 25px;
+    line-height: 25px;
+    vertical-align: middle;
+}
+.top-navigation p {
+    margin: 0;
+}
+.top-navigation .btn {
+    height: 23px;
+    line-height: 22px;
+    font-size: 11px;
+    padding: 0 6px;
+}
+
+.top-navigation select {
+    font-size: 11px;
+    height: 25px;
+    padding: 1px 0 1px 3px;
+    max-width: 120px;
+    margin: 0;
+}
+.top-navigation .footagesearch-clips-list-toggle-view-cont {
+    padding: 0;
+    margin: 0;
+    float: none;
+    display: inline-block;
+}
+
+.view-all-clips a {
+    height: 21px;
+    margin-right: 10px;
+}
+.clips-list > form {
+   margin: -50px 0 0 0;
+}
+/* pull down thumb featured gallery */
+.featured-title{
+    display: inline-block;
+    margin: 35px 0 0 0;
+}
+.featured-pulldown{
+    /*width: 216px;
+    /*position: absolute;*/
+    margin: -15px 0 0 0;
+    right: 10px;
+    /*background: url("../img/admin/cliplog/view/expanded_bg.png") no-repeat right 15px center;*/
+}
+.featured-pulldown.expanded{
+    /*background:#e8e8e8 url("/data/img/admin/cliplog/view/collapsed_bg.png") no-repeat right 15px top 25px;*/
+}
+.featured-pulldown .featured-pull{padding: 5px;height: 40px;}
+.featured-pulldown .featured-pull .featured-thumb-min{
+    width: 30%;
+    display: inline-block;
+    padding: 5px;
+}
+.featured-pulldown .featured-pull .featured-thumb-min{width: 30%;}
+.featured-pulldown .featured-thumb-min img, .featured-pulldown .featured-thumb-max img{width: 100%;height: 100%;}
+.featured-pulldown.expanded .droppablearea{
+    border: 1px dashed #808080;
+    text-align: center;
+    padding: 5px;
+    margin: 5px;
+    width: 100px;
+}
+.featured-pulldown:not(.expanded) .droppablearea{display:none;}
+
+
+/** confirmBox() && alertBox() && changeThumb **/
+.ui-dialog[aria-describedby="dialog-change-thumb"] .ui-button,
+.ui-dialog[aria-describedby="dialog-confirm"] .ui-button,
+.ui-dialog[aria-describedby="dialog-alert"] .ui-button {
+    margin: 5px 5px 0 0;
+    height: 26px;
+    line-height: 26px;
+    padding: 0;
+    font-size: 12px;
+}
+.ui-dialog[aria-describedby="dialog-change-thumb"] .ui-button span,
+.ui-dialog[aria-describedby="dialog-confirm"] .ui-button span,
+.ui-dialog[aria-describedby="dialog-alert"] .ui-button span {
+    padding: 2px 6px 4px 6px;
+    font-size: 12px;
+}
+.ui-dialog[aria-describedby="dialog-change-thumb"] .ui-dialog-titlebar,
+.ui-dialog[aria-describedby="dialog-confirm"] .ui-dialog-titlebar,
+.ui-dialog[aria-describedby="dialog-alert"] .ui-dialog-titlebar {
+    display: none;
+}
+.ui-dialog[aria-describedby="dialog-confirm"] .message,
+.ui-dialog[aria-describedby="dialog-alert"] .message {
+    color: #000;
+}
+.ui-dialog[aria-describedby="dialog-change-thumb"] .ui-button {
+    border-radius: 2px;
+    padding: 0;
+    height: 22px;
+}
+.ui-dialog[aria-describedby="dialog-change-thumb"] .ui-button span {
+    font-size: 11px;
+}
+.ui-dialog[aria-describedby="dialog-change-thumb"] .ui-button.ui-state-disabled {
+    cursor: not-allowed !important;
+    opacity: .5;
+}
+#dialog-change-thumb .clip {
+    width: 320px;
+    height: 230px;
+}
+#dialog-change-thumb .thumb {
+    width: 216px;
+    min-height: 65px;
+    padding: 8px 51px 8px 51px;
+    background: rgba( 122,122,122,.1);
+    border: 1px solid #ccc;
+}
+#dialog-change-thumb .thumb .message {
+    color: #666;
+    font-size: 12px;
+    text-align: center;
+    padding-top: 10px;
+}
+#dialog-change-thumb .thumb .error {
+    color: #a53323;
+    font-size: 12px;
+    text-align: center;
+    padding-top: 10px;
+}
+#change-thumb-button {
+    cursor: pointer;
+}
+.ui-dialog[aria-describedby="dialog-change-thumb"] .vjs-big-play-button {
+    width: 0;
+    height: 0;
+    border: 0;
+    margin: 45px 125px;
+}
+.ui-dialog[aria-describedby="dialog-change-thumb"] .thumb #bowlG {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 10px 86px 30px 86px;
+}
+.ui-dialog[aria-describedby="dialog-change-thumb"] .thumb #bowl_ringG {
+    position: absolute;
+    width: 38px;
+    height: 38px;
+    border: 3px solid #999499;
+    -moz-border-radius: 38px;
+    -webkit-border-radius: 38px;
+    -ms-border-radius: 38px;
+    -o-border-radius: 38px;
+    border-radius: 38px;
+}
+.ui-dialog[aria-describedby="dialog-change-thumb"] .thumb .ball_holderG {
+    position: absolute;
+    width: 10px;
+    height: 38px;
+    left: 14px;
+    top: 0px;
+    -moz-animation-name: ball_moveG;
+    -moz-animation-duration: 1.4s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+    -webkit-animation-name: ball_moveG;
+    -webkit-animation-duration: 1.4s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -ms-animation-name: ball_moveG;
+    -ms-animation-duration: 1.4s;
+    -ms-animation-iteration-count: infinite;
+    -ms-animation-timing-function: linear;
+    -o-animation-name: ball_moveG;
+    -o-animation-duration: 1.4s;
+    -o-animation-iteration-count: infinite;
+    -o-animation-timing-function: linear;
+    animation-name: ball_moveG;
+    animation-duration: 1.4s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+.ui-dialog[aria-describedby="dialog-change-thumb"] .thumb .ballG {
+    position: absolute;
+    left: 0px;
+    top: -9px;
+    width: 15px;
+    height: 15px;
+    background: #6b6b6b;
+    -moz-border-radius: 13px;
+    -webkit-border-radius: 13px;
+    -ms-border-radius: 13px;
+    -o-border-radius: 13px;
+    border-radius: 13px;
+}
+@-moz-keyframes ball_moveG {
+    0% {
+        -moz-transform: rotate(0deg)
+    }
+    100% {
+        -moz-transform: rotate(360deg)
+    }
+}
+@-webkit-keyframes ball_moveG {
+    0% {
+        -webkit-transform: rotate(0deg)
+    }
+    100% {
+        -webkit-transform: rotate(360deg)
+    }
+}
+@-ms-keyframes ball_moveG {
+    0% {
+        -ms-transform: rotate(0deg)
+    }
+    100% {
+        -ms-transform: rotate(360deg)
+    }
+}
+@-o-keyframes ball_moveG {
+    0% {
+        -o-transform: rotate(0deg)
+    }
+    100% {
+        -o-transform: rotate(360deg)
+    }
+}
+@keyframes ball_moveG {
+    0% {
+        transform: rotate(0deg)
+    }
+    100% {
+        transform: rotate(360deg)
+    }
+}

@@ -1,0 +1,345 @@
+[
+    {
+        "icon": "layout.gif",
+        "lang_key": "menu_manage_system",
+        "child":
+                [
+                    {
+                        "module": "publication/view",
+                        "lang_key": "menu_pages"
+                    },
+                    {
+                        "module": "sharedpages/view",
+                        "lang_key": "menu_shared_pages"
+                    },
+                    {
+                        "module": "settings/view",
+                        "lang_key": "menu_settings"
+                    },
+                    {
+                        "module": "frontends/view",
+                        "lang_key": "menu_frontends"
+                    },
+                    {
+                        "module": "file_manager/view",
+                        "lang_key": "menu_file_manager"
+                    },
+                    {
+                        "module": "volumes/view",
+                        "lang_key": "menu_volumes"
+                    },
+                    {
+                        "module": "transcoding/view",
+                        "lang_key": "menu_transcoding"
+                    }
+                ]
+    },
+    {
+        "icon": "cd.gif",
+        "lang_key": "menu_manage_library",
+        "child":
+                [
+                    {
+                        "module": "collections/view",
+                        "lang_key": "menu_collections"
+                    },
+                    {
+                        "module": "hints/view",
+                        "lang_key": "menu_hints"
+                    },
+                    {
+                        "module": "keywords/view",
+                        "lang_key": "menu_keywords"
+                    },
+                    {
+                        "module": "keywordtracking/view",
+                        "lang_key": "menu_keyword_tracking"
+                    },
+                    {
+                        "module": "presets/view",
+                        "lang_key": "menu_presets"
+                    },
+                    
+                    {
+                        "module": "logging_rules/view",
+                        "lang_key": "menu_logging_rules"
+                    },
+                    {
+                        "module": "settings_ratings/view",
+                        "lang_key": "menu_ratings_settings"
+                    },
+                    {
+                        "module": "keywords_front/view",
+                        "lang_key": "menu_keywords_front"
+                    }
+                ]
+    },
+    {
+        "icon": "pricing.png",
+        "lang_key": "menu_pricing",
+        "child":
+                [
+                    {
+                        "module": "pricinguse/view",
+                        "lang_key": "menu_pricinguses"
+                    },
+                    {
+                        "module": "pricingterm/view",
+                        "lang_key": "menu_pricingterms"
+                    },
+                    {
+                        "module": "pricingrfprice/view",
+                        "lang_key": "menu_pricingrfprices"
+                    },
+                    {
+                        "module": "pricingdiscount/view",
+                        "lang_key": "menu_pricingdiscount"
+                    },
+                    {
+                        "module": "pricingrfdiscount/view",
+                        "lang_key": "menu_pricingrfdiscount"
+                    },
+                    {
+                        "module": "discount_display/view",
+                        "lang_key": "menu_discount_display"
+                    },
+                    {
+                        "module": "discount_display_rf/view",
+                        "lang_key": "menu_discount_display_rf"
+                    },
+                    {
+                        "module": "licensing/view",
+                        "lang_key": "menu_licensing"
+                    }
+                ]
+    },
+    {
+        "icon": "delivery.png",
+        "lang_key": "menu_delivery",
+        "child":
+                [
+                    {
+                        "module": "deliverymethods/view",
+                        "lang_key": "menu_delivery_methods"
+                    },
+                    {
+                        "module": "deliveryoptions/view",
+                        "lang_key": "menu_rm_delivery_options"
+                    },
+                    {
+                        "module": "deliveryoptionsrf/view",
+                        "lang_key": "menu_rf_delivery_options"
+                    },
+                    {
+                        "module": "deliverypricefactors/view",
+                        "lang_key": "menu_delivery_price_factors"
+                    }
+                ]
+    },
+    {
+        "icon": "file_mov.png",
+        "lang_key": "menu_formats",
+        "child":
+                [
+                    {
+                        "module": "formats/source_view",
+                        "lang_key": "menu_formats_source"
+                    },
+                    {
+                        "module": "filecompressions/view",
+                        "lang_key": "menu_file_compressions"
+                    },
+                    {
+                        "module": "camerachipsize/view",
+                        "lang_key": "menu_camera_chip_size"
+                    },
+                    {
+                        "module": "bitdepths/view",
+                        "lang_key": "menu_bit_depths"
+                    },
+                    {
+                        "module": "colorspaces/view",
+                        "lang_key": "menu_color_spaces"
+                    },
+                    {
+                        "module": "formats/master_view",
+                        "lang_key": "menu_formats_master"
+                    },
+                    {
+                        "module": "submission_codecs/view",
+                        "lang_key": "menu_digital_file_formats"
+                    },
+                    {
+                        "module": "framesizes/view",
+                        "lang_key": "menu_frame_size"
+                    },
+                    {
+                        "module": "framerates/view",
+                        "lang_key": "menu_frame_rate"
+                    },
+                    {
+                        "module": "delivery_categories/view",
+                        "lang_key": "menu_delivery_category"
+                    },
+                    {
+                        "module": "labs/view",
+                        "lang_key": "menu_lab"
+                    }
+                ]
+    },
+    {
+        "module": "images",
+        "icon": "tab.gif",
+        "lang_key": "menu_imlib",
+        "child":
+                [
+                    {
+                        "module": "images/view",
+                        "lang_key": "menu_image"
+                    },
+                    {
+                        "module": "upload/loaded/images",
+                        "lang_key": "menu_upload_images"
+                    },
+                    {
+                        "module": "watermark/view",
+                        "lang_key": "menu_watermark"
+                    }
+                ]
+    },
+    {
+        "module": "clips",
+        "icon": "tab.gif",
+        "lang_key": "menu_cllib",
+        "child":
+                [
+                    {
+                        "module": "clips/upload",
+                        "lang_key": "menu_upload_clips"
+                    },
+                    {
+                        "module": "import/upload",
+                        "lang_key": "menu_import_clips"
+                    },
+                    {
+                        "module":"import/master",
+                        "lang_key":"menu_import_master"
+                    },
+                    {
+                        "module": "cliplog/view",
+                        "lang_key": "menu_cliplog"
+                    },
+                    {
+                        "module": "clipbins/view",
+                        "lang_key": "menu_bin"
+                    },
+                    {
+                        "module": "clipbins/editor",
+                        "lang_key": "menu_bin_editor"
+                    },
+                    {
+                        "module": "clips/statistics/all",
+                        "lang_key": "menu_clip_statistic"
+                    },
+                    {
+                        "module": "download_buckets/view",
+                        "lang_key": "download_buckets"
+                    },
+					{
+                        "module": "download_hdvideos/view",
+                        "lang_key":"download_hd_videos"
+                    },
+                    {
+                        "module": "clips/searchstatistic/overall",
+                        "lang_key": "menu_search_statistic"
+                    }
+                ]
+    },
+    {
+        "icon": "money.gif",
+        "lang_key": "menu_commerce",
+        "child":
+                [
+                    {
+                        "module": "customers/view",
+                        "lang_key": "menu_customers"
+                    },
+                    {
+                        "module": "invoices/view",
+                        "lang_key": "menu_invoices"
+                    },
+                    {
+                        "module": "tokens/view",
+                        "lang_key": "menu_tokens"
+                    },
+                    {
+                        "module": "upload_tokens/view",
+                        "lang_key": "menu_upload_tokens"
+                    },
+                    {
+                        "module": "ftpaccounts/view",
+                        "lang_key": "menu_ftpaccounts"
+                    }
+                ]
+    },
+    {
+        "icon": "users.gif",
+        "lang_key": "menu_permission",
+        "child":
+                [
+                    {
+                        "module": "users/view",
+                        "lang_key": "menu_users"
+                    },
+                    {
+                        "module": "groups/view",
+                        "lang_key": "menu_groups"
+                    },
+                    {
+                        "module": "permissions/view",
+                        "lang_key": "menu_permissions"
+                    },
+                    {
+                        "module": "users/sales_representatives",
+                        "lang_key": "menu_sales_representatives"
+                    }
+                ]
+    },
+    {
+        "icon": "email_edit.png",
+        "lang_key": "menu_email_templates",
+        "child":
+                [
+                    {
+                        "module": "emailtemplates/view",
+                        "lang_key": "menu_templates_list"
+                    }
+                ]
+    },
+    {
+        "icon": "mail.gif",
+        "lang_key": "menu_formdata",
+        "child":
+                [
+                    {
+                        "module": "formdata/contactus",
+                        "lang_key": "menu_formdata_contactus"
+                    },
+                    {
+                        "module": "formdata/shotrequest",
+                        "lang_key": "menu_formdata_shotrequest"
+                    }
+                ]
+    },
+    {
+        "icon": "mail.gif",
+        "lang_key": "menu_lab_uploads",
+        "child":
+                [
+                    {
+                        "module": "lab_uploads/index",
+                        "lang_key": "menu_lab_uploads_view_orders"
+                    }
+                ]
+    }
+]

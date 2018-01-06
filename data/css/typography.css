@@ -1,0 +1,92 @@
+.typography * {
+    font-family: Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.typography p {
+    color: #1e2222;
+    line-height: 23px;
+    font-size: 13px;
+    margin: 0 0 10px 0;
+}
+
+.typography a {
+    text-decoration: underline;
+    color: #1e2222;
+}
+
+.typography a:hover {
+    text-decoration: underline;
+}
+
+.typography ul,
+.typography ol {
+    margin: 0 0 18px 24px;
+    color: #1e2222;
+}
+.typography li {
+    margin: 5px 10px;
+    font-size: 13px;
+}
+.typography li li {
+    font-size: 13px;
+}
+
+.typography h1,
+.typography h2,
+.typography h3,
+.typography h4,
+.typography h5,
+.typography h6 {
+    color: #1e2222;
+    font-weight: normal;
+}
+
+.typography h1 {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+    line-height: 24px;
+}
+
+.typography h2 {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+    line-height: 22px;
+}
+
+.typography h3 {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+}
+
+.typography h4 {
+    margin: 0 0 5px 0;
+    font-size: 14px;
+}
+
+.typography h5 {
+    margin: 0 0 5px 0;
+    font-size: 14px;
+}
+
+.typography h6 {
+    margin: 0 0 5px 0;
+    font-size: 14px;
+}
+
+.typography table {
+    margin: 0 0 10px 0;
+    font-size: 13px;
+    line-height: 18px;
+    color: #1e2222;
+    border-collapse:collapse;
+}
+
+.typography tr {}
+
+.typography td, .typography th {
+    /*border:1px solid #999;*/
+    padding:5px;
+    font-size: 13px;
+    color: #1e2222;
+    vertical-align: top;
+}

@@ -1,0 +1,122 @@
+div.field{
+    margin-bottom: 10px;
+}
+
+div.actions{
+    margin-bottom: 10px;
+}
+
+fieldset {
+    border: 0;
+}
+
+input.action, button.action, a.action {
+    border: 1px solid #3376b7;
+    background: #004b97 url("/data/img/top_nav_bg.jpg") repeat-x;
+    font-size: 12px;
+    color: #FFF;
+    text-transform: uppercase;
+    padding: 7px 20px;
+    cursor: pointer;
+}
+input.action:hover,
+input.action:focus {
+    cursor: pointer;
+    border: none;
+    border: 1px solid #3376b7;
+}
+
+a.action{
+    display: inline-block;
+    height: 17px;
+    line-height: 17px;
+    text-decoration: none;
+    padding: 8px 20px;
+}
+
+a.action:hover{
+    text-decoration: none
+}
+
+form ul {
+    list-style: none;
+}
+
+input, textarea, select{
+    border: 1px solid #787777;
+    background-color: #f7fbfa;
+    color: #1f1f1f;
+}
+
+textarea{
+    padding: 5px;
+}
+
+input, select {
+    padding: 5px 10px;
+}
+
+select {
+    padding-right: 5px;
+}
+
+select option{
+    padding: 0 10px;
+}
+
+select {
+    width: auto;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+p.message{
+    margin-bottom: 10px;
+}
+
+p.message.error{
+    background-color: #F2DEDE;
+    border-color: #EED3D7;
+    color: #B94A48;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -khtml-border-radius: 4px;
+    border-radius: 4px 4px 4px 4px;
+    margin-bottom: 15px;
+    padding: 8px 35px 8px 14px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    font-size: 13px;
+}
+
+p.message.good{
+    background-color: #DFF0D8;
+    border-color: #D6E9C6;
+    color: #468847;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -khtml-border-radius: 4px;
+    border-radius: 4px 4px 4px 4px;
+    margin-bottom: 15px;
+    padding: 8px 35px 8px 14px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    font-size: 13px;
+}
+
+/* Popups */
+.to_cart_form textarea{
+    width:505px;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+/* Register form */
+#register_form .field{
+    width: 250px;
+}
+
+#register_form select{
+    width: 272px;
+}

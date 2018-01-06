@@ -1,0 +1,155 @@
+SELECT c.id, c.code, c.source_format, f.format FROM lib_clips c
+INNER JOIN lib_pricing_format f ON c.source_format = f.format AND f.camera = 1
+WHERE f.format IS NULL
+
+SELECT c.id, c.code, c.master_format, f.format FROM lib_clips c
+INNER JOIN lib_pricing_format f ON c.master_format = f.format AND f.master = 1
+WHERE f.format IS NULL
+
+SELECT c.id, c.code, c.digital_file_format, f.format FROM lib_clips c
+INNER JOIN lib_cliplog_digital_file_formats f ON c.digital_file_format = f.format
+WHERE f.format IS NULL
+
+SELECT c.id, c.code, c.master_frame_size, fs.name FROM lib_clips c
+INNER JOIN lib_frame_sizes fs ON c.master_frame_size = fs.name
+WHERE fs.name IS NULL
+
+SELECT c.id, c.code, c.digital_file_frame_size, fs.name FROM lib_clips c
+INNER JOIN lib_frame_sizes fs ON c.digital_file_frame_size = fs.name
+WHERE fs.name IS NULL
+
+SELECT c.id, c.code, c.source_frame_size, fs.name FROM lib_clips c
+INNER JOIN lib_frame_sizes fs ON c.source_frame_size = fs.name
+WHERE fs.name IS NULL
+========================================================================================================================
+SELECT DISTINCT (c.source_format) FROM lib_clips c
+LEFT JOIN lib_pricing_format f ON c.source_format = f.format AND f.camera = 1
+WHERE f.format IS NULL
+
+SELECT DISTINCT (c.master_format) FROM lib_clips c
+LEFT JOIN lib_pricing_format f ON c.master_format = f.format AND f.master = 1
+WHERE f.format IS NULL
+
+SELECT DISTINCT (c.digital_file_format) FROM lib_clips c
+LEFT JOIN lib_submission_codecs f ON c.digital_file_format = f.name
+WHERE f.name IS NULL
+
+SELECT DISTINCT(c.master_frame_size) FROM lib_clips c
+LEFT JOIN lib_frame_sizes fs ON c.master_frame_size = fs.name
+WHERE fs.name IS NULL
+
+SELECT DISTINCT(c.digital_file_frame_size) FROM lib_clips c
+LEFT JOIN lib_frame_sizes fs ON c.digital_file_frame_size = fs.name
+WHERE fs.name IS NULL
+
+SELECT DISTINCT(c.source_frame_size) FROM lib_clips c
+LEFT JOIN lib_frame_sizes fs ON c.source_frame_size = fs.name
+WHERE fs.name IS NULL
+
+SELECT DISTINCT(c.source_frame_rate) FROM lib_clips c
+LEFT JOIN lib_frame_rates fr ON c.source_frame_rate = fr.name
+WHERE fr.name IS NULL
+
+SELECT DISTINCT(c.master_frame_rate) FROM lib_clips c
+LEFT JOIN lib_frame_rates fr ON c.master_frame_rate = fr.name
+WHERE fr.name IS NULL
+
+SELECT DISTINCT(c.digital_file_frame_rate) FROM lib_clips c
+LEFT JOIN lib_frame_rates fr ON c.digital_file_frame_rate = fr.name
+WHERE fr.name IS NULL
+
+SELECT DISTINCT(c.pricing_category) FROM lib_clips c
+LEFT JOIN lib_pricing_category_type pc ON c.pricing_category = pc.id
+WHERE pc.id IS NULL
+
+SELECT DISTINCT(c.master_lab) FROM lib_clips c
+LEFT JOIN lib_labs l ON c.master_lab = l.name
+WHERE l.name IS NULL
+
+SELECT id,code FROM `lib_clips` WHERE `active` = 1 AND source_format = ''
+
+Source Format
+AVC
+AVC-Intra
+Canon EOS
+Day Dream
+Green Insect
+Groom
+Insect
+Poisonous Snake
+ProRes422
+RED Scarlet
+Redcode Raw R3D
+Reptile
+Super 16mm Film
+Tangkoko Batuangus Nature Reserve
+XAVC
+XDCam 4:2:2 50Mbps
+
+Submission Codec (digital_file_format)
+HD ProRes422HQ (Cross Platform)
+HD XDCam .mov (Mac Only)
+HD H.264 .mov
+H.264 .mov
+ProRes422 (Cross Platform)
+HD Redcode Raw R3D
+MPEG-4 .mp4
+
+source_frame_size
+SD NTSC 16:9 (720x486)
+SD NTSC 4:3 (720x486)
+SD PAL 4:3 (720x576)
+SD PAL 16:9 (720x576)
+SD PAL 16:9 Letterbox (720x576)
+HD 3K (3072x2048)
+SD NTSC 16:9 Letterbox (720x486)
+Ultra HD 5K 3:2 (5120x3413)
+HD 3K (2704x1440)
+HD 3K (2704x1524)
+
+master_frame_size
+SD NTSC 4:3 (720x486)
+SD PAL 4:3 (720x576)
+SD NTSC 4:3 Center Crop (720x486)
+SD PAL 16:9 Letterbox (720x576)
+SD PAL 16:9 (720x576)
+SD NTSC 16:9 (720x486)
+SD NTSC 16:9 Letterbox (720x486)
+Ultra HD 4K 16:9
+HD 3K 16:9
+Ultra HD 5K 16:9
+Ultra HD 5K 2:1
+
+Submission Frame Size (digital_file_frame_size)
+SD NTSC 4:3 (720x486)
+SD NTSC 16:9 (720x486)
+SD PAL 4:3 (720x576)
+SD PAL 16:9 (720x576)
+SD NTSC 4:3 Center Crop (720x486)
+SD PAL 16:9 Letterbox (720x576)
+SD NTSC 16:9 Letterbox (720x486)
+SD 4:3 Center Crop (720x480)
+SD 4:3 (720x480)
+Ultra HD 5K 3:2 (5120x3413)
+HD 3K (2704x1440)
+HD 3K (2704x1524)
+
+Delivery Category
+SWTC
+
+Lab
+Deluxe Media (Reference Tape ID)
+Footage Search
+
+I have checked the field and found some inconsistencies. This is a list of values for each field which is not match to cliplog:
+
+And This are files with lists of clips codes which has empty values for this fields.
+
+
+SELECT * FROM `attributes` WHERE `node_id` >= 1344 AND `node_id` <=1381 AND `schema_name` = 'binaries'
+
+http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/US_UpdatingLoadBalancerSSL.html
+http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/US_SettingUpLoadBalancerHTTPS.html
+http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/ssl-server-cert.html
+https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#LoadBalancers:
+http://docs.aws.amazon.com/IAM/latest/UserGuide/InstallCert.html

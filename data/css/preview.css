@@ -1,0 +1,57 @@
+#left_part {
+    float: left;
+    width: 512px
+}
+#right_part{
+    float: right;
+    width: 410px;
+    padding-right: 30px;
+}
+
+.clip_details, .clip_details td, .clip_details th{
+    border: none;
+    font-size: 12px;
+}
+
+.clip_details td, .clip_details th {
+    padding: 5px 2px; vertical-align: top
+}
+
+.clip_details th {
+    color: #444;
+    padding-right: 10px;
+    text-align: right;
+}
+.clip_details td {
+    text-align: left;
+    width: 280px
+}
+
+.to_basket_btn{
+    border: 1px solid #3376b7;
+    background: #004b97 url("/data/img/top_nav_bg.jpg") repeat-x;
+    font-size: 12px;
+    color: #FFF;
+    line-height: 30px;
+    padding: 0 20px;
+    cursor: pointer;
+    display: inline-block;
+    height: 30px;
+    text-decoration: none;
+}
+.to_basket_btn span{
+    background: url("/data/img/to_basket_bg.jpg") no-repeat;
+    padding-left: 25px;
+}
+
+.to_bin_btn{
+    background: url("/data/img/bin.png") no-repeat;
+    background-position: left center;
+    font-size: 12px;
+    line-height: 30px;
+    padding-left: 20px;
+    cursor: pointer;
+    display: inline-block;
+    height: 30px;
+    text-decoration: none;
+}

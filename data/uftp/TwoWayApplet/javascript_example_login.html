@@ -1,0 +1,115 @@
+<!DOCTYPE html>  
+<html lang="en">  
+  <head>
+    <meta charset="utf-8" />  
+    <title>FileCatalyst Login Sample</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script>
+      <!-- 
+      // Enter your server and port information here.  These will be sent through
+      // the form as hidden values.  Username and Password will be entered
+      // into the form by the user.  21 is the default FTP port.
+      var server= "ENTER_SERVER_HERE";
+      var port = "21";
+      //use the other javascript_example file to set all other paramters for the applet
+
+
+      //set the random number for key
+      var somedate = new Date();
+      var ek = Math.floor(Math.random()*11111111)+"abc";
+
+      function doSubmit(){
+        if (document.f.u.value == ""){
+          alert("Username is Required");
+          return;
+        }
+        if (document.f.p.value == ""){
+          alert("Password is Required");
+          return;
+        }
+
+        //hide the login so the scambled username and password don't show up.
+        document.getElementById("loginTable").style="display:none;";
+
+        //the login form is valid; let's submit the encrypted values
+        var user = document.f.u.value;
+        var pass = document.f.p.value;
+        document.f.u.value= encode(user,ek);
+        document.f.p.value = encode(pass,ek);
+        document.f.k.value =ek;
+        document.f.s.value = encode(server,ek);
+        document.f.prt.value=port;
+        document.f.submit();
+      }
+
+      function encode(sstring,skey) {
+        var i;
+        var keyLength = skey.length;
+        var newstring = "";
+        for (i = 0; i < sstring.length; i++){
+          var value = sstring.charCodeAt(i);
+          var newval = value+skey.charCodeAt(i%keyLength);
+          while (newval<=32||newval>126||newval==34||newval==39)
+            newval=(newval<=32)?126-Math.abs(32-newval):(newval>126)?newval-94:newval+skey.charCodeAt(i%keyLength);
+          newstring = newstring + String.fromCharCode(newval);
+        }
+        return newstring;
+      }
+
+      -->
+    </script>
+
+  </head>
+
+  <body id="login_page">
+
+    <!-- Begin Wrapper -->
+    <div id="wrapper">
+      <!-- Begin Header -->
+      <header>
+        <div id="logo"><img src="images/logo.png" alt="FileCatalyst Logo" /></div>
+      </header>
+      <!-- End Header -->
+
+      <!-- Begin Content -->
+      <div id="content">
+        <div id="login_wrap">
+          <form name='f' action="javascript_example_two_way.html" method="GET">
+            <table>
+              <tr><td colspan=2>
+                  <h2>Please log in</h2>
+                  <p id="message"><em>Edit this file and set the <strong>server</strong> and <strong>port</strong> values found in the script.</em></p>
+                </td></tr>
+              <tr><td>Username</td><td><input type="text" name="u" size="20"></td></tr>
+              <tr><td>Password</td><td><input type="password" name="p" size="20"></td></tr>
+              <tr><td>&nbsp;</td><td><input type="submit" value="Login" onClick='doSubmit()'></td></tr>
+            </table>
+            <input type="hidden" name="k">
+            <input type="hidden" name="s">
+            <input type="hidden" name="prt">
+          </form>
+        </div>
+      </div>
+      <!-- End Content -->
+
+      <footer>
+        <div class="left">
+          <a href="http://www.filecatalyst.com">www.filecatalyst.com</a>
+        </div>
+        <div class="right">
+          &copy; <script>document.write(new Date().getFullYear())</script> Unlimi-Tech Software, Inc.
+        </div>
+        <div class="clear">
+
+        </div>
+      </footer>
+
+    </div>
+    <!-- End Wrapper -->
+	<script>
+	  if (server != "ENTER_SERVER_HERE" && server!= "") {
+	    document.getElementById('message').style.visibility="collapse";
+	  };
+	</script>
+  </body>
+</html>

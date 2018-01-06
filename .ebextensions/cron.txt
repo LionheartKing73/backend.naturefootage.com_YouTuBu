@@ -1,0 +1,10 @@
+# The newline at the end of this file is extremely important.  Cron won't run without it.
+# ----
+# stopped this cron job, to check if it will resolve cpu utilization issue
+# 0 0 * * * root /usr/bin/php /var/app/current/scripts/crawl-sitemap.php > /dev/null
+# source /etc/profile.d/eb_envvars.sh; - for environment variables export
+# ----
+*/5 * * * * root source /etc/profile.d/eb_envvars.sh; /usr/bin/php /var/app/current/load_users/load_users.php > load_users.log 2>&1
+0 * * * * root source /etc/profile.d/eb_envvars.sh; /usr/bin/php /var/app/current/scripts/sort_rating/executor.php > /dev/null
+1 4 6 * * root source /etc/profile.d/eb_envvars.sh; /usr/bin/php /var/www/html/index.php searchVideos index > /dev/null
+0 16 * * * root source /etc/profile.d/eb_envvars.sh; /usr/bin/php /var/app/current/zoho_submissions/upload_submission.php > /dev/null

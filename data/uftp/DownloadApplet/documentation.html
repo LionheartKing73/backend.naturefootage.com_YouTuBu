@@ -1,0 +1,1869 @@
+<html>
+    <head>
+        <title>FileCatalyst Download Applet Documentation</title>
+
+        <style type="text/css">
+            <!--
+            /* Special style for paragraphs describing features only in Webmail / Workflow */
+            .fcweb {
+                font-style: italic;
+                color: #09337B;
+            }
+
+            #wrapper {
+                width: 920px;
+                margin-left:auto;
+                margin-right:auto;
+                background-color: #FFFFFF;
+                padding:20px;
+                padding-top: 6px;
+            }
+
+            body {
+                font-size: 1em;
+                background:url("images/bk.jpg") repeat scroll 0 0 #FFFFFF;
+                font-family: Aria, sans-serif;
+            }
+
+            h1,h2,h3,h4,h5 {
+                font-family: "Trebuchet MS", sans-serif;
+                color: #09337B;
+                letter-spacing: -0.5pt;
+                margin: 0  0 0.5em 0;
+                padding: 0;
+            }
+
+            h4, h5, .faqQuestion {
+                margin-bottom: 0;
+
+            }
+
+            h1, h2, h5 {
+                color: #F15C22;
+            }
+
+
+            #mainContent h4, .faqQuestion {
+                color: #326ABC;
+            }
+
+            h1 {
+                font-size: 2.5em;
+                text-align: center;
+            }
+            h2 { font-size: 1.6em }
+            h3 { font-size: 1.3em }
+            h4 { font-size: 1.1em; }
+
+            h5 {
+                font-size: 1em;
+                font-weight: normal;
+                font-style: italic;
+                display: block;
+                letter-spacing: 0;
+            }
+
+            p {
+                line-height: 1.5em;
+                vertical-align: baseline;
+                margin-bottom: 1em;
+                margin-top: 0;
+            }
+
+            .small {
+                font-size: 11px;
+            }
+
+            blockquote{
+                margin-left:20px;
+            }
+
+            .figure {
+                text-align: center;
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+
+            a {
+                color: #F15C22;
+                text-decoration: none;
+                font-weight: normal;
+            }
+
+            #tableOfContents li, #tableOfContents ol {
+                list-style: decimal inside none;
+                margin: 0;
+                padding: 0;
+                color: #04265B
+            }
+
+            table {
+                border-collapse: collapse;
+                border: 1px solid #09337B;
+                margin-bottom: 1.5em;
+            }
+
+            table th {
+                background-color: #09337B;
+                color: white;
+            }
+
+            table td {
+                padding: 6px;
+                font-size: 14px;
+                border: 1px solid #ccc;
+            }
+
+            tr>td:first-child {
+                text-align:center;
+            }
+
+            #tableOfContents a {
+                color: #09337B;
+            }
+
+            a:hover {
+                text-decoration: underline;
+            }
+
+            #tableOfContents ol li, .section ol li {
+                margin-top: 10px;
+            }
+
+            #tableOfContents ol>li {
+                font-weight: bold;
+            }
+
+            #tableOfContents ol>li>ol>li{
+                list-style-type: lower-alpha;
+                margin-left: 1.5em;
+            }
+
+            #tableOfContents ol>li>ol>li>ol>li {
+                list-style-type: square;
+                margin-top: 0;
+            }
+
+            #mainContent div {
+                margin-left: 1em;
+            }
+
+            #mainContent li {
+                margin-bottom: 12px;
+            }
+
+            .monospace {
+                font-family: monospace;
+            }
+            -->
+        </style>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <link rel="shortcut icon" href="images/favicon.ico"/>
+    </head>
+
+    <body>
+        <div id="wrapper">
+            <div id="logo"><a id="top"></a>
+                <img src="images/header.jpg" alt="FileCatalyst Header Logo">
+                <h1>File<em>Catalyst</em> Download Applet</h1>
+            </div>
+
+            <div id="tableOfContents">
+                <h2>Table of Contents</h2>
+                <ol>
+                    <li>Overview
+                        <ol>
+                            <li><a href="#requirements">Requirements</a></li>
+                            <li><a href="#installation">Installation Procedure</a></li>
+                        </ol>
+                    </li>
+
+                    <li>Configurable Parameters
+                        <ol>
+                            <li><a href="#params_connection">Connection-related Settings</a></li>
+                            <li><a href="#params_tuning">FileCatalyst Transport Tuning</a></li>
+                            <li><a href="#params_transfers">Transfer Content Parameters</a></li>
+                            <li><a href="#params_features">Transfer Features</a></li>
+                            <li><a href="#params_presentation">GUI Behaviour and Presentation</a></li>
+                            <li><a href="#params_redirection">PostURL and Browser Redirection</a></li>
+                            <li><a href="#params_debug">Debug Parameters</a></li>
+                        </ol>
+                    </li>
+
+                    <li>Performance Tuning
+                        <ol>
+                            <li><a href="#knowYourSystem">Know Your System</a></li>
+                            <li><a href="#knowYourBandwidth">Know Your Bandwidth</a></li>
+                            <li><a href="#knowYourNetwork">Know Your Network Infrastructure</a></li>
+                            <li><a href="#knowYourData">Know Your Data</a></li>
+                            <li><a href="#knowYourClients">Know the Client Endpoint</a></li>
+                        </ol>
+                    </li>
+
+                    <li>Firewall Considerations
+                        <ol>
+                            <li><a href="#configuringControl">Configuring for the Control Connection</a></li>
+                            <li><a href="#configuringData">Configuring for the Data Connections</a></li>
+                        </ol>
+                    </li>
+
+                    <li>Regular Expressions
+                        <ol>
+                            <li><a href="#regex_examples">Example Usage</a></li>
+                        </ol>
+                    </li>
+
+                    <li>Support
+                        <ol>
+                            <li><a href="#support">Support Options</a></li>
+                        </ol>
+                    </li>
+                </ol>
+            </div>
+
+            <p>&nbsp;</p>
+            <hr/>
+
+            <div id="mainContent">
+                <h2>1 Overview</h2>
+                <div>
+                    <h3 id="requirements">1.a Requirements</h3>
+                    <p>FileCatalyst will run on any Windows, Linux, OS X, or Solaris/Sparc computer that
+                        can run Java 1.4 or higher.  Please visit <a href="http://java.com">http://java.com</a> to get the latest
+                        version of Java for your platform.</p>
+
+                    <p>To run a FileCatalyst applet, the user will need a web browser (e.g. Internet Explorer, Firefox, Safari) which has been enabled with
+                        Java Plugin version 1.4 or later.  Once you have installed the applet, you may navigate to the install path to see the sample page.  For example,
+                        if the files are at /wwwroot/filecatalyst then you would access the applet through http://www.server.com/filecatalyst , substituting your
+                        own domain or IP address for "www.server.com". The browser will find the "index.html" page and load it, which will in turn load the applet. </p>
+
+                    <h3 id="installation">1.b Installation Procedure</h3>
+                    <ol>
+                        <li>Unzip/decompress FileCatalyst Applet package (e.g. &ldquo;fc_applet.zip&rdquo;).</li>
+                        <li>Save the contents to an appropriate directory on your website (for example, &ldquo;/uftp&rdquo;).</li>
+                        <li>Add the following 2 lines to the webpage that will contain the applet in this order:
+                            <blockquote><pre>&lt;script language="JavaScript" src="deployJava.js"&gt;&lt;/script&gt;</pre></blockquote>
+                            <blockquote><pre>&lt;script language="JavaScript" src="fcdownload.js"&gt;&lt;/script&gt;</pre></blockquote>
+                            The included document &ldquo;fcdownload.html&rdquo; offers an example of usage.  Change the src=&ldquo;fcdownload.js&rdquo; to include the relative path, unless the webpage and the applet are located in the same directory.  for example, it might become:  <span class="code">src="../uftp/fcdownload.js"</span></li>
+                        <li>Modify the JavaScript file (&ldquo;fcdownload.js&rdquo;) to suit your needs, according to the parameters outlined in the next section of this guide.</li>
+                    </ol>
+
+
+                    <h2>2 Configurable Parameters</h2>
+                    <p>
+                        The following section describes the JavaScript parameters defined in the fcdownload.html page. They include both manditory parameters (server, port, user, password) and optional features.
+                    </p>
+                    <p>
+                        <em>Note:</em> For a JavaScript-only headless applet, please refer to the additional examples provided in the <em><strong>live.html</strong></em> or <em><strong>ajax_sample.html</strong></em> pages included in the applet bundle.
+                    </p>
+
+                    <div>
+                        <h3 id="params_connection">2.a Connection-related Settings</h3>
+                        <p>Provides basic connection configurations required for the applet to connect to a remote server.</p>
+                        <table>
+                            <tr>
+                                <th colspan="2">Connection-related Settings</th>
+                            </tr>
+
+                            <tr>
+                                <td width="26%">server</td>
+                                <td>
+                                    <p>The host name or IP address of the FileCatalyst server.</p>
+                                    <p>Default value: &quot;&quot;<br/>
+                                        Valid values: <em>valid hostname or IP address</em>
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>port</td>
+                                <td>
+                                    <p>The port on which to connect to the FileCatalyst server software</p>
+                                    <p>
+                                        Default value: 21<br/>
+                                        Valid values: 1-65535
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>user</td>
+                                <td>
+                                    <p>Specify username when authenticating to the server</p>
+                                    <p>
+                                        Default value: &quot;anonymous&quot;<br/>
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>pass</td>
+                                <td>
+                                    <p>will send the specified password when authenticating to the server</p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>encrypt</td>
+                                <td>
+                                    <p>If set to "true" you must use encrypted values for the server/user/pass parameters.  FileCatalyst server
+                                        will decrypt them and perform the login. The encryption is based on a key value that is specified by
+                                        the "ek" parameter below. To generate encrypted parameters, use encrypt.html, included with the applet.
+                                        This provides at least some measure of protection from prying eyes.
+                                    </p>
+                                    <p>
+                                        Although including the encryption tool may seem somewhat insecure, keep in mind this is only a way to
+                                        hide credentials from users who are merely poking around in your HTML source. Determined hackers will
+                                        easily be able to sniff the network to retrieve user and password info regardless of encryption done
+                                        in the HTML. Use SSL on the FileCatalyst server to ensure full security.</p>
+                                    <p>
+                                        Default value: false<br/>
+                                        Valid values: false, true
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>ek</td>
+                                <td>
+                                    <p>This parameter works in conjunction with the &quot;encrypt&quot; parameter. This is the key that is used to encode/decode the string value you pass to the user, pass, and server parameters. Here is an example configuration. In this example, the server/user/pass strings are 192.168.1.100/anonymous/fc@FileCatalyst.com respectively. This illustrates how the parameters will look to anyone who inspects the connection values in your HTML:</p>
+                                    <blockquote><pre>var server = &quot;8I7BLHN;8I8@5&quot;;
+var port = &quot;21&quot;;
+var pass = &quot;|vy&amp;[)&amp;yp*p&amp;jx#((;j,t&quot;;
+var user = &quot;h~t$6!=$z&quot;;
+var autoconnect = &quot;true&quot;;
+var autoreconnect = &quot;true&quot;;
+var passive = &quot;true&quot;;
+var encrypt = &quot;true&quot;;
+var ek = &quot;encryptkey&quot;;</pre>
+                                    </blockquote>
+                                    <p>
+                                        Default value: &quot;&quot;<br/>
+                                        Valid values: <em>string value</em>
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>clientConnectKey</td>
+                                <td>
+                                    <p>obtain a key from your FileCatalyst representative in order to allow applet to communicate
+                                        with non-FileCatalyst servers</p>
+                                    <p>
+                                        Default value: &quot;&quot;<br/>
+                                        Valid values: <em>Obtain key from FileCatalyst</em>
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>enableSSL</td>
+                                <td>
+                                    <p>Require applet to connect with SSL mode</p>
+                                    <p>
+                                        Default value: false<br/>
+                                        Valid values: true, false
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>maxRetries</td>
+                                <td>
+                                    <p>This value specifies how many times FileCatalyst will try, if a transfer error occurs,
+                                        to reconnect and resume the transfer</p>
+                                    <p>
+                                        Default value: 3<br/>
+                                        Valid values: <em>integer value</em>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>waitRetry</td>
+                                <td>
+                                    <p>This value (in milliseconds) specifies how long FileCatalyst will wait, if a transfer
+                                        error occurs, before it tries to reconnect and resume the transfer</p>
+                                    <p>
+                                        Default value: 3000 <em>(3 seconds)</em><br/>
+                                        Valid values: <em>integer value</em>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>localPort</td>
+                                <td>
+                                    <p>Port to be used for incoming data.  By default, the server port will be opened server-side.
+                                        However, if firewall and NAT prevent this default (passive) connection, you may specify a port
+                                        in order to actively permit the connection.</p>
+                                    <p>
+                                        Default value: 0 <em>(zero = any free port)</em><br/>
+                                        Valid values: <em>0&ndash;65535</em>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h3 id="params_tuning">2.b FileCatalyst Transport Tuning</h3>
+                        <p>These parameters allow you to configure FileCatalyst to perform properly over your specific network conditions.</p>
+                        <table>
+                            <tr>
+                                <th colspan="2">FileCatalyst Transport Tuning</th>
+                            </tr>
+                            <tr>
+                                <td>bandwidth</td>
+                                <td>
+                                    <p>Maximum bandwidth (kbps) applet will attempt to transfer at.  If congestionControl is false, this value
+                                        represents the speed at which the applet will transfer data at.</p>
+                                    <p>
+                                        Default value: 100000 <em>(100 Mbps)</em><br/>
+                                        Valid values: <em>integer value</em>
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="26%">mode</td>
+                                <td>
+                                    <p>Specifies protocol used to transfer files.</p>
+                                    <p>
+                                        UDP -- Utilizes the FileCatalyst protocol for fast network transfers.  Immune to latency on the network.
+                                        <br/>FTP -- Utilizes a passive multi-stream TCP connection (data ports).  If failure occurs, protocol attempts a
+                                        passive TCP connection (both control and data are sent through main transfer port).
+                                        Fast transfers over LAN, slow transfers over WAN.
+                                        <br/>HTTP -- Data sent via HTTP posts to HTTP Servlet (default web port 80), where the data is captured reconstructed
+                                        on the servlet and forwarded to the FileCatalyst server. Slower transfers, but able to navigate through most firewalls.
+                                        <br/>AUTO -- Protocol will attempt to transfer via UDP.  If connections cannot be established, failover cascades to other
+                                        protocols in this order to attempt a successful connections: </p>
+                                    <ol>
+                                        <li>UDP</li>
+                                        <li>Passive TCP</li>
+                                        <li>Port TCP</li>
+                                        <li>HTTP (if http servletLocation is configured)</li>
+                                    </ol>
+
+                                    <p>
+                                        Default value: UDP<br/>
+                                        Valid values: AUTO, UDP, FTP, HTTP
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>servletLocation</td>
+                                <td>
+                                    <p>HTTP Servlet location.  Used in conjuction with the Unlimited FTP Servelet to allow HTTP transfers.</p>
+                                    <p>
+                                        Default value: &quot;&quot;<br/>
+                                        Valid values: <em>Network address for the HTTL servlet (example: &quot;http://192.168.1.100:8080/uftps/ftpservlet&quot;)</em>
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>servletUploadMultiplier</td>
+                                <td>
+                                    <p>Adjusts the size of data passed into each HTTP post (n * 2048 bytes)</p>
+                                    <p>
+                                        Default value: 2<br/>
+                                        Valid values: 1-10 <em>(may be servlet limit)</em><br/>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>numFTPStreams</td>
+                                <td>
+                                    <p>Specify the number of encoders (concurrent threads/blocks) to use for multi-stream TCP transfers.</p>
+                                    <p>
+                                        Default value: 1<br/>
+                                        Valid values: 1-10
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>unitSize</td>
+                                <td>
+                                    <p>The packet size in bytes.  Set to 1024 for Windows, 1472 for Linux/MacOSX.
+                                      <br> For high speed transfers (1+gbps), set to maximum size of network MTU - 28 byte (for headers):
+                                      <br>  Ex:  for 9000 MTU, set to 8972
+                                    </p>
+
+
+                                    <p>
+                                        Default value: 1024<br/>
+                                        Valid values: <em>integer value</em>
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>blockSize</td>
+                                <td>
+                                    <p>The block size in bytes</p>
+                                    <p>
+                                        Default value: 4096000 <em>(4 MB)</em><br/>
+                                        Valid values: <em>integer value</em>
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>numSenderThreads</td>
+                                <td>
+                                    <p>Specify the number of Sender Threads (concurrent threads/blocks) to use for UDP transfers.</p>
+                                    <p>
+                                        Default value: 3<br/>
+                                        Valid values: 1-75 <em>(server-side limit applies)</em><br/>
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>numSenderSockets</td>
+                                <td>
+                                    <p>Specify the number of UDP streams sender can utilize for UDP transfers.  Allows for higher
+                                      core utilization in sending data packets out.
+                                      <br>  Recommend increase for every ~2gbps on link.</p>
+                                    <p>
+                                        Default value: 1<br/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>numReceiveSockets</td>
+                                <td>
+                                    <p>Specify the number of UDP streams receiver can utilize for UDP transfers.  Allows for higher
+                                      core utilization in getting packets in.
+                                      <br>  Recommend increase for every ~5gbps on link.</p>
+                                    <p>
+                                        Default value: 1<br/>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>congestionControl</td>
+                                <td>
+                                    <p>If set to true, applet will start with a slow transfer speed and ramp up to
+                                        the maximum specified by bandwidth. This is best used if you do not know your linespeed, or
+                                        must share network connections with other traffic.</p>
+                                    <p>
+                                        Default value: true<br/>
+                                        Valid values: true, false
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>startRate</td>
+                                <td>
+                                    <p>Specifies the rate in Kbps at which transfer will start before ramping up to target bandwidth.</p>
+                                    <p>
+                                        Default value: 1000 <em>(1 mbps connection)</em><br/>
+                                        Valid values: <em>integer value</em><br/>
+                                        <em>(normally &lt; 1/2 maximum bandwidth, or speed of slowest expected connection)</em><br/>
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>congestionControlAggression</td>
+                                <td>
+                                    <p>Specifies the UDP congestion control aggression between 1 and 10. 1 is least aggressive
+                                        and 10 is most aggressive.</p>
+                                    <ul>
+                                        <li>&quot;2&quot; will normally allow other TCP traffic on the network to take priority (speed will be throttled
+                                            back by congestion control).</li>
+                                        <li>&quot;5&quot;  default -- will let the UDP transfer compete for network bandwidth with other protocols (such as TCP).  </li>
+                                        <li>&quot;&gt;7&quot; will let the UDP transfer try and overpower all other network traffic.</li>
+                                    </ul>
+                                    <p>
+                                        Default value: 5<br/>
+                                        Valid values: 1-10;
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>congestionControlStrategy</td>
+                                <td>
+                                    <p>Specifies the strategy used by UDP congestion control.</p>
+                                    <ul>
+                                        <li>&quot;0&quot; RTT based congestion control (strategy used for FileCatalyst v2.x software).</li>
+                                        <li>&quot;1&quot; Packet-loss based congestion control.</li>
+                                    </ul>
+                                    <p>
+                                        Default value: 1<br/>
+                                        Valid values: 0,1;
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>numPacketProcessors</td>
+                                <td>
+                                    <p>Number of threads used to process packets on the receiving side.
+                                      <br>Recommended increasing for every 500mbps (up to # of processors) when using AES encryption
+                                       to allow multi-core decryption.
+                                       Download only.</p>
+                                    <p>
+                                        Default value: 1<br/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>packetQueueDepth</td>
+                                <td>
+                                    <p>Number of packets application keeps buffered before processing.  Download only.</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>numBlockWriters</td>
+                                <td>
+                                    <p>Number of block writers when saving the file to disk.  Download only.</p>
+                                    <p>
+                                        Default value: 1<br/>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>writeBufferSizeKB</td>
+                                <td>
+                                    <p>Size in KB of each write operation when saving the file to disk.  Allows optimize writes
+                                      to disk.</p>
+                                    <p>
+                                        Default value: network block size<br/>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>writeFileMode</td>
+                                <td>
+                                    <p>Mode the application will use to write file to disk.  RW will utilize
+                                      OS buffers to attempt to speed transfer speeds, and is generally the fastest option.  RWD and RWS
+                                      forces the OS to update meta data for each write operation, while also forcing the write operation
+                                      is written to disk (not buffers) before returning.</p>
+                                    <p>Default blank lets the FileCatalyst application choose the value based on operating system.</p>
+                                    <p>
+                                        Default value: ""<br/>
+                                        Valid values: "", rw, rws, rwd
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>numBlockReaders</td>
+                                <td>
+                                    <p>Number of block readers when reading the file from disk.  Upload only.</p>
+                                    <p>
+                                        Default value: 1<br/>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>readBufferSizeKB</td>
+                                <td>
+                                    <p>Size in KB of each read operation when loading the file from disk.</p>
+                                    <p>
+                                        Default value: network block size<br/>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>forceTCPmodeACKs</td>
+                                <td>
+                                    <p>Force Acks to flow on the TCP channel (if UDP ACKs" are blocked by firewall)</p>
+                                    <p>
+                                        Default value: false <em>(basic DSL/Cable)</em><br/>
+                                        Valid values: true, false
+                                    </p>
+                                </td>
+                            </tr>
+
+                        </table>
+
+                        <h3 id="params_transfers">2.c Transfer Content Parameters</h3>
+                        <p>These parameters can be pre-defined to list out the files/directories to transfer.</p>
+                        <table>
+                            <tr>
+                                <th colspan="2">Transfer Content Parameters</th>
+                            </tr>
+                            <tr>
+                                <td width="26%">files</td>
+                                <td>
+                                    <p>Predefine file/directory list to upload.  Use &quot;delimiter&quot; to seperate out multiple files.</p>
+                                    <p>Semi-colon (Windows) or colon (Linux, OS X, Solaris) delimited list of filenames if delimiter is not explicitly defined.</p>
+                                    <p>
+                                        Default value: &quot;&quot;<br/>
+                                        Valid values: <em>String value</em>
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>filesRename</td>
+                                <td>
+                                    <p>Delimited list of filenames to which downloaded files will be renamed to.
+                                        Order in &quot;filesRename&quot; list must follow those of the &quot;files&quot; list.
+                                    </p>
+                                    <p>
+                                        Default value: &quot;&quot;<br>
+                                        Valid values: <em>String value</em>
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>localdir</td>
+                                <td>
+                                    <p>Default browse directory (default is home directory)</p>
+                                    <p>
+                                        Default value: &quot;&quot;<br>
+                                        Valid values: <em>String value - full path</em>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>createLocalDir</td>
+                                <td><p>This directory will be created as a sub-directory in the location the users selects for download. </p>
+                                    <p> Default value: &quot;&quot;<br>
+                                        Valid values: <em>String value - directory name </em>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>remotedir</td>
+                                <td>
+                                    <p>Path to which the downloaded files are found on the server (relative to ftp user home)</p>
+                                    <p>
+                                        Default value: &quot;&quot;<br>
+                                        Valid values: <em>String value</em>
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>autoDownload</td>
+                                <td> <p>Transfers will start immediately when added to the transfer queue</p>
+                                    <p>
+                                        Default value: false<br>
+                                        Valid values: true, false
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+
+
+
+                        <h3 id="params_features">2.d Transfer Features</h3>
+                        <p>Parameters provide multiple features to accelerate file transfers (compression, delta, etc) or to add robustness
+                            to the transfers (MD5 verification, preserve file structure, preserve file attributes, etc).</p>
+
+                        <table>
+                            <tr>
+                                <th colspan="2">Transfer Features</th>
+                            </tr>
+                            <tr>
+                                <td width="26%">incremental</td>
+                                <td>
+                                    <p>When set to true, only files that have been modified will be transferred (default false)</p>
+                                    <p>
+                                        Default value: false<br/>
+                                        Valid values: true, false
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>incrementalMode</td>
+                                <td>
+                                    <p>Delta feature.  This determines what the applet will do when it recognizes that an incremental
+                                        transfer must occur (file has changed).  Incremental mode can either overwrite the existing file, or create a new file
+                                        using a numerical notation.
+                                    </p>
+                                    <ul>
+                                        <li>&quot;0&quot;: transfer the entire file if the applet has detected that the file has been modified.</li>
+                                        <li>&quot;1&quot;: transfer ONLY file delta (rsync).</li>
+                                        <li>&quot;2&quot;: transfer the entire file, but do not overwrite the original file (format: file.#.txt).</li>
+                                        <li>&quot;3&quot;: transfer ONLY file delta (rsync), but do not overwrite the original file (format: file.#.txt).</li>
+                                    </ul>
+                                    <p>
+                                        Default value: 0<br/>
+                                        Valid values: 0,1,2,3
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>verifyintegrity</td>
+                                <td>
+                                    <p>MD5 verification of the file content on both sides of the transfer.</p>
+                                    <p>
+                                        Default value: false<br/>
+                                        Valid values: true, false
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>verifyMode</td>
+                                <td>
+                                    <p>Method used to perform file verfication.</p>
+                                    <p>
+                                        Performing an MD5 on the entire file (after transfer is complete) is a more standard approach, but can result in
+                                        the transfer appearing to pause, especially on high bandwidth transfers verifying large files are performed.
+                                    </p>
+                                    <p>
+                                        On-the-fly MD5 calculations are performed after each block (or file part) is saved to the disk.  These are done
+                                        while data is still being transferred on the network by other threads, resulting in a smoother network usage.
+                                    </p>
+                                    <p>
+                                        Concurrent MD5 offloads file verification to another connection, resulting in complete utilization of networking
+                                        resources.
+                                    </p>
+                                    <ul>
+                                        <li>&quot;0&quot;: Verification after file transfer</li>
+                                        <li>&quot;1&quot;: On-the-fly verification</li>
+                                        <li>&quot;2&quot;: Concurrent verification</li>
+                                    </ul>
+                                    <p>
+                                        Default value: 0<br/>
+                                        Valid values: 0, 1, 2
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>progressive</td>
+                                <td>
+                                    <p>After transfer is complete, applet will check if file has grown on server since the start
+                                        of the transfer.  If the file has grown, the transfer will resume until the file size is set.</p>
+                                    <p>
+                                        Default value: false<br/>
+                                        Valid values: true, false
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>autoresume</td>
+                                <td>
+                                    <p>If the applet detects that a partial file already exists, the applet will attempt to resume
+                                        the transfer rather than start the transfer from the beginning.</p>
+                                    <p>
+                                        Default value: true<br/>
+                                        Valid values: true, false
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>compression</td>
+                                <td>
+                                    <p>files will be compressed  on the fly as they are transferred.</p>
+                                    <p>
+                                        Default value: false<br/>
+                                        Valid values: true, false
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                              <td>compMethod</td>
+                              <td>
+                                <p>Determines the compression method requested.</p>
+                                <ul>
+                                  <li>Use Zip Deflater (0) or LMZA (1) for on-the-fly compression.
+                                    <p>Note:  LMZA is VERY CPU and MEMORY intensive for the encoder.</p>
+                                  </li>
+                                </ul>
+                                <p>
+                                  Default value: 0<br/>
+                                  Valid values: 0-1
+                                </p>
+                              </td>
+                            </tr>
+                            <tr>
+                                <td>compLevel</td>
+                                <td>
+                                    <p>Determines the compression level requested.</p>
+                                    <ul>
+                                        <li>&quot;1&quot;: offers the least compression but lowest CPU overhead</li>
+                                        <li>&quot;9&quot;: offers the best compression but highest CPU overhead</li>
+                                    </ul>
+                                    <p>
+                                        Default value: 4<br/>
+                                        Valid values: 1-9
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>autoZip</td>
+                                <td>
+                                    <p>Single archive transfer.  If set to true, all files are first archived into a single zip file
+                                        and sent off the network as one file transfer before being uncompressed at it's destination.  Set this if the
+                                        file contents include many small files (&lt; 100k), as the work required to build up and tear down each data
+                                        connection often exceeds the time of transfer for small files.
+                                        The generated ZIP file must be 4GB or smaller, otherwise the auto-zip transfer will fail.</p>
+                                    <p>
+                                        Default value: false<br/>
+                                        Valid values: true, false
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                              <td>zipFileSizeLimit</td>
+                              <td>
+                                <p>This feature will limit the size of the zip archives to the specified value (in bytes) when possible. If a file set is too large to fit in a single zip of the specified size, multiple zip archives will be created. These zip archives are automatically extracted and cleaned up as they are transferred. At most 5 archives will be created at one time. Additional archives are generated only after the oldest file is deleted. This helps reduce disk space required.</p>
+                                <p>
+                                  Default value: &quot;&quot;<br/>
+                                  Valid values: <em>long value</em>
+                                </p>
+                              </td>
+                            </tr>
+                            <tr>
+                                <td>useTempName</td>
+                                <td>
+                                    <p>File will be transferred with a .tmp extension, and renamed when transfer is complete</p>
+                                    <p>
+                                        Default value: false<br/>
+                                        Valid values: true, false
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>preservePathStructure</td>
+                                <td>
+                                    <p>Path info is maintained when files are transferred. If set to faluse, the path is not
+                                        included and directories are flattened.</p>
+                                    <p>
+                                        Default value: true<br/>
+                                        Valid values: true, false
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>keepFileAttributes</td>
+                                <td>
+                                    <p>preserve the file modification date/time and UNIX file permissions if applicable</p>
+                                    <p>
+                                        Default value: false
+                                        Valid values: true, false
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>deletePartial</td>
+                                <td>
+                                    <p>Partial files will be deleted when an transfer is cancelled.</p>
+                                    <p>
+                                        Default value: false<br/>
+                                        Valid values: true, false
+                                    </p>
+
+                                    <p>
+                                        This flag also determines the applet behaviour to stop a transfer.
+                                    </p>
+                                    <ul>
+                                        <li>When set to TRUE, the stop button is labeled "CANCEL", and a redirect cancel is called.</li>
+                                        <li>When set to FALSE, the stop button is labeled "PAUSE", and a redirect pause is called.</li>
+                                    </ul>
+                                    <p>
+                                        If the seperatePauseCancel is set to true (both pause and cancel buttons are displayed), the value
+                                        will be modified based on user action (pressing pause will set to false, pressing cancel will set to true).
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>confirmOverwrite</td>
+                                <td>
+                                    <p>If this value is set to "true", FileCatalyst will prompt you if the file(s) already
+                                        exist when a transfer is attempted. You will have the choice to overwrite if you want to. If it is set
+                                        to false, FileCatalyst will always overwrite.</p>
+                                    <p>
+                                        Default value: false<br/>
+                                        Valid values: true, false
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h3 id="params_presentation">2.e GUI Behaviours and Presentation</h3>
+                        <p>Parameters provide multiple options to customize or modify existing behaviour of the applet.</p>
+                        <table>
+                            <tr>
+                                <th colspan="2">GUI Behaviour and Presentation</th>
+                            </tr>
+
+                            <tr>
+                                <td width="26%">width</td>
+                                <td>
+                                    <p>the overall width of the applet itself in pixels (button size may vary)</p>
+                                    <p>
+                                        Default value: 500<br/>
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>height</td>
+                                <td>
+                                    <p>the overall height of the applet itself in pixels (button size may vary)</p>
+                                    <p>
+                                        Default value: 300<br/>
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>background</td>
+                                <td>
+                                    <p>Changes the background color of the applet.</p>
+                                    <p>Example:  </p>
+                                    <ul>
+                                        <li>"255,255,255" is white</li>
+                                        <li>"255,0,0" is red</li>
+                                        <li>"0,0,255" is blue</li>
+                                        <li>"0,0,0" is black</li>
+                                    </ul>
+
+                                    <p>
+                                        Default value: &quot;255,255,255&quot; <em>(white)</em><br/>
+                                        Valid values: <em>R,G,B notation in 0-255 decimal numeration (not HEX)</em>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>buttonTextColor</td>
+                                <td> <p>Changes the color of the applet text.</p>
+                                    <p>Example:        </p>
+                                    <ul>
+                                        <li>&quot;255,255,255&quot; is white</li>
+                                        <li>&quot;255,0,0&quot; is red</li>
+                                        <li>&quot;0,0,255&quot; is blue</li>
+                                        <li>&quot;0,0,0&quot; is black</li>
+                                    </ul>
+
+                                    <p>
+                                        Default value: &quot;0,0,0&quot; <em>(white)</em><br/>
+                                        Valid values: <em>R,G,B notation in 0-255 decimal numeration (not HEX)</em>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>buttonbackground</td>
+                                <td>
+                                    <p>Changes the background color of the buttons.</p>
+                                    <p>Example:</p>
+                                    <ul>
+                                        <li>&quot;255,255,255&quot; is white</li>
+                                        <li>&quot;255,0,0&quot; is red</li>
+                                        <li>&quot;0,0,255&quot; is blue</li>
+                                        <li>&quot;0,0,0&quot; is black</li>
+                                    </ul>
+                                    <p>
+                                        Default value: &quot;220,220,220&quot; <em>(light grey)</em><br/>
+                                        Valid values: <em>R,G,B notation in 0-255 decimal numeration (not HEX)</em>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>buttonTextColorOnMouseOver</td>
+                                <td>
+                                    <p>Changes the text color of the buttons when the mouse is moving over.</p>
+                                    <p>Example:   </p>
+                                    <ul>
+                                        <li>&quot;255,255,255&quot; is white</li>
+                                        <li>&quot;255,0,0&quot; is red</li>
+                                        <li>&quot;0,0,255&quot; is blue</li>
+                                        <li>&quot;0,0,0&quot; is black</li>
+                                    </ul>
+
+                                    <p>
+                                        Default value: &quot;0,0,0&quot; <em>(black)</em><br/>
+                                        Valid values: <em>R,G,B notation in 0-255 decimal numeration (not HEX)</em>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>buttonColorOnMouseOver</td>
+                                <td>
+                                    <p>Changes the button color when the mouse is moving over.</p>
+                                    <p>Example:  </p>
+                                    <ul>
+                                        <li>&quot;255,255,255&quot; is white</li>
+                                        <li>&quot;255,0,0&quot; is red</li>
+                                        <li>&quot;0,0,255&quot; is blue</li>
+                                        <li>&quot;0,0,0&quot; is black</li>
+                                    </ul>
+
+                                    <p>
+                                        Default value: &quot;200,200,200&quot; <em>(grey)</em><br/>
+                                        Valid values: <em>R,G,B notation in 0-255 decimal numeration (not HEX)</em>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>headerTextColor</td>
+                                <td>
+                                    <p>Changes the header color.</p>
+                                    <p>Example:  </p>
+                                    <ul>
+                                        <li>&quot;255,255,255&quot; is white</li>
+                                        <li>&quot;255,0,0&quot; is red</li>
+                                        <li>&quot;0,0,255&quot; is blue</li>
+                                        <li>&quot;0,0,0&quot; is black</li>
+                                    </ul>
+
+                                    <p>
+                                        Default value: &quot;0,0,0&quot; <em>(black)</em><br/>
+                                        Valid values: <em>R,G,B notation in 0-255 decimal numeration (not HEX)</em>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>showDialogs</td>
+                                <td>
+                                    <p>Toggle all GUI elements of the applet displayed.  If set to false, the applet becomes
+                                        hidden to the user.  Can be used in conjunction of the JavaScript methods to produce a headless applet.</p>
+                                    <p>
+                                        Default value: true<br/>
+                                        Valid values: true, false
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>ProgBarGraphic</td>
+                                <td>
+                                    <p>Progress bar icon available for logo placement.</p>
+                                    <p>
+                                        Default value: &quot;&quot;<br>
+                                        Valid values: <em>Logo file name</em>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>useImageButtonForDownload</td>
+                                <td>
+                                    <p>Use an image button instead of the standard square download button.</p>
+                                    <p>
+                                        Default value: false<br>
+                                        Valid values: true, false
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>downloadIcon</td>
+                                <td>
+                                    <p>This is a URL to the download button image (example: /images/mybutton.png).
+                                        Blank value defaults to a Classic Windows button image</p>
+                                    <p>
+                                        Default value: /images/download.png<br>
+                                        Valid values: <em>Valid URL</em>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>downloadIconOnMouseover</td>
+                                <td>
+                                    <p>Download button image when the mouse rolls over the button.
+                                        Blank value defaults to a Classic Windows button image</p>
+                                    <p>
+                                        Default value: /images/downloadMouseover.png<br>
+                                        Valid values: <em>Valid URL</em>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>separatePauseCancel</td>
+                                <td>
+                                    <p>Seperate out functionality of pause and cancel into seperate buttons.
+                                    </p>
+                                    <p>
+                                        Default value: false<br>
+                                        Valid values: true, false
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>lookAndFeel</td>
+                                <td>
+                                    <p>Select the look and feel for the applet. </p>
+                                    <p>
+                                        Default value: Metal<br>
+                                        Valid values: Metal, Basic
+                                    </p>
+                                </td>
+                            </tr>
+
+                        </table>
+
+
+                        <h3 id="params_redirection">2.f PostURL and Browser Redirection</h3>
+                        <p>Parameters provide additional applet behaviour after a transfer has completed.  This provide a side array of
+                            integration options into existing web portals.
+                        </p>
+                        <table>
+                            <tr>
+                                <th colspan="2">PostURL and Browser Redirection</th>
+                            </tr>
+
+                            <tr>
+                                <td width="26%">delimiter</td>
+                                <td>
+                                    <p>Delimiter that will be used to separate the file paths in the post data</p>
+                                    <p>Semi-colon (Windows) or colon (Linux, OS X, Solaris) if not defined.</p>
+                                    <p>
+                                        Default value: <em>varies on platform</em>
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>sendLogsToURL</td>
+                                <td>
+                                    <p>Send applet logs as an HTTP Post to a specified URL.</p>
+                                    <p>
+                                        Default value: &quot;&quot;<br/>
+                                        Valid values: <em>Valid URL</em>
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr
+
+                            <tr>
+                                <td>autoReveal</td>
+                                <td>
+                                    <p>When set to &quot;true&quot;, upon a completed download the applet will automatically reveal the downloaded files in Explorer on Windows, or in Finder on Mac OS X. </p>
+                                    <p>
+                                        Default value: &quot;false&quot;<br>
+                                        Valid values: <em>true, false </em>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>autoRedirect</td>
+                                <td>
+                                    <p>If set to false and callurlaftertransfer is set, the applet will
+                                        only redirect when a button is clicked.</p>
+                                    <p>
+                                        Default value: true<br>
+                                        Valid values: true, false
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>callurlaftertransfer</td>
+                                <td>
+                                    <p>applet will redirect to this URL after transfer is complete. The redirect URL
+                                        also contains variables in a query string that may be used by the destination page.</p>
+                                    <p>
+                                        Example of redirect:  &quot;http://localhost&quot;
+                                        <br/>http://localhost/?totalSize=103600&duration=1&m=UDP
+                                    </p>
+                                    <ul>
+                                        <li>Total size of transfer apppended to URL (bytes):
+                                            <br/>font size="2">?totalSize=103600</li>
+                                        <li>Transfer duration in seconds:
+                                            <br/>&duration=1</li>
+                                        <li>Transfer mode selected:
+                                            <br/>&m=UDP</li>
+                                    </ul>
+                                    <p>
+                                        Leave blank to disable
+                                    </p>
+                                    <p>
+                                        Default value: &quot;&quot;<br/>
+                                        Valid values: <em>Valid URL</em>
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>callurlaftertransfertarget</td>
+                                <td>
+                                    <p>If redirecting, applet will redirect the target window </p>
+                                    <p>
+                                        Default value: &quot;_self&quot;<br/>
+                                        Valid values: <em>String value</em>
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>transfererrorurl</td>
+                                <td>
+                                    <p>Applet will redirect to this URL if a transfer error occurred</p>
+                                    <p>
+                                        Default value: &quot;&quot;<br/>
+                                        Valid values: <em>Valid URL</em>
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>transfererrorurltarget</td>
+                                <td>
+                                    <p>If redirecting, applet will redirect the target window </p>
+                                    <p>
+                                        Default value: &quot;_self&quot;<br/>
+                                        Valid values: <em>String value</em>
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>transfercancelurl</td>
+                                <td>
+                                    <p>Applet will redirect to this URL if a transfer cancel occurred</p>
+                                    <p>
+                                        Default value: &quot;&quot;<br/>
+                                        Valid values: <em>Valid URL</em>
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>transfercancelurltarget</td>
+                                <td>
+                                    <p>If redirecting, applet will redirect the target window </p>
+                                    <p>
+                                        Default value: &quot;_self&quot;<br/>
+                                        Valid values: <em>String value</em>
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>transferpauseurl</td>
+                                <td>
+                                    <p>Applet will redirect to this URL if a pause occurs</p>
+                                    <p>
+                                        Default value: &quot;&quot;<br/>
+                                        Valid values: <em>Valid URL</em>
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>transferpauseurltarget</td>
+                                <td>
+                                    <p>If redirecting, applet will redirect the target window </p>
+                                    <p>
+                                        Default value: &quot;_self&quot;<br/>
+                                        Valid values: <em>String value</em>
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>othererrorurl</td>
+                                <td>
+                                    <p>Applet will redirect to this URL if non connection or transfer
+                                        related error occurs</p>
+                                    <p>
+                                        Default value: &quot;&quot;<br/>
+                                        Valid values: <em>Valid URL</em>
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>othererrorurltarget</td>
+                                <td>
+                                    <p>If redirecting, applet will redirect the target window </p>
+                                    <p>
+                                        Default value: &quot;_self&quot;<br/>
+                                        Valid values: <em>String value</em>
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>callurlonload</td>
+                                <td>
+                                    <p>Applet will execute this call once the applet has loaded.
+                                        Useful for JavaScript integration, where errors are being seen by the integrating website due to calls
+                                        to the applet before it has completely loaded.
+                                    </p>
+                                    <p>
+                                        An example can be seen in the <em>live.html</em> call, where a JavaScript function can be called to set a variable
+                                        once loading is complete.</p>
+                                    <blockquote><pre>var callurlonload = &quot;JavaScript:appletLoaded()&quot;;</pre></blockquote>
+                                    <p>
+                                        Default value: &quot;&quot;<br/>
+                                        Valid values: <em>Valid URL</em>
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>callurlonloadtarget</td>
+                                <td>
+                                    <p>Applet will redirect the target window </p>
+                                    <p>
+                                        Default value: &quot;_self&quot;<br/>
+                                        Valid values: <em>String value</em>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h3 id="params_debug">2.g Debug Parameters</h3>
+                        <p>Parameters which provide additional debug information, and do not play a role with the behaviour or the look/feel of the application.</p>
+
+                        <table>
+                            <tr>
+                                <th colspan="2">Debug Parameters</th>
+                            </tr>
+
+                            <tr>
+                                <td width="26%">debug</td>
+                                <td>
+                                    <p>Will output onto the Java console all parameters loaded up by the applet, including if a default value has been
+                                        utilized or not.  Can help debugging applets when parameters are not being set properly by the JavaScript.  As this can cause excessive
+                                        logging, it is recommended that it be turned off except when trying to troubleshoot applet issues.</p>
+                                    <p>
+                                        Default value: <em>false</em><br/>
+                                        Valid values: <em>true, false</em>
+                                    </p>
+                                     <p class="fcweb">In FileCatalyst Webmail and Workflow, this parameter is set automatically</p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>allParamsLoaded</td>
+                                <td>
+                                    <p>Last variable parameter loaded in the JavaScript example page.  If this value is set to true, but the Java console
+                                        reports the variable as false, there is likely an error in the JavaScript which is preventing all params to be proprely loaded by the
+                                        application.</p>
+                                    <p>
+                                        Default value: <em>true</em>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <h2>3 Performance Tuning</h2>
+                    <p>Tuning your FileCatalyst Software for performance requires knowledge of your system,
+                        network and usage scenario.</p>
+                    <p>There is no magic &quot;optimize for all&quot; button.</p>
+                    <p>This section attempts to address a few common scenarios encountered by clients, and
+                        seeing where improvements can be made to allow greater throughput.</p>
+
+                    <div>
+                        <h3 id="knowYourSystem">3.a Know Your System</h3>
+
+                        <div>
+                            <h4>Disk IO</h4>
+                            <p>Achieving high throughput transfers requires first and foremost that you have the
+                                physical ability to read/write to data at the speeds you are trying to transfer.</p>
+                            <p>FileCatalyst HotFolder and Remote Server Admin now include features that allow you to
+                                test write speed of your system. Running a file IO test with those applications can help determine if your system
+                                itself can keep up with the amount of data being written. You may use the results to help tune FileCatalyst applets.</p>
+                            <p>If the IO speed is not what you expected, verify the following:</p>
+                            <ol>
+                                <li>Ensure that the user home directory (or HotFolder location) is pointing to the
+                                    correct path.</li>
+                                <li>If the mount point is a network drive (Samba, SAN), make sure that the networking
+                                    infrastructure can support the capacity (i.e.: Gbps ISCSI mounted via a 100 Mbps
+                                    switch)</li>
+                            </ol>
+
+                            <h4>Encryption and CPU Overhead</h4>
+                            <p>Certain features of the FileCatalyst Software are computationally intensive, and may
+                                bottleneck high speed transfers.</p>
+                            <p>Encryption of the control channel alone does not impose significant overhead. However,
+                                setting the FileCatalyst Server to use encryption on the control + data channel does
+                                impose a performance (CPU) penalty.</p>
+                            <p>A typical client or server machine can handle transfer speeds of 100
+                                Mbps. However, hitting higher speeds (&gt;500 Mbps) becomes difficult if the data channel
+                                is encrypted, with transfer starting to become CPU-bound. This may be verified by running an
+                                Activity Monitor (i.e. &quot;Task Manage&quot; on Windows or &quot;top&quot; on Linux) for your
+                                OS and checking the CPU usage while the transfer is occurring. </p>
+                            <p>Depending on your workflow, a possible solution to overcome this would be to
+                                encrypting the data BEFORE transferring it over the wire, and decrypt it once the data
+                                has reached its destination.</p>
+                            <p>Compressing files can also be CPU intensive. Under most circumstances, the gain in
+                                network throughput outweighs the CPU overhead to zip up files before transfer, especially
+                                when files are text based and can be highly compressed. However, compression should be
+                                avoided for most binary and media files, which are normally considered non-compressible.
+                                If compression AND AES on the data channel are utilized, high speed transfers are likely
+                                to be limited by the amount of computing power that can be assigned for each
+                                transfer.</p>
+                        </div>
+
+                        <h3 id="knowYourBandwidth">3.b Know Your Bandwidth</h3>
+                        <p>FileCatalyst HotFolder has the ability to test the bandwidth between itself and the
+                            server. It is recommended that this test be run if you are unsure of the real network
+                            bandwidth. The results of the test may inform applet configuration.</p>
+                        <p>If there is a network bottleneck between the client and the server, setting the
+                            bandwidth speed above the real network capacity may result in high level of dropped
+                            packets and slower overall throughput.</p>
+                        <p>If the bandwidth is above 500 Mbps and the supporting disk IO can support these speeds,
+                            it is recommended that client application specify UDP sender streams to be 2 or greater.
+                            This allows more data to be pushed out of the system, and provides higher maximum speeds.</p>
+
+                        <h3 id="knowYourNetwork">3.c Know Your Network Infrastructure</h3>
+                        <p>Once the bandwidth is known, other settings can now be adjusted to accommodate your
+                            specific network environment.</p>
+
+                        <div>
+                            <h4>Congestion Control: Play nice with TCP, or give it the boot</h4>
+                            <p>Our UDP protocol has the ability to be very friendly to other traffic sharing the
+                                network resource. It also has the ability to push out any other traffic and try to attain
+                                maximum line speed at all costs. Both of these are valid scenarios, and it is important
+                                to understand the impact this can have on your transfers.</p>
+                            <ol>
+                                <li>For typical shared land-line networks (where other traffic is also present), UDP
+                                    transfers should enable congestion control. This allows the protocol to react to packet
+                                    loss (possibly due to other TCP traffic) in a friendly manner, and slow down the rate of
+                                    transfer to allow multiple traffic sources to share the line.</li>
+                                <li>By default, the congestion control value is set to 2 (low aggressive rate), which
+                                    reacts fairly quickly. When other traffic is detected, transfer rates should come down
+                                    quickly and play nice. The start rate should also be set to be the minimum speed which
+                                    you know the line is capable of handling.</li>
+                                <li>For dedicated land-line networks, customers often turn on the congestion control, but
+                                    set the aggression much higher (5, or halfway), with the start rate at half the known
+                                    link speed. This allows the file transfer to ramp up quickly, and maintain high rates
+                                    should other traffic try to share the line. The higher the aggressive rate, the more the
+                                    protocol will kick out any other TCP/UDP traffic on the line.</li>
+                                <li>For improved line speed, set the network upload/download to known link capacity,
+                                    minimizing the software from exceeding the network and causing continuous peak/valley
+                                    from the congestion control.</li>
+                                <li>For maximum line speed, disabling congestion control removes most overhead from the
+                                    UDP protocol. However, if the software exceeds the link capacity, any dropped packets due
+                                    to network slowdown are amplified, increasing the risk of all sender threads entering
+                                    retransmission mode increases (slows down transfer rate temporarily).</li>
+                                <li>For satellite transfers, packet loss could simply be caused by an object passing
+                                    quickly between the dish and the satellite, or momentary electrical/solar interference.
+                                    For these types of connections, customers often turn off congestion control altogether,
+                                    preferring to power through any temporary loss of signal and not risk slowing down the
+                                    connection.</li>
+                            </ol>
+
+                            <h4>Compensate for Packet Loss</h4>
+                            <p>Performance can be further optimized if you know your levels of packet loss.</p>
+                            <p>The FileCatalyst protocol performs error correction should some packets not arrive on
+                                first attempt. However, retransmission of data blocks is much slower and
+                                latency-sensitive than the original sending of data. To compensate for this slower
+                                retransmission period, our algorithm employs multiple sender threads to send out the
+                                data, increasing probability that at least one sender is able to send data at full rate
+                                while the other threads clean up any missing packets.</p>
+                            <p>For high packet loss, it is recommended that more threads be deployed, each with a
+                                smaller block size. This greatly decreases the possibility that one particular transfer
+                                finds all its sender threads in &quot;retransmission&quot; mode, slowing the throughput down.</p>
+
+                            <h4>Compensate for High Latency</h4>
+                            <p>To compensate for high latency, it is recommended that block sizes (the amount of data
+                                each sender thread can manage at one time) be increased, or that the amount of threads be
+                                increased. Each of these allows more data to be in-flight, before a callback is initiated
+                                to see if packets must be resent.</p>
+                            <p>There is a simple equation to know the minimum values required to saturate a
+                                particular line:</p>
+                            <p><span class="monospace">RTT * bandwidth &lt;= numSenderThreads * blocksize</span></p>
+                            <p><em>i.e.</em> RTT is 250ms, and your line speed is 100000 Kbps. numSenderThreads *
+                                blocksize should be greater than 25000000 bytes, or roughly 25 MB. Setting
+                                numSenderThreads set to 3 (default), you need a minimal block size of 8333333 to keep the
+                                line always full, or a little over 8MB.</p>
+                            <p>To compensate for potential packet loss, it is recommended that the thread value be
+                                increased by at least 1 thread to ensure that one sender thread is always transmitting a
+                                new block of data.</p>
+
+                            <h4>Increase OS TCP/UDP Buffers and Window Sizes</h4>
+                            <p>Most operating systems allow the administrator to configure TCP/UDP parameters.
+                                Increasing the number of packets that may be in-flight may result in fewer lost packets,
+                                thereby increasing performance.</p>
+                            <p>See <a href="http://www.29west.com/docs/THPM/udp-buffer-sizing.html">http://www.29west.com/docs/THPM/udp-buffer-sizing.html</a>,
+                                sections 8.7, 8.8, 8.9</p>
+                            <p>See knowledge base article: <a href="http://support.filecatalyst.com/index.php?_m=knowledgebase&amp;_a=viewarticle&amp;kbarticleid=17">
+                                    http://support.filecatalyst.com/index.php?_m=knowledge base&amp;_a=viewarticle&amp;kbarticleid=17</a></p>
+                            <p><em>NOTE: This is considered a requirement for any transfers higher than 150-200
+                                    Mbps.</em></p>
+                        </div>
+
+                        <h3 id="knowYourData">3.d Know Your Data</h3>
+                        <p>FileCatalyst products supports many tools to decrease the amount of data that is
+                            required to be sent across the network. The exact combination of features to utilize and
+                            increase file transfer performance depends on the nature of the data being sent across
+                            the network.</p>
+
+                        <div>
+                            <h4>Archive Small Files Together</h4>
+                            <p>Each individual file transfer, regardless if the file is 50 GB or 1 kb, requires
+                                overhead to setup a network connection between the client and the server. For large
+                                files, this overhead has minimal impact, as the software will spend most of the time
+                                transferring data across the wire. For transfers of small individual files however, the
+                                reverse is true: the software can spend most of the time setting up and tearing down a
+                                connection, only to transfer a directory full of many small files.</p>
+                            <p>It is recommended that if transfers consists of many small files, that compression be
+                                turned on and that the &lsquo;compress files into single archive&rsquo; option be enabled. This can
+                                significantly increase performance, as now the application will spend all its time
+                                transferring data instead of managing ports and network connections. Enabling progressive
+                                transfers will also allow the application to start transferring even as the single
+                                archive is being built.</p>
+                            <p>There are caveats to single archive transfers to keep in mind. Should a transfer be
+                                interrupted, auto-resume will does not work, and restarting the transfer will start the
+                                archive/transfer from the beginning. Also, delta file transfers (incremental) does not
+                                work.</p>
+                            <p>It is therefore recommended to enable the &quot;Max size&quot; feature for the single archives. This will create several smaller archives and extract them as they are transferred. If the transfer is interrupted, generally some of the file will have already been transferred. </p>
+
+                            <h4>Compress Text Files</h4>
+                            <p>FileCatalyst clients allow files to be compressed before being sent out. Transferring
+                                of text files (logs, emails, etc) should be compressed before being transferred. The CPU
+                                overhead of compression is negligible compared to the bandwidth savings of compressing an
+                                ASCII based file. It is recommended that progressive transfers be set when compression is
+                                used. This allows the file to be sent over even as it is being compressed, reducing the
+                                overall transfer time.</p>
+                            <p>Media files (audio, video, images) however do not compress easily, and often add
+                                intensive computing overhead to a transfer while giving no bandwidth savings. Ensure that
+                                non-compressible files are filtered out by using the file compression filter.</p>
+
+                            <h4>Delta File Transfer</h4>
+                            <p>If the same file is sent out more than once (perhaps with only a small modification to
+                                the file), enabling incremental delta transfers will significantly reduce the bandwidth
+                                involved in sending a file.</p>
+                            <p>For large files, it is also recommended to turn on progressive transfers. This allows
+                                the file deltas to be transferred. even as they are being built on the server, reducing
+                                the time it takes for the file to be transferred.</p>
+                            <p>If the same file contains entirely new data each time (example: logs truncated on
+                                daily basis, and uploaded using the same file name), it is recommended to disable
+                                incremental transfers and simply start to transfer the file as new (avoid the computation
+                                required to determine what is different in the file, as all of it has changed).</p>
+
+                            <h4>MD5 on-the-fly</h4>
+                            <p>MD5 calculations are able to be conducted as each chunk of data is being received.
+                                This allows the application to perform calculations in parallel with the data transfer,
+                                and skips the otherwise long MD5 done at the end of the file transfer.</p>
+                        </div>
+
+                        <h3 id="knowYourClients">3.e Know the Client Endpoint</h3>
+
+                        <div>
+                            <h4>Low bandwidth clients</h4>
+                            <p>For clients connecting with low bandwidth, ensure that the congestion control start
+                                rate is set below the maximum line speed. By default, the value for the start rate is
+                                384kbps, or the speed of a slower residential DSL/Cable connection. If the congestion
+                                control rate is still higher than available bandwidth, the application will quickly flood
+                                the network connection, producing lost/dropped packets and forcing the sender threads to
+                                perform most of its transfer in retransmission mode (slower).</p>
+                            <p>For very low bandwidth clients and low latency transfers, FTP mode can at times
+                                perform faster transfer rates than UDP.</p>
+                            <p>Using our <a href="http://www.filecatalyst.com/products/comparison_tool.html">on-line
+                                    comparison calculator</a>, you can see if there is an advantage to using FTP rather then
+                                UDP. Note, however, that the values in the on-line calculator do not take high packet
+                                loss into account. TCP at high latency is extremely sensitive to even 0.1% packet loss,
+                                while our UDP protocol handles this much more gracefully.</p>
+
+                            <h4>High Load Servers (or lots of clients)</h4>
+                            <p>Transferring UDP at high speed is memory intensive. Using the example listed above, a
+                                250ms transfer (LA to Hong Kong) at 100 000 Kbps requires a minimum of 25MB of data to be
+                                in-flight at any one time.</p>
+                            <p>For a standard install of FileCatalyst Server the default memory allowed is 1GB. This means the system can likely accept
+                                around 40 concurrent connections at full speed before starting to run short of memory
+                                resources.</p>
+                            <p>The key to getting the FileCatalyst Server to accept higher numbers of concurrent
+                                connections is to lower the memory footprint each connection can take on the system.
+                                The server has an option via the Server Remote
+                                Administration to optimize for concurrency. This will lower the maximum thread count and
+                                block size each client connection consumes, resulting in the server able to accept more
+                                clients at any one time.</p>
+                            <p>If the maximum sender thread and maximum block size is set too low, limiting clients
+                                from connecting at full bandwidth, the following may be done:</p>
+
+                            <h4>Limiting Concurrent Connections</h4>
+                            <p>The FileCatalyst Server allows setting the maximum concurrent user connections to
+                                levels below what the license allows. This allows administrators the possibility of
+                                setting the memory footprint high for each client, but limiting the connections to ensure
+                                that the server does not itself start to run short of memory.</p>
+
+                            <h4>Increase Java Heap Size</h4>
+                            <p>The optimizations performed for high-load servers are based upon your existing
+                                available JAVA heap size. Increasing the memory footprint JAVA is allowed to consume will
+                                increase the number of threads or block sizes each transfer may consume.</p>
+                            <h5>Windows Service</h5>
+                            <p>For FileCatalyst Servers running as a service, these may be
+                                configured in fcconf.conf:</p>
+                            <blockquote><pre>
+# Java Additional Parameters
+#original: wrapper.java.additional.1=-XX:MaxDirectMemorySize=1G
+wrapper.java.additional.1=-XX:MaxDirectMemorySize=2G
+
+# Initial Java Heap Size (in MB)
+#original: wrapper.java.initmemory=1024
+wrapper.java.initmemory=2048
+
+# Maximum Java Heap Size (in MB)
+#original: wrapper.java.maxmemory=1024
+wrapper.java.maxmemory=2048</pre></blockquote>
+                            <p><em>Note: in 32-bit Java, can increase to 2GB. You cannot currently modify the heap size in the Windows executable found in
+                                    the start menu.</em></p>
+                            <h5>Linux Command Line</h5>
+                            <p>For FileCatalyst Servers started at the command line, the starting
+                                scripts may be modified to use alternative memory sizes than the standard 1GB:</p>
+                            <blockquote><pre>fc_server.sh
+
+#original: java -Xms64M -Xmx1024M -XX:MaxDirectMemorySize=512M -jar FileCatalystServer.jar
+-controlpanel & java -Xms256M -Xmx2048M -XX:MaxDirectMemorySize=1024M -jar FileCatalystServer.jar -controlpanel &</pre></blockquote>
+                            <h5>Linux Service</h5>
+                            <p>For FileCatalyst Servers running as a service in Linux, these may be
+                                set in &lt;application directory&gt;/conf/wrapper.conf</p>
+                            <blockquote><pre>
+# Java Additional Parameters
+#original: wrapper.java.additional.1=-XX:MaxDirectMemorySize=1G
+wrapper.java.additional.1=-XX:MaxDirectMemorySize=2G
+
+# Initial Java Heap Size (in MB)
+#original: wrapper.java.initmemory=1024
+wrapper.java.initmemory=2048
+
+# Maximum Java Heap Size (in MB)
+#original: wrapper.java.maxmemory=1024
+wrapper.java.maxmemory=2048</pre></blockquote>
+                            <p><em>NOTE: in 32-bit Java, can increase to 2GB; in 64-bit Java, can increase beyond
+                                    2GB</em></p>
+                        </div>
+                    </div>
+
+                    <h2>4 Firewall Considerations</h2>
+                    <div>
+                        <h3 id="configuringControl" >4.a Configuring for the Control Connection</h3>
+                        <p>In all but the strictest of environments, the client side's firewall does NOT need to be configured. If your environment
+                            has outgoing TCP blocked (extremely rare), the IT department will need to allow outgoing TCP connections on port 21, or
+                            whatever other port has been set as the server listen port in the server configuration. You can test connection by
+                            clicking the &quot;Test settings&quot; button. </p>
+
+                        <h3 id="configuringData" >4.b Configuring for the Data Connections</h3>
+                        <p>Again, client-side firewall configuration is rare. In the &quot;Transfer Options&quot; tab of the Task Edit view, incoming UDP is
+                            set to port &quot;0&quot;, which is an alias for &quot;passive&quot;. In other words, HotFolder will tell FileCatalyst Server which port to
+                            use in order to make the data connection. The most common scenario requiring firewall configuration is UDP-based download.
+                            If the client-side is failing on UDP download, the next step is to specify a data port. In the &quot;Transfer Options&quot; tab,
+                            specify an arbitrary available port. </p>
+                    </div>
+
+                    <h2>5 Regular Expressions</h2>
+                    <p>
+                        FileCatalyst utilizes Java regular expressions, allowing you to build complex file filters to select which file you want to include in a transfer.
+                    </p>
+                    <p>
+                        For additonal documentation to how Java implements regular expressions, the following sources may be used:
+                    </p>
+                    <ul>
+                        <li>http://java.sun.com/j2se/1.4.2/docs/api/java/util/regex/Pattern.html</li>
+                        <li>http://www.sitepoint.com/article/java-regex-api-explained/</li>
+                    </ul>
+
+                    <div>
+
+                        <h3 id="regex_examples">Example Usage</h3>
+                        <ol>
+                            <li>Transfer only files that end with ".dat".  Windows wildcard equivalent of "*.dat"
+                                <blockquote><pre>.*\.dat$
+
+Explanation:
+.* --> any character, 0, 1, or multiple times
+\. --> followed by a period (you must escape dot character, or it will be treated as a wild card)
+dat --> the exact characters dat all lowercase
+$ --> must be at end of line</pre></blockquote>
+                            </li>
+                            <li>Transfer sound files (.mp3 or .wav) with numbers in the title
+                                <blockquote><pre>.*[0-9]+.*\.(mp3|wav)$
+
+Explanation:
+.* --> any character, 0, 1, or multiple times
+[0-9]+ --> is any numerical digit one or more times
+.* --> any character, 0, 1, or multiple times
+\. --> followed by a period (you must escape dot character, or it will be treated as a wild card)
+(mp3|wav) --> last characters may match exactly "mp3" OR "wav" -- all lowercase
+$ -->; must be at end of line</pre></blockquote>
+                            </li>
+                            <li>Transfer everything except temporary files ending in ".tmp"
+                                <blockquote><pre>.*\.[^(tmp)]$
+
+Explanation:
+.* --> any character, 0, 1, or multiple times
+\. --> followed by a period (you must escape dot character, or it will be treated as a wild card)
+[ --> Start of a block
+^(tmp) --> exclude files with "tmp" in the name
+] --> end the block
+$ --> must be at end of line</pre></blockquote>
+                            </li>
+                        </ol>
+                        <p><em>Note:</em> Because JavaScript will try to interpret some characters, the following actions must be taken into consideration:</p>
+                        <ul>
+                            <li>You must double up backspace characters (JavaScript inteprets a single backspace as an escape character)</li>
+                            <li>convert any &quot;+&quot; signs as &quot;%2B&quot;, as they will be removed by JavaScript (into spaces)</li>
+                            <li>convert any &quot;%&quot; into &quot;%25&quot;, as the JavaScript may not start up</li>
+                        </ul>
+                    </div>
+
+                    <h2 id="support">6 Support</h2>
+
+                    <p><a href="http://support.filecatalyst.com/index.php?_m=knowledgebase&_a=view">Browse our Knowledgebase</a> for existing questions and solutions</p>
+
+                    <p><a href="http://support.filecatalyst.com">Submit a Ticket</a> for best response-time and proper tracking of individual issues.</p>
+
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

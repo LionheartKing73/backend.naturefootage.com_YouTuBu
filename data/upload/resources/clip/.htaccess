@@ -1,0 +1,3 @@
+<Files *.webm>
+	ForceType video/webm
+</Files>

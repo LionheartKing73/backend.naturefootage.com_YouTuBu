@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>KToolUi Application</title>
+    <link media="all" type="text/css" href="jquery-ui-1.8.19.custom.css" rel="stylesheet">
+    <link rel="stylesheet" href="KToolUi.css">
+    <link media="all" type="text/css" href="customScroll.css" rel="stylesheet">
+
+    <script src="jquery-1.7.2.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="jquery-ui-1.8.19.custom.min.js" type="text/javascript" charset="utf-8"></script>
+
+    <script src="/data/js/bootstrap-alert.js" type="text/javascript" charset="utf-8"></script>
+
+
+    <script type="text/javascript" src="jquery.mousewheel.js"></script>
+
+    <script type="text/javascript" src="flexcroll.js"></script>
+
+    <script src="jsExample.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" language="javascript"
+            src="com.be.ktoolui.KToolUi/com.be.ktoolui.KToolUi.nocache.js"></script>
+</head>
+<body>
+
+<script>
+    jQuery(function() {
+        jQuery('#ktool_progressbar').progressbar();
+    });
+</script>
+<div id="progressbarCont" style="display: none;">
+    <p><img src="/data/img/loading2.gif"> <span id="progressbarKeyword"></span></p>
+    <div id="ktool_progressbar"></div>
+</div>
+
+<div id="keywordsSavedAlert"  class="alert fade in" style="display: none;">
+    <button class="close" data-dismiss="alert">x</button>
+    Keywords saved
+</div>
+
+<div style="float: right;">
+    <input class="btn btn-primary" type="button" value="Save keywords" onclick="saveKeywords();return false;">
+    <input class="btn btn-primary" type="button" value="Slice video" onclick="sliceVideo();return false;" >
+</div>
+
+<div style="clear: both;"></div>
+
+<div id="testDIV" style="margin-top: 10px; padding-top: 10px;"></div>
+
+</body>
+</html>

@@ -1,0 +1,195 @@
+body {
+  color: #333;
+  background: #fff;
+  margin: 0;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+  line-height: 1.2em;
+}
+
+#content h1, h2 {
+  color: #01245C;
+  font-family: "Trebuchet MS", sans-serif;
+}
+
+#outer {
+  width: 960px;
+  margin: 0 auto;
+  position: relative;
+}
+
+#top {
+  padding-bottom: 1px; margin-bottom: -1px /* force #inner margin-top to take effect in Firefox/WebKit */
+}
+
+#header h1 {
+  text-indent: -9999px;
+  background: url("../images/logo.png") no-repeat;
+  margin: 0px;
+  height: 80px;
+}
+
+#navigation {
+  height: 30px;
+  background-color: #F15C22;
+  background-image: -moz-linear-gradient(left top 270deg, #FC8053, #F15C22 50%, #EA480E 50%, #FF6D38);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#FC8053), to(#FF6D38), color-stop(50%, #F15C22), color-stop(50%, #EA480E));
+  width: 100%;
+  overflow: hidden;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+
+#navigation ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  float: right
+}
+
+#navigation ul li { 
+  float: left;
+  margin-right: 12px;
+}
+
+#navigation ul li a {
+  text-decoration: none;
+  color: #FFC6B2;
+}
+
+#navigation ul li a:link,
+#navigation ul li a:visited {
+  display: block;
+  float: left;
+  padding: 3px;
+  zoom: 1 /* force hasLayout in IE */
+}
+
+#navigation ul li a:hover {
+  background: #F15C22;
+  color: #fff;
+}
+
+#navigation ul li a:active,
+#navigation ul li.current a:link,
+#navigation ul li.current a:visited,
+#navigation ul li.current a:hover {
+  color: #fff
+}
+
+
+#content { 
+  padding: 3px;
+  font-size: 0.8em;
+}
+
+#content li {
+  margin-bottom: 5px;
+}
+
+#footer {
+  padding: 6px;
+  border-top: 1px solid #F15C22;
+  font-size: 0.6em;
+}
+
+.disclaimer { font-size: 0.6em; font-style: italic }
+
+#bottom {
+  padding-top: 1px; margin-top: -1px /* force #inner margin-bottom to take effect in Firefox/WebKit */
+}
+
+#applet {
+  width: 500px;
+  background: #FFF;
+  position: fixed;
+  bottom: 0;
+  right: 10px;
+  border: 1px solid #01245C;
+  -webkit-border-top-left-radius: 4px;
+  -webkit-border-top-right-radius: 4px;
+  -moz-border-radius-topleft: 4px;
+  -moz-border-radius-topright: 4px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border-bottom: none;
+  font-size: 0.8em;
+}
+
+#appletContainer {
+  height:9px;
+  margin:0;
+  padding:0;
+  margin-top:10px;
+}
+
+#toggleButton {
+  background-color: #01245C;
+  position: absolute;
+  width: 100%
+}
+
+#toggleButton a {
+  text-decoration: none;
+  padding: 0;
+  padding-left: 10px;
+  margin: 0;
+  color: #fff;
+}
+
+.shadow {
+  box-shadow: 0 0 8px rgba(0,0,0,0.4);
+}
+
+#progress {
+  height: 140px;
+  padding: 10px;
+}
+
+#progressBar {
+  width: 200px;
+  border: 1px solid #F15C22;
+  padding: 0;
+  height: 16px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+
+/* Progress bar components use ID for efficient DOM traversal. Switch to classes if
+more than one bar is needed per page*/
+
+#fillBar, #emptyBar {
+  display: block;
+  float: left;
+  height: 16px;
+  overflow: hidden;
+  font-size: 0.7em;
+}
+
+#fillBar {
+  background-color: #F15C22;
+  background-image: url('images/progress.gif');
+  text-align: right;
+  width: 0;
+}
+
+#emptyBar {
+  background-color: transparent;
+  text-align: left;
+
+}
+
+#barText {
+  color: white;
+  padding-right: 5px;
+}
+
+#emptyText {
+  color: #F15C22;
+  padding-left: 5px;
+}
+
+#noTransfers {
+  display:none;
+}

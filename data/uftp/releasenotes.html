@@ -1,0 +1,1685 @@
+<html>
+  <head>
+    <title>FileCatalyst Direct Release Notes</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style type="text/css">
+      html     { background-color:#FFF    }
+      #page    { width: 1000px;
+                 margin-left: auto;
+                 margin-right: auto;
+      }
+
+      body     { font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, sans-serif; font-size:13px;}
+
+      h1, h3   { font-family: "Trebuchet MS", Trebuchet, serif;}
+
+      h1       { font-size: 28px;
+                 color: #09337B;         }
+
+      h3       { font-size: 20px;
+                 color: #F15C22;         }
+
+      h3 span  { font-size: 14px;
+                 font-style: italic;
+                 font-weight: normal;    }
+
+      li       { padding: 3px;           }
+    </style>
+  </head>
+  <body>
+
+    <div id="page">
+      <h1>File<em>Catalyst</em> Direct Release Notes</h1>
+
+
+
+
+      <b>NOTICE:  Java 1.5+ is required for all FileCatalyst products.</b>
+      <br><b>NOTICE:  Java 1.6+ is required for Mac OSX for Server and HotFolder.</b>
+      <p>
+        <!--
+        <font size=3><b>Added:</b></font>
+        <ul>
+          <li><b>All</b> - .</li>
+          <li><b>Mobile</b> - .</li>
+          <li><b>Central</b> - .</li>
+          <li><b>Core</b> - .</li>
+          <li><b>HotFolder</b> - .</li>
+          <li><b>HotFolder + Server</b> - .</li>
+          <li><b>Server</b> - </li>
+          <li><b>CLI</b> - .</li>
+          <li><b>Upload Applet</b> - .</li>
+        </ul>
+        <font size=3><b>Fixed:</b></font>
+        <ul>
+          <li><b>All</b> - .</li>
+          <li><b>Mobile</b> - .</li>
+          <li><b>Central</b> - .</li>
+          <li><b>Core</b> - .</li>
+          <li><b>HotFolder</b> - .</li>
+          <li><b>HotFolder + Server</b> - .</li>
+          <li><b>Server</b> - </li>
+          <li><b>CLI</b> - .</li>
+          <li><b>Upload Applet</b> - .</li>
+        </ul>
+        -->
+      <h3>Version 3.2</h3>
+      <font size=3><b>Build 9 - <i>June 7th, 2013</i></b></font>
+      <p>
+        <font size=3><b>Fixes:</b></font>
+        <ul>
+          <li><b>Server</b> - Security fix for user permissions.</li>
+          <li><b>Server</b> - Users connecting via SFTP are not auto-provionned when connected to an external directory service.</li>
+          <li><b>Server</b> - SFTP heartbeat monitor user modified from "smx" to "SFTP_HEARTBEAT_FAILINGTOLOGIN".</li>
+          <li><b>Core</b> - Support for VSFTP using SSL (server required PBSZ & PROT to signal that data ports were encrypted).</li>
+          <li><b>Core</b> - Issues with statistics in server to server transfers.</li>
+          <li><b>Core</b> - Auto-detect was trying to detect UDP and multi-stream against 3rd party servers.</li>
+          <li><b>Core</b> - AutoDetect is broken when you have latency of 200ms or higher.</li>
+          <li><b>Core</b> - Fixed SERVER_WELCOME_MESSAGE to not send host and port when using sessionBased Authentication with the servlet.</li>
+          <li><b>HotFolder</b> - Auto-detect code is creating a log file in application directory and not cleaning it up.</li>
+          <li><b>HotFolder</b> - Not allow adding of a 3PP FTPS server even with client connect key.</li>
+          <li><b>HotFolder + Server</b> - Mac remote admin preserving session icon in taskbar after logout-login.</li>
+          <li><b>Central</b> - Unknown or non-FC nodes must report full data set in Central tables.</li>
+          <li><b>Central</b> - Authentication failure for read-only user.</li>
+        </ul>
+      </p>
+
+      <font size=3><b>Build 6 - <i>May 3rd, 2013</i></b></font>
+      <p>
+        <font size=3><b>Added:</b></font>
+        <ul>
+          <li><b>Server</b> - SFTP protocol now supported by FileCatalyst Server for integration of legacy applications.</li>
+          <li><b>Server</b> - REST services available for Server Admin (CRUD methods for users/groups/vfolders)</li>
+          <li><b>Server</b> - Ability to disable all users with blank passwords.</li>
+          <li><b>Server</b> - System Tray icon available on Mac OSX.</li>
+          <li><b>Server Admin</b> - Added support for SFTP identity keys for user accounts.</li>
+          <li><b>API</b> - Support for Server to Server transfers (instead of client-server).</li>
+          <li><b>Core</b> - Support for RSTA command (request status of server to server transfer).</li>
+          <li><b>Core</b> - Support for RCAN command (cancel a server to server transfer).</li>
+          <li><b>Core</b> - Improvement in congestion control start rate (dynamic start rate now available, quick calculation instead of fixed rate).  Requires v3.2 on both sides.</li>
+          <li><b>HotFolder</b> - REST services available for HotFolder Admin (CRUD methods for sites/hotfolders/tasks/schedules)</li>
+          <li><b>HotFolder</b> - New right click option to system tray icon to connect to sites.</li>
+          <li><b>HotFolder</b> - System Tray icon available on Mac OSX.</li>
+          <li><b>Central</b> - Ability to customize home screen layout (move components around).</li>
+          <li><b>Central</b> - Session time out value (automatic logout after x minutes of inactivity) is now configurable parameter (saved in client-side cookie).</li>
+          <li><b>Central</b> - Ability to view Users, Groups, VFolders via Central.</li>
+          <li><b>Central</b> - Ability to view Sites, HotFolders, and Tasks via Central.</li>
+          <li><b>Central</b> - Ability to start/stop Tasks via Central.</li>
+          <li><b>Central</b> - New search ability for Session History and File History.</li>
+          <li><b>Central</b> - Added HostName search field in addition to IP address and node alias (requires v3.2 node connected to central).</li>
+          <li><b>Central</b> - REST services available to extract all server loads from Central.</li>
+        </ul>
+        <font size=3><b>Fixes:</b></font>
+        <ul>
+          <li><b>All</b> - Applets do not correctly give focus to their dialogs when opened on MacOSX (source is Oracle JVM bug, this provides workaround).</li>
+          <li><b>All</b> - Fixes issues raised due to "Java 7 update 21" changes to runtime process execution (source is <a href="http://www.oracle.com/technetwork/java/javase/7u21-relnotes-1932873.html#jruntime">Oracle JVM</a> issue).</li>
+          <li><b>Core</b> - Removed authentication requirement for FEAT command (many 3rd party clients send this prior to authentication).</li>
+          <li><b>Core</b> - UDP ACK check to not close then re-open socket.  UDP packets were being lost, and then it was falling back to TCP when UDP was possible.</li>
+          <li><b>Core</b> - Updated TUDP and RUDP commands to accommodate faster bandwidth checks.</li>
+          <li><b>Core</b> - Improvement in transfer setup (configure firewall method now returns DatagramSocket already open and configured).</li>
+          <li><b>Core</b> - Perform auto detection of upload AND download when Deltas enabled.</li>
+          <li><b>Core</b> - Removed NullPointerException warning when downloading.</li>
+          <li><b>Core</b> - Files are lost when using zip chunking.</li>
+          <li><b>Core</b> - Default congestion control start rate now 0, which means it will auto detect.</li>
+          <li><b>Core</b> - Inaccurate statistics sometimes sees spikes above bandwidth limit (using ns instead of ms to get more accurate results).</li>
+          <li><b>Core</b> - Client connectTimeout value is not respected (setting value to 2 seconds can still only return after 30 seconds).</li>
+          <li><b>Core</b> - HTTP with incremental option fails with java exception.</li>
+          <li><b>Core</b> - Uploads using zip deflater w/o archive does not log compression ratio.</li>
+          <li><b>Core</b> - transfer.getSizeCurrentFile() returns 0 just before transfer reports complete.</li>
+          <li><b>Core</b> - Lowered timeout during SSL handshake negotiation.</li>
+          <li><b>Core</b> - Reconnect when we see "unknown" error, consider it a control connection problem.</li>
+          <li><b>Core</b> - FTP downloads are not respecting specified HF bandwidth limit.</li>
+          <li><b>Core</b> - Zip archiving with chunks fails when writing to really slow disks (write timeout exceeded, file may be truncated).</li>
+          <li><b>Server</b> - Unable to install FileCatalyst Server as a service.</li>
+          <li><b>Server</b> - Autoprovisonned users with external directory service can have have empty password set for internalDB.</li>
+          <li><b>Server</b> - Permissions being assigned by physical location not virtual folder name</li>
+          <li><b>Server</b> - Double session seen when using SFTP to server.</li>
+          <li><b>Server</b> - Dead sessions are not cleaned completely for SFTP connections.</li>
+          <li><b>Server</b> - Incremental Uploads with unique name not creating unique name for zero byte files.</li>
+          <li><b>Server API/CLI</b> - Assigning READWRITE permission with commandline grants the old read write permissions instead of ALL.</li>
+          <li><b>Server Admin</b> - Specify exact rate not working from Server Admin to remote server (localhost server works fine).</li>
+          <li><b>Server Admin</b> - Remote Admin warning fixed:  "WEBSERVER - 404 Error.  Requested URI: //images/red_cross_16.png Request origin: x.x.x.x"</li>
+          <li><b>Server Admin</b> - Fixed the % complete status in admin for receiving FTP.  When we know the length of the file we should be showing % complete.</li>
+          <li><b>Server Admin</b> - When browsing to create a nested virtual folder the last folder has two entries in the path selected.</li>
+          <li><b>Server Admin</b> - Port field in Email Alerts Tab of Server Admin too small in Mac OS.</li>
+          <li><b>Server Admin</b> - Fixed browse link when trying to open home directories with spaces.</li>
+          <li><b>Server Admin</b> - FC Server Admin on Mac OS X does not save new sites / modified sites to config.</li>
+          <li><b>Server and HotFolder</b> - Unable to install FileCatalyst Server as a service.</li>
+          <li><b>Server and HotFolder</b> - Looking for WWW directory in wrong place on MAC when run as service.</li>
+          <li><b>Server and HotFolder</b> - Improved validation for automatic SSL certificate generation.</li>
+          <li><b>HotFolder</b> - Not recovering cleanly from corrupted schedule.xml files.</li>
+          <li><b>HotFolder</b> - Connecting to licensed Central will automatically enable HF Remote Admin and HTTP (bind to 127.0.0.1) to allow communication to flow properly.</li>
+          <li><b>HotFolder</b> - Site bandwidth detection not working as expected.</li>
+          <li><b>HotFolder</b> - Connect from hotfolder fails when forcing HTTP or HTTP/S.</li>
+          <li><b>HotFolder</b> - Hotfolder install location is being filled with Usr.log files.</li>
+          <li><b>HotFolder</b> - Duplicate entries in combo box when changing task direction.</li>
+          <li><b>HotFolder</b> - Setting minimum HEAP size from 64MB to 1024MB on MacOSX service script to increase stability.</li>
+          <li><b>HotFolder</b> - Unclear wording in session status -> visualization.</li>
+          <li><b>HotFolder</b> - Selecting open from the right click menu one a directory will have the same effect as double clicking.</li>
+          <li><b>HotFolder Admin</b> - Remote admin launches in system tray, GUI does not open. On Windows </li>
+          <li><b>HotFolder Admin</b> - View entire log not functioning.</li>
+          <li><b>HotFolder Admin</b> - Re-enable the Browse link for HotFolders on Mac.</li>
+          <li><b>HotFolder Admin</b> - Fixed browse link when trying to open folders with spaces.</li>
+          <li><b>HotFolder Applet</b> - Delete scheduled task causes a null pointer exception.</li>
+          <li><b>Applets</b> - Installation instructions updated to reflect inclusion of two javascript files (ie:  deployJava.js, fcupload.js).</li>
+          <li><b>Applets</b> - Fixed default verify mode.  Default should be to verify after transfer and not on-the-fly.</li>
+          <li><b>Applets</b> - Prepend a unique ID to Applet log entries.</li>
+          <li><b>Express</b> - UTF-8 Characters do not appear in Remote Pane.</li>
+          <li><b>Express</b> - Removed double timestamp from version string.</li>
+          <li><b>Express</b> - Hide hidden files.</li>
+          <li><b>Express</b> - Issue with Mac OSX not showing Home and Desktop links in the local file list in Express and 2-way applet.</li>
+          <li><b>Express</b> - 2-way applet and Express should start Mac users in Home directory.</li>
+          <li><b>Express</b> - Updated Express connect dialog to have an "Auto/Specify" drop down menu for Start Rate Mode.</li>
+          <li><b>Express</b> - Show proper icons for mounted network drives under /Volumes on Mac.</li>
+          <li><b>Central</b> - Search by Alias does not return all records.</li>
+          <li><b>Central</b> - Splash images for Central no longer show incorrect version when launching remote admin applet.</li>
+          <li><b>Central</b> - Not all transfer records being sent if node system clocks are different.</li>
+          <li><b>Central</b> - Fixed "CANCELLED" to reflect American spelling.</li>
+          <li><b>Central</b> - Tomcat work dir now cleared on startup, fixes upgrading issues where manual clearing was required.</li>
+          <li><b>Central</b> - Progress bar renders "off" for iOS.</li>
+          <li><b>Central</b> - For mobile touch interfaces, main navigation should ignore tap when there are drop-downs.</li>
+          <li><b>Central</b> - Sorting of columns on Current Alarm page does not always work with multiple sort (clicks).</li>
+          <li><b>Central</b> - Need to have config value that specifies how long to keep alarm & session information in the Central database.</li>
+          <li><b>Central</b> - Updating Admin login credentials from web creates error state.</li>
+          <li><b>Central</b> - Improved error states and exception reporting in Central.</li>
+          <li><b>Central</b> - Central installer can't find Java.</li>
+          <li><b>Central</b> - Bandwidth usage graphs showing uploads as downloads and vice versa.</li>
+        </ul>
+	  </p>
+
+      <h3>Version 3.1</h3>
+      <font size=3><b>Build 23 - <i>March 14th, 2013</i></b></font>
+      <p>
+        <font size=2><b>Fixed:</b></font>
+        <ul>
+          <li><b>Core</b> - Reconnect code for "syntax error".</li>
+          <li><b>Core</b> - Added ability to filter out directories.</li>
+          <li><b>Core</b> - Transfers with many sender threads are not speeding up fast on downloads.</li>
+          <li><b>Core</b> - Issues with RTT based congestion control (auto tests were failing with high latency).</li>
+          <li><b>Server</b> - Fix MGET * command from Command line FTP utility.</li>
+          <li><b>Server</b> - Users.xml is not regenerating default users (anonymous) during recovery.</li>
+          <li><b>Server</b> - Download using archive compression from windows machine file have length of characters in users home path striped from file names, if name is longer than home path.</li>
+          <li><b>Server Admin</b> - Certificate generation fails remotely if the system clock on the remote admin machine is running slower than the server.</li>
+          <li><b>ServerAPI</b> - Removal of exposed FCException and AdminConnectionException from ServerAPI calls, and instead returning a generic "Exception".</li>
+          <li><b>API</b> - Adding functionality to transferhook to get transfer times for the current file being transferred.</li>
+          <li><b>API</b> - Adding getVersion, getJobID and getValue.</li>
+          <li><b>API</b> - Ability to send transfer logs to fcweb for API transfers.</li>
+          <li><b>Express</b> - Parameters loaded using quick launch.</li>
+        </ul>
+      </p>
+      <font size=3><b>Build 19 - <i>March 8th, 2013</i></b></font>
+      <p>
+        <font size=2><b>Fixed:</b></font>
+        <ul>
+          <li><b>All</b> - Using multiple receiver/sender sockets can sometimes hang a transfer.</li>
+          <li><b>All</b> - Mac OSX:  forward port XATTR feature from 3.0.1.</li>
+          <li><b>All</b> - Sender in UDP Transfer may send faster than specified rates for slow (50 kbps) connections.</li>
+          <li><b>All</b> - Account for data sent in RTT and STATS packets when throttling rate.</li>
+          <li><b>All</b> - Count data received using actual length of UDP packet rather than array which backed the UDP packet.</li>
+          <li><b>Server</b> - Zip download task of user with virtual folder and files in Vfolder fail.</li>
+          <li><b>Server</b> - User imports (upgrade to v3.1) failing if corrupted/missing authentication.xml data, needs to reset passwords and allow import.</li>
+          <li><b>Server</b> - Bandwidth does not recover from bandwidth override.</li>
+          <li><b>Server</b> - '-shutdown' flag on Server fails if using non-default admin port 12400.</li>
+          <li><b>Server</b> - Disabling HTTP access takes affect only after a server restart.</li>
+          <li><b>Server</b> - Post task on Windows now correctly passing in path separators.</li>
+          <li><b>Server Admin</b> - Read-only admin could not see virtual folder and groups.</li>
+          <li><b>Server Admin</b> - Test Disc Write I/O does not work using FileCatalyst Server Admin.</li>
+          <li><b>Server API</b> - Backwards compatibility broken with removal of UserContainer object.</li>
+          <li><b>Server API</b> - Refactoring of ServerAPI calls to utilize non-obfuscated classes.</li>
+          <li><b>HotFolder</b> - Changing a task from monitored to triggered/scheduled, task status remains Monitoring on Linux when run as service.</li>
+          <li><b>HotFolder</b> - When creating a web task download should not be an option.</li>
+          <li><b>HotFolder</b> - '-shutdown' flag on HotFolder fails if using non-default admin port 12505.</li>
+          <li><b>HotFolder</b> - HotFolder can now connect to Central without requiring license key.</li>
+          <li><b>HotFolder Admin</b> - Added ability in HF Remote Admin (not applet) to logout and log into another HF.</li>
+          <li><b>HotFolder Admin</b> - "Connect" does not take all settings from sites.</li>
+          <li><b>Server API</b> - Exception regarding missing Compress library in server API.</li>
+          <li><b>Server API</b> - Help/Javadoc is missing commands for virtual folders.</li>
+          <li><b>Central</b> - Alarms raised for each node when Central service is restarted.</li>
+          <li><b>Central</b> - Issue with blocked record retrieval from services.</li>
+          <li><b>CLI</b> - Output option '-summary' now prints a single dot "." every 60 seconds to ensure that caller can verify there is still activity on transfer.</li>
+          <li><b>Client API</b> - Changes for FileCatalyst Web support in API.</li>
+          <li><b>Express</b> - Parameters now available for additional transfer tuning.</li>
+
+        </ul>
+      </p>
+
+      <font size=3><b>Build 14 - <i>January 28th, 2013</i></b></font>
+      <p>
+        <font size=2><b>Fixed:</b></font>
+        <ul>
+          <li><b>All</b> - Default write mode for Mac OSX set to rwd for improved performance.</li>
+          <li><b>Core</b> - Loss based congestion control not maintaining smooth rate when bandwidth set to known line speed.</li>
+          <li><b>Core</b> - Local file chooser improvements on Mac OSX.</li>
+          <li><b>Core</b> - Issue regarding to congestion control slowing down and not speeding back up on some systems.</li>
+          <li><b>Server</b> - Windows fast directory listing broken with different date formats (DD-MM-YY).</li>
+          <li><b>Server</b> - Ability to disable fast directory listing (iterate file system using Java, slower over network drives).</li>
+          <li><b>Server</b> - Real user path not actual path passed to post processing.</li>
+          <li><b>Server</b> - Long Full name and details can prevent UI from opening.</li>
+          <li><b>Server</b> - Users name with more than 35 characters assigned to virtual folder characters cover the link.</li>
+          <li><b>Server</b> - Changes made to server sender threads are not implemented until server is re started.</li>
+          <li><b>Server</b> - Server not correctly handling User Quotas bigger than MAX_INT.</li>
+          <li><b>Server</b> - Typo in Linux upgrade instructions.</li>
+          <li><b>Server</b> - User full-name throws exception when above 128 characters.</li>
+          <li><b>HotFolder</b> - HotFolder app directory filling up with user logs on Linux when run as a service.</li>
+          <li><b>HotFolder</b> - New tasks can not be launched until "Allow concurrent tasks" is checked when run as a service.</li>
+          <li><b>HotFolder</b> - HotFolder exhibits spikes of thread usage and growing heap memory.</li>
+          <li><b>Download Applet</b> - Double clicking to select directory in the file browser on OSX seems to break downloading.</li>
+          <li><b>Download Applet</b> - Added new parameter to embed progress bar for Download Applet.</li>
+          <li><b>Applets</b> - Added a parameter to specify if applet is loading via JNLP.</li>
+          <li><b>Central</b> - Licensing details missing in Central.</li>
+          <li><b>Central</b> - Sending notification for scheduled events when no data is sent.</li>
+          <li><b>Central</b> - Improved the dialog for the migration of data for Central Windows installer.</li>
+          <li><b>FC Web</b> -  Null pointer with job submission using deprecated methods.</li>
+        </ul>
+      </p>
+
+      <font size=3><b>Build 12 - <i>January 9th, 2013</i></b></font>
+      <p>
+        <font size=2><b>Fixed:</b></font>
+        <ul>
+          <li><b>All</b> - Code signing signature updated.</li>
+          <li><b>Core</b> - Loss based congestion control not reacting to congestion properly.</li>
+          <li><b>Core</b> - Passive mode transfers not working to 3rd party FTP servers.</li>
+          <li><b>Core</b> - Download a file that has a size smaller than 48 bytes that is encrypted (AES) gives a buffer error.</li>
+          <li><b>HotFolder</b> - Slowdown in transfer speed and increase in memory use after several days.</li>
+          <li><b>CLI</b> - Congestion control values not properly set by script.</li>
+          <li><b>Central</b> - Column heads in Transfer Statistics pane appear to be clickable but should not be.</li>
+          <li><b>Central</b> - Include license expiry in license details.</li>
+          <li><b>Applets</b> - Browse dialog does not show up on Mac OSX 10.8 when called through Javascript API.</li>
+          <li><b>Applets</b> - Ajax Example for the upload applet is broken.</li>
+          <li><b>Applets</b> - "downgradeModeOnReconnect" parameter to applet scripts.</li>
+          <li><b>Applets</b> - Parameterized width and height.</li>
+          <li><b>Applets</b> - Updated to the latest deployJava.js and show error if the include for deployJAva.js is missing.</li>
+          <li><b>Server Admin</b> - Find (CTRL-F) on group/folder pane moves you to user pane.</li>
+          <li><b>Server</b> - Filter was not working properly on the server for download tasks.</li>
+          <li><b>Server</b> - Unneeded debug entries in log file.</li>
+          <li><b>Server</b> - Hotfolder (on Mac) upload to workflow and FC server using compression / archive fails.</li>
+          <li><b>Server</b> - FileCatalyst incorrectly resets last modified timestamp of file on server (download with incremental).</li>
+        </ul>
+      </p>
+
+
+      <font size=3><b>Build 10 - <i>December 21st, 2012</i></b></font>
+      <p>
+        <font size=2><b>Fixed:</b></font>
+        <ul>
+          <li><b>Server</b> - Multiple virtual folders pointing to the same path not showing up.</li>
+          <li><b>Server</b> - Post process on file does not work when a space is in the name.</li>
+          <li><b>Server</b> - When Upgrading xml to DB for FCServer, server adds user and anonymous accounts back in.</li>
+          <li><b>Server</b> - Internal name used when deleting duplicate folder.</li>
+          <li><b>ServerAPI</b> - Method linkGroupAndFolder() is not in FC SERVER API CLI documentation
+          <li><b>Server Admin</b> - Read Only Admin account failing to connect.</li>
+          <li><b>Server Admin</b> - Shift + to select multiple users is broken in edit group and folders.</li>
+          <li><b>Server Admin</b> - Group and Folder lists not sorted alphabetically.</li>
+          <li><b>Server Admin</b> - Read-only admin illegal actions should be grayed out in remote server admin..</li>
+          <li><b>HotFolder Admin</b> - Site status refresh failure.</li>
+          <li><b>Central</b> - 502 command handleSETPOLLINTV not yet implemented.</li>
+          <li><b>Central</b> - Changing e-mail settings are only applied after shutting down and restarting Central.</li>
+          <li><b>Central</b> - File name in transfer history needs to be the real name not a .temp name.</li>
+          <li><b>Core</b> - Issue with downloading with zip archived files on Mac OSX and Linux.</li>
+          <li><b>Core</b> - Issue with uploading with zip enabled in applets on Mac or Linux.</li>
+          <li><b>Core</b> - Issue with listings not working on Mac.</li>
+          <li><b>Core</b> - Rates going crazy and exceeding the max rate value.</li>
+          <li><b>Applet</b> - Expose filesTransferredLocal() and filesTransferredRemote() methods to JS API.</li>
+          <li><b>Applet</b> - New "minsize" parameter.</li>
+          <li><b>Applet</b> - Issue with hanging browse dialog on Mac when using browseLive() on Download applet.</li>
+        </ul>
+      </p>
+
+      <font size=3><b>Build 8 - <i>December 11th, 2012</i></b></font>
+      <p>
+        <font size=3><b>Added:</b></font>
+        <ul>
+          <li><b>Server</b> - Limit server bandwidth to a value lower than server license (config file property only).</li>
+          <li><b>Server</b> - File meta-data cache to speed up browsing of remote file network.</li>
+        </ul>
+        <font size=2><b>Fixed:</b></font>
+        <ul>
+          <li><b>Server</b> - Directory listings with files over 2GB throwing an exception for Windows.</li>
+          <li><b>Server</b> - User quotas are checked only after upload begins, reducing bandwidth for other users.</li>
+          <li><b>Server</b> - Limit server bandwidth to a value lower than server license ( config file property only).</li>
+          <li><b>Server</b> - Browsing virtual folder (or user home directory) if found on Network mount point is slow.</li>
+          <li><b>Server</b> - Uploads fails for user paths when containing brackets (ie: "C:\Program Files (x86)\Server\Data\user").</li>
+          <li><b>HotFolder + Server</b> - Issue with finding the java service wrapper finding the proper java path.</li>
+          <li><b>Core</b> - Issue with RTT based congestion control not speeding up when incoming UDP is blocked.</li>
+          <li><b>Applets</b> - Updated applets and new examples for Javascript login.</li>
+          <li><b>Applets</b> - Applet prompting that they contain both signed and unsigned code.</li>
+          <li><b>Central</b> - Set logger when you do a testSMTP on Central.</li>
+          <li><b>Central</b> - Test SMTP button is not working on Central when SSL is enabled for email server.</li>
+        </ul>
+      </p>
+      <font size=3><b>Build 3 - <i>November 15th, 2012</i></b></font>
+      <p>
+        <font size=2><b>Fixed:</b></font>
+        <ul>
+          <li><b>Server</b> - MacOSX new installs cannot find fcconf.conf file.</li>
+        </ul>
+      </p>
+
+      <font size=3><b>Build 2 - <i>November 14th, 2012</i></b></font>
+      <p>
+        <font size=3><b>Added:</b></font>
+        <ul>
+          <li><b>Server</b> - VirtualFolders and Groups now available, allowing flexible user directory structures.</li>
+          <li><b>Server</b> - Able to have both plain socket (default 21) + SSL socket (default 990) running concurrently.</li>
+          <li><b>Server</b> - Username now can be passed along with file path for server-side File Post Processing script.</li>
+          <li><b>Server</b> - Server automatically generates random self-signed certificate if SSL is enabled and no certificate is provided.</li>
+          <li><b>Server</b> - Server now uses internal database for storing user information (deprecates users.xml and authentication.xml).</li>
+          <li><b>Server + HotFolder</b> - Remote Admins now show admin version string before logging onto service.</li>
+          <li><b>Server + HotFolder</b> - '-version' and '-help' flags now available when called via cmd prompt.</li>
+          <li><b>ServerAPI</b> - Ability to modify bandwidth and priority overrides via ServerAPI calls.</li>
+          <li><b>CLI</b> - AccessTokens now available to encrypt user credentials (and other run-time arguments) in a token file.</li>
+          <li><b>CLI</b> - Maximum file size filter can now be declared.</li>
+          <li><b>Core</b> - Congestion Control Strategy set to Packet Loss (instead of RTT) as Default on all client applications.</li>
+          <li><b>Core</b> - Congestion Control Aggression default now set to 5 (competitive with TCP) instead of 2 (nice) for higher performance.</li>
+          <li><b>Core</b> - Congestion Control Start Rate now set to 1000kbps from 384kbps.</li>
+          <li><b>HotFolder</b> - Default bandwidth set to 1 Gbps from default 1544 Kbps.</li>
+          <li><b>Applets</b> - Default bandwidth set to 100 Mbps from default 10 Mbps.</li>
+          <li><b>Applet</b> - New default JAVASCRIPT available for applets, with greatly improved reliability.</li>
+          <li><b>Applet</b> - New AutodetectTest Applet available to help diagnose connectivity issues.</li>
+        </ul>
+
+        <font size=2><b>Fixed:</b></font>
+        <ul>
+          <li><b>All</b> - FileCatayst scripts (*.exe, *.sh, and service files) lock memory use to 1 GB by default.  Can be unlocked in service scripts.</li>
+          <li><b>All</b> - Application now deletes it file it creates to check if it has write access (temp##### in application directory).</li>
+          <li><b>All</b> - Compression Strategy (Huffman & Filtered) are no longer supported as server-side options.  Default strategy will now always be used.</li>
+          <li><b>Core</b> - Permission Denied error now gives more details.</li>
+          <li><b>Core</b> - HTTP/HTTPS transfer mode issues.</li>
+          <li><b>Core</b> - Congestion control not slowing down properly when available bandwidth is reduced permanently.</li>
+          <li><b>Core</b> - Fixed bug downloading files with special characters in the filename on MacOSX.</li>
+          <li><b>Server + HotFolder + Central </b> - When installing on Mac, the configs are not copied from install location to users home directory.</li>
+          <li><b>Server</b> - HTTP transfers not working after restart of FileCatalyst server.</li>
+          <li><b>Server</b> - Upgrade server from 3.0 with SSL enabled causes server not to start.</li>
+          <li><b>ServerAPI</b> - API now warns you if you are issuing a command it does not understand.</li>
+          <li><b>ServerAPI</b> - Discarding admin can adversely affect web container running ServerAPI.</li>
+          <li><b>Server Admin</b> - New "Read only", "Write only", and "Read/Write" permission buttons to simplify user permissions.</li>
+          <li><b>Server Admin</b> - Logging out and back into Server Admin creates another instance of Server Admin.</li>
+          <li><b>Server Admin Applet</b> - Exception when trying to launch the on-line help.</li>
+          <li><b>Server + HotFolder Admin</b> - Removed unnecessary panels in Wizards.</li>
+          <li><b>Server + HotFolder</b> - Non directory files on the desktop of MacOSX were returning true for "isDirectory".</li>
+          <li><b>Server + HotFolder</b> - Updated user guide to include detailed upgrade instructions.</li>
+          <li><b>Server + HotFolder</b> - Windows service needs to prompt user if not running as Administrator.</li>
+          <li><b>Server + HotFolder</b> - Windows service sometimes requires editing fcconf.conf or fchf.conf to enter in JAVA path.</li>
+          <li><b>Server + HotFolder</b> - Reintroduced memory limitations (1GB) for MacOSX to increase stability.</li>
+          <li><b>HotFolder Admin</b> - Transfer cache not cleared by Hotfolder Remote Admin.</li>
+          <li><b>HotFolder</b> - Issue with bandwidth distribution between concurrent upload / download tasks.</li>
+          <li><b>HotFolder</b> - Setting the email post task option in a newly created task is not saved when you hit finish.</li>
+          <li><b>HotFolder</b> - Connect to a server that is not accessible can lock up HotFolder until the connection times out.</li>
+          <li><b>HotFolder</b> - Made HotFolder download properly from MassTransit FTP server..</li>
+          <li><b>Download Applet</b> - When attempting a download from a location with no files you get a java exception error.</li>
+          <li><b>Download Applet</b> - Download applet fails with compression.</li>
+          <li><b>CLI</b> - Incorrect return code when 'out of disk space' or 'quota exceeded' is encountered on download of folders.</li>
+          <li><b>Central</b> -  Several fixes to improved stability of Central.</li>
+          <li><b>Central</b> -  Transfer statistics not tracked accurately.</li>
+          <li><b>Central</b> -  Upgraded severity of ServiceDown to Critical.</li>
+          <li><b>Central</b> -  Managed nodes are greying out or dropping after a random time frame.</li>
+          <li><b>Central</b> -  Central unresponsive if database calls are coming in faster than it can process them.</li>
+          <li><b>Central</b> -  Central "locks up" and can not be connected to after sitting idle for prolonged period.</li>
+          <li><b>Central</b> -  When selecting a node to remote monitor, site manager address is listing as central not the remote address.</li>
+          <li><b>Central</b> -  Central open in IE with multiple servers listed, you can not change server by drop down.</li>
+          <li><b>Central</b> -  CSS issue seen only in IE, with the drop-down menu on the bandwidth usage graph.</li>
+          <li><b>Central</b> -  README and SERVICE_WRAPPER_README updated to reflect re-branding from MonitoringAgent.</li>
+        </ul>
+    </p>
+
+      <h3>Version 3.0.1</h3>
+      <font size=3><b>Build 18 - <i>October 3rd, 2012</i></b></font>
+      <p>
+        <font size=2><b>Fixed:</b></font>
+        <ul>
+         <li><b>Core</b> - Transfer profile shows broken transfer for downloads for SSL over UDP.</li>
+         <li><b>Server</b> - Client dropped connections during PASV commands leads to ports being left open on the server.</li>
+         <li><b>Server</b> - Server upgrade to 3.0.1 when SSL enabled causes server not to start</li>
+         <li><b>Download Applet</b> - With Java 7 on MacOSX, dialog would not allow selection of a directory.</li>
+         <li><b>Central</b> -  Central not loading Remote Admin Applets.</li>
+         <li><b>HotFolder + FCWeb</b> - Blank fields causing FCWeb task not to save.</li>
+         <li><b>HotFolder Admin</b> - File separators conflicts when mixing Windows and Linux between HotFolder and Remote Admin.</li>
+        </ul>
+      </p>
+
+      <font size=3><b>Build 15 - <i>September 10th, 2012</i></b></font>
+      <p>
+        <font size=2><b>Fixed:</b></font>
+        <ul>
+         <li><b>HotFolder + FCWeb</b> - FCWeb form values longer than 76 characters would break scheduler.xml task list.</li>
+         <li><b>Central</b> - The redirect page from the start menu is missing an image.</li>
+         <li><b>Central</b> - Prevent writing to Derby log unless it is explicitly activated.</li>
+         <li><b>Central</b> - HTML5 graphing function not working with IE8 (flash plugin now required for IE8).</li>
+         <li><b>Central</b> - User cannot log into Server Admin Applet from Central with IE9.</li>
+         <li><b>Central</b> - Remote admin applets sometimes not loading in Central.</li>
+         <li><b>Central</b> - Central prompting for username/password when connecting to remote applets (HotFolder, Server).</li>
+         <li><b>Central</b> - Monitoring password did not work until restarting Central after installation.</li>
+        </ul>
+      </p>
+
+      <font size=3><b>Build 14 - <i>August 28th, 2012</i></b></font>
+      <p>
+        <font size=2><b>Fixed:</b></font>
+        <ul>
+          <li><b>Core</b> - RTT and Packet loss always 0 in logs.</li>
+          <li><b>FCWeb</b> - Finalize job not getting called as well as logs were not getting posted.</li>
+          <li><b>FCWeb</b> - Uploading files using fcweb task to older versions of fcweb than 4.8.1.</li>
+        </ul>
+      </p>
+
+      <font size=3><b>Build 12 - <i>August 20th, 2012</i></b></font>
+      <p>
+        <font size=2><b>Fixed:</b></font>
+        <ul>
+          <li><b>Core</b> - Loss may be detected prior to remote port being identified, which caused packet receiver thread to terminate.</li>
+          <li><b>Core</b> - Random high speed UDP being sent in reverse direction causing DOS attack.</li>
+          <li><b>HotFolder</b> - Order Form data would not save when connecting to a FileCatalyst Web server older than v4.8.1.</li>
+          <li><b>HotFolder</b> - Retry email notification if first attempt fails due to I/O error.</li>
+        </ul>
+      </p>
+
+      <font size=3><b>Build 11 - <i>August 2nd, 2012</i></b></font>
+      <p>
+        <font size=3><b>Added:</b></font>
+        <ul>
+          <li><b>Core</b> - Added new TLEN command to let server know the size of an upcoming FTP uploads.</li>
+          <li><b>HotFolder</b> - Exposed new feature to enable/disable the slow start rate.</li>
+          <li><b>HotFolder + FC Web</b> - Supports multiple order forms when connecting to FileCatalyst Web.</li>
+          <li><b>HotFolder + FC Web</b> - Supports uploading directly to file area.</li>
+        </ul>
+        <font size=2><b>Fixed:</b></font>
+        <ul>
+          <li><b>Mobile</b> - SSL transfers in FTP mode fail for Android.</li>
+          <li><b>Mobile</b> - Added socket retry logic to enable more reliable connections with Android devices.</li>
+          <li><b>Mobile</b> - Doubling the timeout of FTPRecieve (60s to 120s) to deal with Android connections needing time to recover.</li>
+        </ul>
+      </p>
+
+      <font size=3><b>Build 9 - <i>July 16th, 2012</i></b></font>
+      <p>
+        <font size=2><b>Fixed:</b></font>
+        <ul>
+          <li><b>All</b> - User can no longer downgrade config encryption from AES/DES to DEFAULT. The user can switch between AES or DES though.</li>
+          <li><b>Central</b> - Central always uses "default" applet in data store, can lead to wrong admin version used to connect to service.</li>
+          <li><b>Core</b> - Transfer hangs at 99% complete.</li>
+          <li><b>Core</b> - Clear the files from the sizecache as deletes are called to prevent MD5's being sent for non existent files.</li>
+          <li><b>Core</b> - Additional fixes to support Dalvik engine, null pointers being thrown on exceptions.</li>
+          <li><b>Core</b> - Return lines in alphabetical order on Windows since they arent sorted by file.listFiles().</li>
+          <li><b>Core</b> - Fixed issue with abort() hanging.</li>
+          <li><b>HotFolder</b> - Files not being added to transfer cache with auto zip.</li>
+          <li><b>HotFolder</b> - Added ability to force client side filtering on Download tasks.</li>
+          <li><b>HotFolder + Server</b> - Changes to password encryption cause connection problems when connecting with different versions of admin to services.</li>
+          <li><b>Server</b> - Potential SQL injection when using DB authentication to login users.</li>
+          <li><b>Server</b> - Specify exact rate feature not functioning (guarenteed delivery).</li>
+          <li><b>Server</b> - Requiring localhost authentication breaks login.</li>
+          <li><b>Applet</b> - Missing documentation for parameter zipFileSizeLimit.</li>
+        </ul>
+      </p>
+
+      <font size=3><b>Build 7 - <i>June 28th, 2012</i></b></font>
+      <p>
+        <font size=2><b>Fixed:</b></font>
+        <ul>
+          <li><b>All</b> - Issue if using empty/null strings for passwords with AES or DES encryption.</li>
+          <li><b>All</b> - Non-encoded passwords being decoded into bad values.</li>
+          <li><b>Mobile</b> - Additional fixes to support Dalvik engine (yes, it's coming!).</li>
+          <li><b>Central</b> - Connections not always returned to database connection pool when exception thrown.</li>
+          <li><b>Central</b> - Applying a license to central changes the monitor password.</li>
+          <li><b>Core</b> - Added code that can detect when Firewalls/Routers truncate and/or change commands by one character, and replace them with the proper command.</li>
+          <li><b>Core</b> - Reduced frequency of UDP statistics when transfer speeds are low.</li>
+          <li><b>Core</b> - Improved congestion control when using PACKET LOSS strategy to also incorporate RTT values.</li>
+          <li><b>Core</b> - New property to control if congestion control should attempt a quick ramp up period at beginning of transfer.</li>
+          <li><b>Core</b> - Automatically switch to RTT based congestion control if UDP acks not working.</li>
+          <li><b>HotFolder</b> - Test sites not working properly on HotFolder.</li>
+          <li><b>HotFolder</b> - Zip chunking on uploads freezing up on specific environment.</li>
+          <li><b>HotFolder</b> - Added in build version + number in Setting - License panel.</li>
+          <li><b>Server API</b> - Connection timeout value now configurable when trying to connect to server (old default 30 seconds).</li>
+        </ul>
+      </p>
+      <font size=3><b>Build 5 - <i>June 18th, 2012</i></b></font>
+      <p>
+        <font size=2><b>Added:</b></font>
+        <ul>
+          <li><b>Applets</b> - Auto-detection javascript code introduced for troubleshooting.</li>
+        </ul>
+        <font size=2><b>Fixed:</b></font>
+        <ul>
+          <li><b>All</b> - Strong encryption can be used to store passwords in configuration files (fcconf.conf, fchf.conf, sites.xml, maconfig.conf).</li>
+          <li><b>Core</b> - Random truncated ECHO commands by IDS where it comes in as "CHO".</li>
+          <li><b>Core</b> - Cannot get listings with Java 7 client to Java 7 server with IPv6 enabled.</li>
+          <li><b>HotFolder</b> - Check Site in Edit Site dialog not functioning when Servlet info entered.</li>
+          <li><b>HotFolder + Server</b> - No Error given when no HTTP is not enabled on Server but enabled on client.</li>
+          <li><b>Applets</b> - Issue where applet does not allow switch to LOSS based congestion control.</li>
+          <li><b>2-way Applet</b> - fixed look and feel in Java 1.7.</li>
+          <li><b>Upload Applet</b> - Localdir parameter not working.</li>
+        </ul>
+      </p>
+
+      <font size=3><b>Build 4 - <i>May 18th, 2012</i></b></font>
+      <p>
+        <font size=2><b>Fixed:</b></font>
+        <ul>
+            <li><b>Central</b> - Charting improvements to keep data in graph after screen refresh is called.</li>
+            <li><b>Central</b> - Show a message if selected node is offline.</li>
+            <li><b>Central</b> - HotFolder can no longer block proxy access through Central.</li>
+            <li><b>Central</b> - "filtered alarms" not being saved properly.</li>
+            <li><b>Central</b> - Hitting apply changes on email settings requires a username for SMTP even though Authorization is disabled.</li>
+            <li><b>Core</b> - Updated stats calculation interval to 200ms.</li>
+            <li><b>Core</b> - Files larger than 400MB checksums don't match when MD5 on-the-fly was enabled.</li>
+            <li><b>Core</b> - Clients do not retry when executing non-transfer commands (SETUP, CDUP, MKDIR, etc).</li>
+            <li><b>HotFolder</b> - Missing HotFolderRemoteAdmin JAR file in Linux & MacOSX builds.</li>
+            <li><b>HotFolder</b> - Headless HotFolder on Linux causes issues (No X11 DISPLAY) on site check for HF Admin on Windows.</li>
+            <li><b>HotFolder Admin + Server Admin</b> - Updated splash screen when using Admin applet to read v3.0.1.</li>
+            <li><b>HotFolder Admin + Server Admin</b> - Set user and password not being correctly shown when remote admin is reenabled.</li>
+            <li><b>Server</b> - SYST was returning TWO values instead of ONE.</li>
+            <li><b>CLI</b> - Default directory in CLI is now "./" instead of "/".</li>
+            <li><b>Applet</b> - Update to Java 7 u4 causes Upload Applet to be jailed in Desktop.</li>
+        </ul>
+      </p>
+
+
+      <font size=3><b>Build 3 - <i>April 20th, 2012</i></b></font>
+      <p>
+        <font size=2><b>Added:</b></font>
+        <ul>
+            <li><b>Mobile</b> - Support for FileCatalyst IOS Mobile clients (iPhone, iPad).</li>
+            <li><b>Central</b> - FileCatalyst Central product replaces Monitoring Console.</li>
+            <li><b>Central</b> - Graph now available to see aggregate transfers on network.</li>
+            <li><b>Central</b> - External SQL access into Central database now available.</li>
+            <li><b>Core</b> - LMZA compression now available in FileCatalyst clients (high compression, high CPU/Memory use)</li>
+            <li><b>HotFolder</b> - Remote folder includes variable substitutions</li>
+            <li><b>HotFolder</b> - HF source to Server to HotFolder destination synch now allows file deletion detection.</li>
+            <li><b>HotFolder</b> - Validates SITES and HOTFOLDERS on startup, leaves notification if site is down.</li>
+            <li><b>HotFolder</b> - Polls SITES and HOTFOLDERS every x minutes to see if they are valid.</li>
+            <li><b>HotFolder</b> - Filters can now be applied to directories.</li>
+            <li><b>HotFolder + Server</b> - Can now set # Reader/Writer/processor threads via remote admin.</li>
+            <li><b>HotFolder + Server</b> - Visualization window now indicate to user that stats are available only for UDP transfers</li>
+            <li><b>HotFolder + Server</b> - Visualization window includes on-the-fly MD5 and on-the-fly compression</li>
+            <li><b>Server</b> - FileCatalyst bandwidth per user now available.</li>
+            <li><b>Server</b> - User directory suffix now available for auto-provisionned users (ie:  /home/<username><suffix>/)</li>
+            <li><b>Server</b> - Unix level authentication (using JPam) is now available for Server.</li>
+            <li><b>Server</b> - Visualization window now available (view session status from Server session monitor).</li>
+            <li><b>Upload Applet</b> - Can now restrict uploads to files only (no directories).</li>
+            <li><b>Upload Applet</b> - Has new browseLiveMultiple() method to select more than 1 file at a time.</li>
+            <li><b>Upload Applet</b> - Subsequent browseLive() calls can now remember what directory user was last using.</li>
+            <li><b>Upload Applet</b> - New methods to getLocalDir/setLocalDir</li>
+        </ul>
+      </p>
+      <p>
+        <font size=2><b>Fixed:</b></font>
+        <ul>
+          <li><b>All</b> - FileCatayst scripts (*.exe, *.sh, and service files) no longer lock memory use to 1 GB.</li>
+          <li><b>Central</b> - intermittant high CPU usage.</li>
+          <li><b>Central</b> - Unexpected 302 causing "Discard" (Alarms) to fail</li>
+          <li><b>Central</b> - Expanded version info in the nodes page</li>
+          <li><b>Central</b> - Shutting down console and starting it back up raises an alarm.</li>
+          <li><b>Central</b> - Toggling some values in Central configuration (ie:  Enable Email) not being saved in the application.</li>
+          <li><b>Central</b> - Disabled alarms are not saved into configuration.</li>
+          <li><b>Central</b> - Database uses up too much disk space due to alarms not purging.</li>
+          <li><b>Core</b> - Optimizations for setting user file permissions (native call).</li>
+          <li><b>Core</b> - Optimizations for sending file lists (combined multiple passes on file lists).</li>
+          <li><b>Core</b> - Issue with HTTP reconnect issuing CWD command when previous working directory was /.</li>
+          <li><b>Core</b> - Improved memory use when transferring 1+ million files (DiskList property must be set).</li>
+          <li><b>Core</b> - Too much logging when using SystemEvents and file is being updated concurrently with a transfer.</li>
+          <li><b>Core</b> - Only show packet loss and RTT for UDP transfers.</li>
+          <li><b>Core</b> - MDTM command to always return time stamp in GMT, and always parse times in GMT.</li>
+          <li><b>Core</b> - Uploading from Apple AFP mounts (Mac OSX) that are not under volumes not working.</li>
+          <li><b>Core</b> - DowngradeModeOnReconnect to work when UDP data connection fails mid transfer on downloads.</li>
+          <li><b>Core</b> - Real Time File Monitoring fails to move files on download to renamed directories.</li>
+          <li><b>HotFolder</b> - Time to create Hotfolders goes up with number of Hotfolders created.</li>
+          <li><b>HotFolder</b> - Advanced features on HotFolder now only shows when "Advanced" view is selected to simply basic interface.</li>
+          <li><b>HotFolder</b> - Show transfer cache progress</li>
+          <li><b>HotFolder</b> - Remote admin on windows modifies Hotfolder on linux machine - unix path characteristics changed.</li>
+          <li><b>HotFolder</b> - Always on + File System Events should have a warning about using it with network drives.</li>
+          <li><b>HotFolder + Server</b> - Visualization window statistics values are inconsistant for sender usage</li>
+          <li><b>Server</b> - SSL generation wizard doesn't have a browse dialog to select save location.</li>
+          <li><b>Server</b> - Never use SSLv2 to address several HTTP protocol transfer issues with SSL.</li>
+          <li><b>Server</b> - Error when ABOR command sent with no active transfer.</li>
+          <li><b>Server</b> - Check for 225 response to ABOR command.</li>
+          <li><b>Server</b> - Workaround for Sonic Wall renaming REST command to R*ST and breaking resume command.</li>
+          <li><b>Server</b> - Hide and show advanced tabs on the advanced panel in the server
+          <li><b>Server</b> - Visualization window statistics values are inconsistant for sender usage</li>
+          <li><b>Server</b> - Race condition that caused UDP download transfer timeout under high latency</li>
+        </ul>
+      </p>
+
+
+
+      </ul>
+      <h3>Version 3.0.0</h3>
+      <strong>Build 11 - <i>February 28th, 2012</i></strong>
+      <ul>
+        <li>Added:  Ability to send files to selected HotFolders directly from Server admin</li>
+        <li>Fixed:  Current rate shows odd values in task activity graph for FTP uploads.</li>
+        <li>Fixed:  HotFolder monitoring state indication in the task activity view.</li>
+        <li>Fixed:  Performance improvements with UDP transfers under high load.</li>
+        <li>Fixed:  High packet loss detected when approaching IO limit of disk on receiver.</li>
+        <li>Fixed:  Dynamically delay sending missing packet request based on number of sender sockets.</li>
+        <li>Fixed:  Downloads in UDP mode from 2.9 server don't work.</li>
+        <li>Fixed:  Illegal chars breaking passwords in the MA/MC/Central application.</li>
+        <li>Fixed:  Fix issues with LIST command and files that do not exist.</li>
+        <li>Fixed:  HotFolder reports Report Writer not initialized when the server is down.</li>
+        <li>Fixed:  Issue with reader visualization stats when read buffer was set to non-default value.</li>
+        <li>Fixed:  Compression broken on downloads.</li>
+        <li>Fixed:  MD5 on the fly broken on downloads.</li>
+        <li>Fixed:  Catch/log an exception that was occurring with restarting embedded web server.</li>
+        <li>Fixed:  Express from "Connect" button identifies as "API" to Central.</li>
+        <li>Fixed:  Server post process doesn't work with Single Zip archive.</li>
+        <li>Fixed:  Glitch creating nested scroll panes for the remote tree.</li>
+        <li>Fixed:  Added identifiers for iOS API (yes... it's coming).</li>
+      </ul>
+
+      <strong>Build 9 - <i>January 25th, 2012</i></strong>
+      <ul>
+        <li>Fixed:  MonitoringConsole wrapper log does not rotate by default.</li>
+        <li>Fixed:  Removed swing reference that was causing API not to work with Android SDK.</li>
+        <li>Fixed:  Monitoring state in HotFolder task doesnt change when downloading.</li>
+        <li>Fixed:  Error with incoming UDP check marking outgoing test as successful by mistake.</li>
+        <li>Fixed:  TCP data sockets can now reuse ports that are in the TIME_WAIT or CLOSED_WAIT state.</li>
+        <li>Fixed:  EPSV command not properly releasing ports.</li>
+        <li>Fixed:  HotFolder not showing proper fields types for fcweb fields.</li>
+        <li>Fixed:  FC server not re-distributing bandwidth.</li>
+        <li>Fixed:  HotFolder disconnects from MonitoringConsole on status transfer failure.</li>
+        <li>Fixed:  Task restart notification incorrectly appearing after editing.</li>
+        <li>Fixed:  Upload applet transfer stats report negative numbers with long transfers in HTTP mode.</li>
+        <li>Fixed:  Upload applet in HTTP mode doesnt reset reconnect counter after reconnecting.</li>
+        <li>Fixed:  Server-side post script execution failing when returned message was blank.</li>
+        <li>Fixed:  Upload applet should filter filenames with illegal characters.</li>
+      </ul>
+      <strong>Build 8 - <i>January 11th, 2012</i></strong>
+      <ul>
+        <li>Fixed:  TCP acks not working, transfers stall and fail when UDP back channel is blocked.</li>
+        <li>Fixed:  Server seems to hang on authentication users.</li>
+        <li>Fixed:  Shortened session ID in the logs to make them easier to go through.</li>
+        <li>Fixed:  Adjusted the receiver such that packet loss detection is less sensitive when there is more receive sockets and more packet receiver threads</li>
+        <li>Fixed:  Modified loss based congestion control to be more fair with TCP at lower aggressions</li>
+        <li>Fixed:  Auto detect should detect multi vs single stream TCP modes.</li>
+        <li>Fixed:  Upload applet attempts to rename temp files even when transfer fails.</li>
+        <li>Fixed:  Clicking browse to select SSL certificate does not respect entered path in the text field</li>
+        <li>Fixed:  Unable to cancelling Network Characteristics test on Hotfolder.</li>
+        <li>Fixed:  Transfer Priority Sequence options selector becomes inactive</li>
+        <li>Fixed:  Null pointer exception in CLI when statistics were called before the connection was initialized</li>
+        <li>Fixed:  Monitoring Console gives connected nodes the boot after credential change</li>
+        <li>Fixed:  Monitoring Console 'verifying' status needs match between status and progress columns</li>
+        <li>Fixed:  Pressing Cancel on a cancelled task activates it</li>
+        <li>Fixed:  Div by zero error occuring within the RegulatedDatagramSocket</li>
+        <li>Fixed:  Detect Network Characteristics fails with ICMP error when Jumbo frames enabled</li>
+        <li>Fixed:  Monitoring state in HotFolder task doesnt change when downloading</li>
+        <li>Fixed:  Server now outputs file filtering progress for every 20000 files for huge directory transfers.</li>
+        <li>Fixed:  Updated Grizzly to latest build to resolve error:  AJP connector broken.</li>
+        <li>Fixed:  Auto detect reporting that servlet location not specified when HTTP detection failed.</li>
+        <li>Fixed:  Canceling an upload task might take a long time</li>
+        <li>Fixed:  Fix issue with clients not respecting bandwidth settings above 2 Gbps.</li>
+        <li>Fixed:  Start Transfer button incorrect state in Task activity window when Monitoring</li>
+      </ul>
+      <strong>Build 5 - <i>December 14th, 2011</i></strong>
+      <ul>
+        <li>Added:  HotFolder now has Task Run/Cancel & Edit buttons in Activity Window.</li>
+        <li>Fixed:  AES transfers reporting failures.</li>
+        <li>Fixed:  Server will not start if users.xml is corrupted/invalid</li>
+        <li>Fixed:  MDTM not working properly in 2-way applet.</li>
+        <li>Fixed:  MFTM commands not working with files that have spaces.</li>
+        <li>Fixed:  Added support for NLST * commands.</li>
+        <li>Fixed:  Reconnection attempts fail (550 Permission Denied) if user does not have permission to change directories.</li>
+        <li>Fixed:  Minor adjustments to MonitoringConsole layout.</li>
+        <li>Fixed:  Added icons on MonitoringConsole to represent all FileCatalyst clients.</li>
+        <li>Fixed:  Mac OSX version of MonitoringConsole available.</li>
+        <li>Fixed:  Unable to cancelling bandwidth tests on Hotfolder.</li>
+      </ul>
+      <strong>Build 4 - <i>December 5th, 2011</i></strong>
+      <ul>
+        <li>Fixed:  Upload/Download applets ignore user specified maxRetries and waitRetry variable</li>
+        <li>Fixed:  Download applet reporting error "... is not a child directory of the user root paths..."</li>
+      </ul>
+      <strong>Build 3 - <i>November 30th, 2011</i></strong>
+      <ul>
+        <li>Fixed:  MonitoringConsole sorting not working on alarms and current transfers</li>
+        <li>Fixed:  MonitoringConsole documentation TOC not generating properly on IE</li>
+        <li>Fixed:  MonitoringConsole can now expand more than 1 alarm in alarm view</li>
+        <li>Fixed:  Wrapper.log not being output when FileCatalyst Server is run as a service</li>
+      </ul>
+      <strong>Build 2 - <i>November 25th, 2011</i></strong>
+      <ul>
+        <li>Fixed:  MonitoringConsole help file updated on Windows start menu</li>
+        <li>Fixed:  HotFolder cannot cancel task once editied in File System Event Monitoring mode</li>
+        <li>Fixed:  Alarm history table loses track of IP/Hostname if agent is removed from MC</li>
+        <li>Fixed:  Monitoring Console db column increased from 64 characters to resolve SQL error.</li>
+      </ul>
+      <strong>Build 1 - <i>November 22nd, 2011</i></strong>
+      <ul>
+        <li>Added:  MonitoringConsole now available as product</li>
+        <li>Added:  View all transfers occurring on the network from single web interface</li>
+        <li>Added:  Manage all HotFolder and Server nodes from single interface for easy configuration</li>
+        <li>Added:  Transfer session history, allowing reporting of all transfers occurring on all HotFolder/Server products</li>
+        <li>Added:  HotFolder reports introduced.</li>
+        <li>Added:  Quick-launch Connect to browse/transfer files on server via Remote Server Admin</li>
+        <li>Added:  Quick-launch Connect to browse/transfer files on server via Remote HotFolder Admin</li>
+        <li>Added:  10gbps transfers speeds available</li>
+        <li>Added:  New congestion control strategy which responds better to packet loss when RTT is constant</li>
+        <li>Improved:  Ability to set writer thread file mode to rw for faster IO operations (Windows, Linux)</li>
+        <li>Improved:  Ability to set reader/writer buffer size to allow tuning IO for system-specific operations</li>
+        <li>Improved:  Ability to set multiple reader/writer threads for improved IO operations</li>
+        <li>Improved:  Ability to set # packet  processors (allows multi-core AES decryption on receiver)</li>
+        <li>Improved:  On-the-fly compression now done by Sender threads (allows multi-core compression)</li>
+        <li>Improved:  MD5-on-the-fly verification is now handled by packet processors (allows multi-core compression)</li>
+        <li>Improved:  System profiling tools (command-line) available to tune software for IO performance</li>
+        <li>Improved:  Advanced statistics tools for profiling high speed transfers (HotFolder) and determine bottleneck</li>
+        <li>Added:  SMTPS support now available (such as GMAIL as e-mail service)</li>
+        <li>Fixed:  HF Schedule does not take for every X Minutes</li>
+        <li>Fixed:  Server & HotFolder remote admin applets are unresponsive when loading/connecting on slow link</li>
+        <li>Modified:  Some methods in Client API may have changed to accommodate  new features.</li>
+      </ul>
+
+      <h3>Version 2.9</h3>
+        <strong>Build 14 - <i>November 18th, 2011</i></strong>
+        <ul>
+          <li>Added: Support for MFTM to support 3rd part clients maintaining date/time</li>
+          <li>Fixed:  FC Web Upload applet doesn't finalize job from some Macs</li>
+          <li>Fixed:  Auto-zip doesn't work in Upload applet on Mac</li>
+          <li>Fixed:  Uploading file to localhost often produces "intermediate router killed data connection" error</li>
+          <li>Fixed:  No log for transfer cache in HotFolder FC Web tasks</li>
+          <li>Fixed:  Timeout errors occuring on some clients with FTP uploads</li>
+          <li>Fixed:  Uploads not retrying after some timeout errors</li>
+          <li>Fixed:  Server only initialize File System events when connected client supports it.</li>
+        </ul>
+      <strong>Build 13 - <i>October 28th, 2011</i></strong>
+        <ul>
+          <li>Fixed:  Unable to connect to 3rd party FTP server in HotFolder when executing an FCWEB task</li>
+          <li>Fixed:  All Software reverts to old Look And Feel under Java 7</li>
+          <li>Fixed:  NLST command doesn't support passing a filename as an argument</li>
+          <li>Fixed:  Multiple tasks from same site are splitting BW when some in monitoring</li>
+        </ul>
+      <strong>Build 12 - <i>October 18th, 2011</i></strong>
+        <ul>
+          <li>Fixed:  Issue in HotFolder/Express popup with progress dialog not closing after upload of files</li>
+          <li>Fixed:  Issue with uploading directory in HTTP mode, only first file transferred to proper location, the rest went to parent directory</li>
+          <li>Fixed:  Long uploads using HotFolder to FC Web cause session to be lost, and job doesn't submit</li>
+          <li>Fixed:  AJP/Mod_JK not functioning properly</li>
+        </ul>
+      <strong>Build 11 - <i>October 7th, 2011</i></strong>
+      <ul>
+        <li>Added:  Ability to launch Express by clicking site in HotFolder</li>
+        <li>Fixed:  Download applet save dialog shows "Filename" rather than "Directory"</li>
+        <li>Fixed:  Server gives no indication if Unzip fails</li>
+        <li>Fixed:  API setTransferWithTempName() method doesn't work for downloads</li>
+        <li>Fixed:  User can delete their own home directory</li>
+      </ul>
+
+      <strong>Build 10 - <i>September 26th, 2011</i></strong>
+      <ul>
+        <li>Fixed:  Added synonyms for all commands more than 4 characters to ensure compatability with all firewalls and UTMs</li>
+        <li>Fixed:  IP masquerade bypass doesn't work for certain Class B IP addresses</li>
+        <li>Fixed:  Need a way to customize email notification subject line</li>
+        <li>Fixed:  Feature to configure Proxy settings</li>
+      </ul>
+      <strong>Build 9 - <i>August 23rd, 2011</i></strong>
+      <ul>
+        <li>Fixed:  Server cannot bind to single IP interface when SSL is enabled</li>
+      </ul>
+      <strong>Build 8 - <i>August 18th, 2011</i></strong>
+      <ul>
+        <li>Fixed:  Uploading with unique name and Auto-resume features were conflicting</li>
+      </ul>
+      <strong>Build 7 - <i>July 26th, 2011</i></strong>
+      <ul>
+        <li>Fixed:  Server Admin IP Masquerade Local Bypass value was not set to config value in GUI checkbox</li>
+        <li>Fixed:  Oddities with maintaining path on download with CLI</li>
+        <li>Fixed:  Issue with PWD getting lost after second reconnect and files being stored in the ROOT folder</li>
+        <li>Fixed:  Recover from lost data connection due to intermediate router in FTP mode</li>
+        <li>Fixed:  FC Web - No clients will connect in SSL mode on Mac</li>
+        <li>Fixed:  Get Start rate not returning proper value in API if connection not started</li>
+      </ul>
+
+      <strong>Build 6 - <i>June 23rd, 2011</i></strong>
+      <ul>
+        <li>Added:  Ability to add a custom log handler for client API</li>
+        <li>Added:  New method to quickly check if the server supports UDP</li>
+        <li>Fixed:  HotFolder download tasks stop working after period of time</li>
+        <li>Fixed:  Removal of legacy HELP library jh.jar</li>
+        <li>Fixed:  CLI returns SUCCESS code even with connection error</li>
+        <li>Fixed:  Set DownloadApplet default look and feel to system look</li>
+        <li>Fixed:  Browse dialog labels disappear when applet refreshed</li>
+        <li>Fixed:  Links to Browse/Edit/Delete in User list disappear after refresh</li>
+        <li>Fixed:  Removed delay when extracting zips (previous wait of up to 10 seconds in zip thread)</li>
+        <li>Fixed:  Only delete files that will conflict if zip chunking is turned on</li>
+        <li>Fixed:  Properly show Decompressing status on progress dialog when un-zipping</li>
+        <li>Fixed:  Download applet downloads linked files instead of actual files for a reordered job when autoZip is enabled</li>
+        <li>Fixed:  Improved UDP detection on client side</li>
+        <li>Fixed:  Uncaught error that causes download applet to redirect to Success URL when a connection loss occurred</li>
+        <li>Fixed:  Added new logs to show that unzipper is shutdown, but it is still extracting last few files in queue</li>
+        <li>Fixed:  Properly set request timeout for all HTTP calls</li>
+        <li>Fixed:  Fix issue with status parameter on redirect URLs not including the parameter name</li>
+        <li>Fixed:  Truncate the status parameter if it is more than 2000 characters</li>
+        <li>Fixed:  Compatibility fixes for FC Web 4.6.1</li>
+      </ul>
+
+      <strong>Build 4 - <i>May 27th, 2011</i></strong>
+      <ul>
+        <li>Fixed:  Updated documentation with corrections for HotFolder and Server User Guide</li>
+        <li>Fixed:  Get rid of in-application help window and use default browser instead for help files.</li>
+        <li>Fixed:  HotFolder scheduler issues for upgrades from v2.8.1 tasks scheduled tasks.</li>
+        <li>Fixed:  Fix 64-bit JAVA Windows installer for Server and HotFolder autoscript.</li>
+        <li>Fixed:  User cannot have space in username in FileCatalyst Direct</li>
+        <li>Fixed:  SSL key lengths for self signed certificates was not always respecting client selection.</li>
+        <li>Fixed:  MAC OSX not starting up with permissions warning when installing Server from clean install</li>
+        <li>Fixed:  Linux TAR bundle includes fcconf.default file (copy of default fcconf.conf)</li>
+        <li>Fixed:  Fixed placement of user search and paging panels on ServerAdmin</li>
+      </ul>
+
+      <strong>Build 3 - <i>May 18th, 2011</i></strong>
+      <ul>
+        <li>Improved:  New look and feel for FileCatalyst HotFolder</li>
+        <li>Improved:  New look and feel for FileCatalyst Server</li>
+        <li>Improved:  Minor look and feel update for applets</li>
+        <li>Added:  Read-only ADMIN for FileCatalyst Server</li>
+        <li>Added:  IP Filters for Server Remote Admin connections</li>
+        <li>Added:  View and kill remote admin connections</li>
+        <li>Added:  HotFolder can now browse server remote directory</li>
+        <li>Added:  HotFolder First Run Wizard to help initial configuration</li>
+        <li>Added:  HotFolder can now duplicate tasks by right-clicking on the task list</li>
+        <li>Improved:  HotFolder Edit Site panels regrouped to improve usability</li>
+        <li>Improved:  HotFolder Site Wizard now allows more configuration otpions</li>
+        <li>Improved:  HotFolder can now unzip archive concurrently while transfering next chunk if zip limit is set</li>
+        <li>Improved:  HotFolder can now specify "one time task" by setting calendar widget</li>
+        <li>Improved:  Optimized calls to set date-time/permissions if zip archiving is used</li>
+        <li>Improved:  Optimized calls to bulk delete files</li>
+        <li>Added:  Ajax example for Upload Applet integration (continue browsing while upload continues)</li>
+        <li>Fixed:  Server Remote Admin & Applet can create server self-signed certificate.</li>
+        <li>Fixed:  HotFolder can be configured to run more than 10 tasks concurrently.</li>
+        <li>Fixed:  Setting "Delete From Source" and "Delete After Transfer" can no longer be both set at same time.</li>
+        <li>Fixed:  HotFolder activity window sould display task name.</li>
+        <li>Fixed:  CLI detect bandwidth does not work against sever that has SSL enabled.</li>
+        <li>Fixed:  Task not using all available bandwidth when other tasks are monitoring.</li>
+        <li>Fixed:  Need method to copy URL to clipboard for URLs on admin HTTP access screen (Server, HotFolder)</li>
+        <li>Fixed:  Add User Name to Edit User Dialog Banner</li>
+        <li>Fixed:  HotFolder limitation on the number of monitored tasks (value can be increased from default 10 in fchf.conf)</li>
+        <li>Fixed:  Password shown in password field of Email config for alarms</li>
+        <li>Fixed:  HTTP Transfer fails with MD5 check</li>
+        <li>Fixed:  Enable Checkboxes not functioning refreshing for FC Server Admin</li>
+        <li>Fixed:  Script fc_server_genssl.sh does not provide output of encrypted value for setting SSL password in fcconf.conf</li>
+        <li>Fixed:  Add support for EPSV and EPRT commands for IPv6 data connection</li>
+        <li>Fixed:  Right click on Sites/Hotfolders should also select the item</li>
+        <li>Fixed:  Hotfolder and Server Admin takes too long to appear to user</li>
+        <li>Fixed:  CLI detectBandwidth does not work against server that has SSL enabled</li>
+        <li>Fixed:  Server quits abruptly when property key missing in fcconf.conf for product license</li>
+      </ul>
+
+      <h3>Version 2.8.1</h3>
+      <strong>build 23 - <i>March 31st, 2011</i></strong>
+      <ul>
+        <li>Fixed:  AUTO mode broken in clients for HTTP.</li>
+      </ul>
+      <strong>build 22 - <i>March 22th, 2011</i></strong>
+      <ul>
+        <li>Fixed:  Modified class signature under unlimited.core.util package which was triggering a false positive on AVG scans (virus definitions starting March 22, 2011).</li>
+      </ul>
+      <strong>build 21 - <i>March 21th, 2011</i></strong>
+      <ul>
+        <li>Fixed:  HotFolder fix for duplicate taskID's when importing tasks multiple times.</li>
+        <li>Fixed:  Transfer mode not automatically reset back to FTP after UDP Downloads (C++ API)</li>
+        <li>Fixed:  FS Events do not work when trying to monitor empty directory on download</li>
+        <li>Fixed:  Optimization improvements when creating zip files for uploads</li>
+      </ul>
+
+      <strong>build 20 - <i>March 10th, 2011</i></strong>
+      <ul>
+        <li>Fixed:  made CDUP command also accept 200 reply to accomodate WS_FTP server</li>
+        <li>Fixed:  HotFolder goes into loop when trying to download from 3rd party FTP server</li>
+        <li>Fixed:  FC Server Remote Admin applet fixes for FC Web compatibility</li>
+        <li>Fixed:  Transfer in FTP mode sometimes shows error</li>
+
+      </ul>
+
+      <strong>build 19 - <i>February 23rd, 2011</i></strong>
+      <ul>
+        <li>Fixed:  System tray library missing when launching Server Remote Admin</li>
+        <li>Fixed:  Increase FTP receive timeout from 20 seconds to 60 seconds</li>
+        <li>Fixed:  Recover from lost control connection during FTP downloads</li>
+      </ul>
+      <strong>build 18 - <i>February 22nd, 2011</i></strong>
+      <ul>
+        <li>Fixed:  Updated code signing certificate</li>
+      </ul>
+      <strong>build 17 - <i>February 16th, 2011</i></strong>
+      <ul>
+        <li>Fixed:  Filters not working when multiple filters specified</li>
+        <li>Fixed:  "Allow Concurrent tasks" checkbox not working with HotFolder remote admin</li>
+        <li>Fixed:  Filters not working properly against 3rd party FTP servers</li>
+        <li>Fixed:  Cannot edit task with HotFolder admin applet</li>
+      </ul>
+      <strong>build 15 - <i>February 11th, 2011</i></strong>
+      <ul>
+        <li>Fixed:  Daily Quota broken on FC Server</li>
+        <li>Fixed:  Improved startup times for hotfolder and removed an unecessary system out</li>
+        <li>Fixed:  AutoReveal parameter doesn't work when downloading a folder</li>
+        <li>Fixed:  Fixed double slash bug in servletLocation</li>
+        <li>Fixed:  Logs for Upload Applet show size and rate as 0</li>
+        <li>Fixed:  CLI / Specifying a file that does not exist for upload results in error code 0 (SUCCESS)</li>
+        <li>Fixed:  CLI / Upload / -localdir param is not validated to exist</li>
+        <li>Fixed:  Specify server log location</li>
+        <li>Fixed:  Webserver startup fix for MacOSX running as a service.</li>
+      </ul>
+
+      <strong>build 14 - <i>February 3rd, 2011</i></strong>
+      <ul>
+        <li>Added:  HotFolder ability to filter out files newer than x days (previous filters allowed older files filtered out)</li>
+        <li>Added:  Add new parameter to applets: "DowngradeModeOnReConnect"</li>
+        <li>Fixed:  Memory leak in server after several 10's of thousands of sessions</li>
+        <li>Fixed:  Retries don't increment beyond 2</li>
+        <li>Fixed:  CLI / auto-zip re-creates full path on server</li>
+        <li>Fixed:  Check to see if control connection is still alive after FTP upload.</li>
+        <li>Fixed:  Some settings (enable SSL, enable MonitoringAgent) required a hard restart of server</li>
+        <li>Fixed:  Cannot list directory when using FlashFXP as an FTP Client</li>
+        <li>Fixed:  Transfer Mode name mismatch in two-way applet</li>
+        <li>Fixed:  Encrypt.html not included in download applet package</li>
+        <li>Fixed:  Documentation incorrect instructions in Download applet javascript file</li>
+        <li>Fixed:  Documentation regarding known issues with FS events not working with network mounts.</li>
+      </ul>
+
+      <strong>build 12 - <i>January 26th, 2011</i></strong>
+      <ul>
+        <li>Fixed:  Remote Administration for HotFolder freezing (missing jnotify library)</li>
+        <li>Fixed:  Slow resource leak when connecting with regular FTP client and quitting right away</li>
+        <li>Fixed:  FS Event code moved into SETUP command, called only by FileCatalyst clients</li>
+        <li>Fixed:  Able to shut off FileSystem Events on server by manually editing configuration flag</li>
+      </ul>
+
+      <strong>build 11 - <i>January 13th, 2011</i></strong>
+      <ul>
+        <li>Fixed:  Unable to delete existing file for STOR command</li>
+        <li>Fixed:  If maxretries is reached on STOR and errors were temporary 421 errors, file transfer is set as successful.</li>
+        <li>Fixed:  Classpath not found - HotFolder unable to run as service after upgrade.</li>
+        <li>Fixed:  HotFolder resource leak -- ActivityGraph threads are created but never destroyed.</li>
+        <li>Fixed:  Concurrent connections error on Server RemoteAdmin when trying to apply server setting</li>
+      </ul>
+      <strong>build 8 - <i>January 4th, 2011</i></strong>
+      <ul>
+        <li>Fixed:  Content of "Sent" folder uploaded on subsequent runs</li>
+        <li>Fixed:  Issue with slower achievable rate on large files</li>
+        <li>Fixed:  Excluded NOOP from requiring login when strict login check is disabled</li>
+      </ul>
+      <strong>build 7 - <i>December 22, 2010</i></strong>
+      <ul>
+        <li>Fixed:  UDP test failing when using older clients (v2.8.0 or less) on 2.8.1 server (see <a href=http://support.filecatalyst.com/index.php?_m=knowledgebase&_a=viewarticle&kbarticleid=139>article</a>).</li>
+      </ul>
+      <strong>build 5 - <i>December 15, 2010</i></strong>
+      <ul>
+        <li>Added:  Fixed:  HotFolder and CommandLine bandwidth detection broken.</li>
+      </ul>
+
+      <strong>build 4 - <i>December 8, 2010</i></strong>
+      <ul>
+        <li>Added:  HotFolder now has Real-Time File System events triggering launching of task.</li>
+        <li>Added:  CommandLine can now run a test disk write IO (client-side).</li>
+        <li>Added:  CommandLine can now run a test network IO (-detectBandwidth).</li>
+        <li>Added:  CommandLine option -deleteAfterTransfer.</li>
+        <li>Added:  Search filters for server logs on remote admin.</li>
+        <li>Added:  Email test button in Hotfolder.</li>
+        <li>Added:  HotFolder filter to only transfer files newer than X days</li>
+        <li>Added:  Add ability to generate transfer cache snapshot.</li>
+        <li>Added:  DELE command can now delete directories.</li>
+        <li>Added:  Mac OSX service support for Server and HotFolder.</li>
+        <li>Improved:  Improved log names in HotFolder to include task ID and task name.</li>
+        <li>Improved:  Server Log Viewer can now reload log files.</li>
+        <li>Improved:  Add IP address of Server on log window title.</li>
+        <li>Improved:  Add IP to icon title on system tray on server.</li>
+        <li>Improved:  Blocked users are now seen on Remote Admin GUI, and can be unblocked manually.</li>
+        <li>Improved:  Remote admin can force authentication on localhost connections to tighten security.</li>
+        <li>Improved:  File filters passed to server when doing a remote recusive listing.</li>
+        <li>Improved:  Reduced latency for Server Remote Admin application protocols.</li>
+        <li>Improved:  Server Remote Admin no longer creates temporary files when downloading server configurations.</li>
+        <li>Improved:  Reduced/cleaned up logging output from ServerAPI.</li>
+        <li>Improved:  Added a scroll bar to Server License panel.</li>
+        <li>Fixed:  Remote Admin Applets does not set values for some configurations properly.</li>
+        <li>Fixed:  Wrong values in bandwidth detection (showed negative numbers).</li>
+        <li>Fixed:  Directories were not being cached due to timestamp set to 0.</li>
+        <li>Fixed:  Force all MACs to use default thread stack size.</li>
+        <li>Fixed:  Updated MAC application stub so it is possible to run app in 1.6 64-bit when it exists.</li>
+        <li>Fixed:  ServerAPI not able to reconnect to server under certain conditions.</li>
+        <li>Fixed:  Recursive log "COMMAND SENT" by ServerAPI if exception due to communication outage.</li>
+        <li>Fixed:  Backup configuration files not loaded if configuration file is empty (0 bytes).</li>
+        <li>Fixed:  TUDP/RUDP (test bandwidth) can be called without logging in.</li>
+        <li>Fixed:  Editing a task/hotfolder/site, even with no changes causes complete re-initialize of HotFolder.</li>
+        <li>Fixed:  Logging stops working when change made to bandwidth scheduler.</li>
+        <li>Fixed:  Autoconnect mode not reporting HTTP connection failures.</li>
+        <li>Fixed:  Ability to refresh server IP address on Server Remote Admin</li>
+        <li>Fixed:  FC clients attempt to test UDP when connecting to 3rd party FTP servers.</li>
+        <li>Fixed:  Lack of proper notice when missing 3PP connect key for HotFolder.</li>
+        <li>Fixed:  Missing documentation on starting Server using alternative config path.</li>
+        <li>Fixed:  Improve HotFolder check to see if already running.</li>
+        <li>Fixed:  Increased timeout for auto detection thread to 60 seconds from 30 seconds.</li>
+        <li>Fixed:  Show effective rate for Single archive transfers.</li>
+        <li>Fixed:  IO write speed test timeout ignored after 25 seconds.</li>
+        <li>Fixed:  Zip chunks are created too quickly, provide throttle mechanism.</li>
+        <li>Fixed:  Hotfolder outputs error when trying to view entire log and activity not running.</li>
+        <li>Fixed:  Download/single zip now uses proper fczip suffix.</li>
+        <li>Fixed:  Zip chunks are not deleted if an error occurs.</li>
+        <li>Fixed:  Fixed FC Web bug with PWD not being cached properly.</li>
+        <li>Fixed:  Log when connection to server failed.</li>
+        <li>Fixed:  Removed log entry for each file skipped due to transfer cache.</li>
+        <li>Fixed:  Flattenpath doesn't work in CLI on downloads.</li>
+        <li>Fixed:  The initial creation and addition of first entry may take long enough to cause a timeout error.</li>
+        <li>Fixed:  Check for disconnect after UNZIP locally, it may take longer than the timeout.</li>
+        <li>Fixed:  Added server version print statement when server started via FC Server servlet.</li>
+        <li>Fixed:  Express can not connect to 3rd party FTP server even with client connect key applied.</li>
+        <li>Fixed:  Block users are not unblocked after timeout.</li>
+        <li>Fixed:  Detecting bandwidth on non-FileCatalyst Server returns wrong message.</li>
+        <li>Fixed:  Maintain date/time stamp and permissions doesn't work with auto zip.</li>
+      </ul>
+
+
+      <h3>Version 2.8.0</h3>
+      <strong>build 11 - <i>November 1, 2010</i></strong>
+      <ul>
+        <li>Added:  ServerAPI method isConnected() to test if connection is established on remote admin.</li>
+        <li>Fixed:  Better exception handling on ServerAPI if remote admin connection is lost.</li>
+        <li>Improved:  ServerAPI no longer creates temporary files when downloading server configurations.</li>
+      </ul>
+      <strong>build 10 - <i>October 18, 2010</i></strong>
+      <ul>
+        <li>Fixed:  Download applet browseLive() returns value even when user clicks cancel.</li>
+        <li>Fixed:  Multiple log entries using Server API if connect() call was run more than once.</li>
+        <li>Fixed:  UDP ACKs sent from wrong IP for machines with more than 1 interface on same network.</li>
+        <li>Fixed:  HTTP downloads with zip archiving enabled do not work.</li>
+        <li>Fixed:  Mac settings not restored after upgrade</li>
+        <li>Fixed:  Random crashes and status issues on 64-bit MAc and Linux systems</li>
+      </ul>
+      <strong>build 8 - <i>October 8, 2010</i></strong>
+      <ul>
+        <li>Fixed:  HTTP downloads with zip archiving enabled do not work.</li>
+        <li>Fixed:  Servlet startup issues causes exception.</li>
+        <li>Fixed:  Reduced size of Server and HotFolder Admin applet</li>
+        <li>Fixed:  Server admin frame size on Mac OSX was too small for license panel</li>
+        <li>Fixed:  Applet status code now reset after clearQueue() call</li>
+        <li>Fixed:  Servlet can now send email notification from HotFolder</li>
+        <li>Fixed:  Added session ID to logs alongside username and IP</li>
+        <li>Fixed:  Find user and user paging was not working on Server Admin.</li>
+        <li>Fixed:  File lock issue when zip file encountered an error.</li>
+        <li>Fixed:  FCConf.conf file deleted after upgrade on Mac OSX if license is expired</li>
+        <li>Fixed:  Changing server license key on remote admin now verified before applying.</li>
+        <li>Fixed:  HotFolder quickstart guide now includes Remote Admin section.</li>
+        <li>Fixed:  HotFolder missing logs.</li>
+        <li>Fixed:  HotFolder bandwidth scheduler on-the-fly changes not working.</li>
+        <li>Fixed:  HotFolder status broken for files over 2 GB.</li>
+        <li>Fixed:  HotFolder admin splash screen no longer states it is beta.</li>
+        <li>Fixed:  Expose transaction ID on Client API to resolve concurrent autozip transfer failures.</li>
+      </ul>
+      <strong>build 3 - <i>September 17, 2010</i></strong>
+      <ul>
+        <li>Improved:  Landing page for HotFolder and Server remote admin applets have been updated.</li>
+        <li>Improved:  Multiple backup/alternate licenses can be specified for FileCatalyst Server.</li>
+        <li>Fixed:  HotFolder menu now indicates where license keys may be entered.</li>
+        <li>Fixed:  Zip archive size limits not functioning when used with "move to sent folder" feature.</li>
+        <li>Fixed:  Incomplete transfer when combining features: download, zip file limit set, progressive set to off</li>
+        <li>Fixed:  Allow archive file limits to be available via GUI or command line</li>
+        <li>Fixed:  HotFolder admin error "Unable to create HotFolder location: Could not create path: 1".</li>
+        <li>Fixed:  Server resource leak when test UDP connections would fail on the server.</li>
+        <li>Fixed:  HotFolder windows installer overwrites fchf.conf settings when upgrading.</li>
+      </ul>
+
+      <strong>build 1 - <i>September 8, 2010</i></strong>
+
+      <ul>
+        <li>HotFolder Remote Administration available as a standalone application.</li>
+        <li>HotFolder Remote Administration available in browser on a web port of the HotFolder.</li>
+        <li>Server Remote Administration available in browser on web port of the Server.</li>
+        <li>HTTP Servlet now available as option in FileCatalyst Server</li>
+        <li>Improved:  FileCatalyst remote administration communication is now always SSL encrypted.</li>
+        <li>Improved:  MonitoringAgent now requires ports open on the MonitoringAgent only (products no longer need to open port 12500).</li>
+        <li>Improved:  MonitoringAgent faster agent polling (polls run concurrently).</li>
+        <li>Improved:  MonitoringAgent now allows product auto-discovery.</li>
+        <li>Improved:  MonitoringAgent configuration GUI now available via FileCatalyst Server Administration.</li>
+        <li>Improved:  HotFolder can now specify maximum zip archive file size.</li>
+        <li>Improved:  Transfer cache.</li>
+        <li>HotFolder task priority now available.</li>
+      </ul>
+
+
+      <h3>Version 2.7.7</h3>
+      <strong>build 10 - <i>July 19, 2010</i></strong>
+      <ul>
+        <li>Fixed issue with config files saving slowly on Windows 2008</li>
+        <li>Fixed downloading using HTTP mode in the HotFolder.</li>
+        <li>Changed functionality to support resuming when using 3rd party FTP clients.</li>
+        <li>Added new parameter to FileCatalyst Cart (Upload applet) to prevent adding directories to the queue.</li>
+        <li>Modified: Upload and Download Applet will display PAUSE actions if deletePartial==false, and CANCEL if deletePartial=true.
+        Re-aligns behavior to be more intuitive, but modifies legacy redirect calls.</li>
+        <li>Fixed: HotFolder doesn't respect compression level setting on Download with single archive</li>
+        <li>Added: HotFolder compression level now has access to a "no" compression option (equivalent to Linux TAR).</li>
+        <li>Fixed: Added Javascript method to applets to allow on-the-fly file renaming</li>
+        <li>Fixed: ZIP file not deleted after integrity check fails</li>
+        <li>Fixed: Server remote admin cannot set new license key if current license key is invalid.</li>
+        <li>Added: OpenLDAP authentication now support security attributes </li>
+        <li>Added: Servlet Multiplier in the CLI </li>
+        <li>Fixed: Slider scale on HotFolder must have numbers in addition to tick marks. </li>
+        <li>Fixed: Status not reset properly in upload applet after removing items from queue </li>
+        <li>Fixed: Progressive on Download not functioning properly when ZIP enabled</li>
+        <li>Fixed: Statistics wrong when performing deltas </li>
+        <li>Fixed: Updating the transfer mode in HotFolder to TCP</li>
+        <li>Fixed: UDP transfers take too long to timeout</li>
+        <li>Fixed: Download of files with | (pipe) character in filename fails.</li>
+        <li>Fixed: MAC OSX must identify how to do a cut/paste </li>
+        <li>Fixed: FileZilla fails to get directory listing when SSL enabled, and directory is empty </li>
+        <li>Fixed: Do not allow deltas if user does not have permission </li>
+        <li>Fixed: Modify "Post URL" field in HF Task to a more generate "Post Process" </li>
+        <li>Fixed: Disable Congestion control settings when UDP mode not selected </li>
+        <li>Fixed: More feedback for certain clients when access restricted via licensing </li>
+        <li>Fixed: Two-way applet "NEW SITE" configuration not working as expected</li>
+        <li>Fixed: Limit maximum size of wrapper log files</li>
+        <li>Fixed: Express & Two way applet cannot attempt a second connect for unsupported client</li>
+        <li>Fixed: Express client display more visible warning when unsupported clients are detected</li>
+      </ul>
+
+      <h3>Version 2.7.6</h3>
+      <strong>Build 8</strong>
+      <ul>
+        <li>Added new applet javascript calls to get final transfer statistics (getTransferSizeBytes(), getTransferDurationSeconds(), getTransferMode() )</li>
+        <li>Added new applet javascript to set server parameters (setServerHost(), setServerPort(), setUserName(), setUserPassword() )</li>
+        <li>Added new download applet javascript to manipulate download path ( getRootDownloadPath(), getCurrentSavePath(), setRecommendedDir(), getCreateLocalDir() )</li>
+        <li>REMOVED download applet javascript setSavePath() method </li>
+        <li>Server Remote Admin of 2.7.6 cannot communicate to older release of server (stops server configuration corruption issue when using new FCWeb license key)</li>
+        <li>Fixed: Fixed auto detection issue on Command-line now properly falls back to TCP when UDP is not available.</li>
+        <li>Fixed: Fixed auto detection issue when starting transfer before autodetection had completed.</li>
+        <li>Fixed: ServerAPI updated.</li>
+        <li>Improved HotFolder email notification to include file listing and size.</li></ul>
+
+      <strong>Build 4</strong>
+      <ul>
+        <li>Added new applet javascript calls (getTotalQueueSize, getQueueItemSize, getQueueFileCount)</li>
+        <li>Added new option to create directory on download applet (createlocaldir)</li>
+        <li>Improved congestion control performance </li>
+        <li>Added new Server API calls to retrieve user list </li>
+        <li>Fixed: AdminServerHandler thread utilizing CPU time</li>
+        <li>Fixed: Cancelling/Resuming downloads broken for 3rd party FTP clients </li>
+        <li>Fixed: Disable compression on by default in HotFolder </li>
+        <li>Fixed: Configure high server load breaks (max block value too high)</li>
+        <li>Fixed: Timing values skewed when system clock changes </li>
+        <li>Fixed: <SPAN id="summary_alias_container"><SPAN id="short_desc_nonedit_display">Deltas breaking on   random large files</SPAN> </SPAN></li>
+        <li>Fixed: <SPAN id="summary_alias_container"><SPAN id="short_desc_nonedit_display">CLI not functioning   for mounted drives</SPAN> </SPAN></li>
+        <li>Fixed: Windows 7 UDP Socket bind issues </li>
+      </ul>
+
+      <h3>Version 2.7.5</h3>
+      <ul>
+        <li>Improved synchronization, now allows deletion of files that no longer exist at source </li>
+        <li>Ability to enable/disable masquerade address bypass for local connections</li>
+        <li>HotFolder PostURL now sends full status info for each file</li>
+        <li>Ability to hide Upload and Cancel buttons in Upload applet </li>
+        <li>Automatically revert to single stream TCP when multi-stream fails </li>
+        <li>Added JavaScript method to remove individual file from queue</li>
+        <li>Added ability to switch To/From fields for email alerts  </li>
+        <li>Fixed: Client connect key not working against 3rd party servers</li>
+        <li>Fixed: Browse dialog on Mac in download applet now has native L&amp;F</li>
+        <li>Fixed: Incorrect error messages in 2-way applet </li>
+      </ul>
+
+      <h3>Version 2.7.4</h3>
+      <ul>
+        <li>Ability to specify SSL ciphers for FileCatalyst Server</li>
+        <li>Database authentication model (ie: MySQL) available in FC Direct</li>
+        <li>Amazon EC2 cloud licensing support</li>
+        <li>Upload applet javascript function to determine selected file in queue</li>
+        <li>Upload and download applet javacript function to determine all files in queue</li>
+        <li>Upload and download applet javascript method to callback once applet has loaded</li>
+        <li>Upload and download applet javascript method to launch FC file browser</li>
+        <li>Applet javascript browseLive() method now returns path selected by user to javascript</li>
+        <li>Separate buttons for Pause and Cancel buttons for applets.</li>
+        <li>Enabled some upload applet buttons (ie: add to queue) optional</li>
+        <li>Download applet now has "autoreveal" feature to launch file explorer</li>
+        <li>Download applet now has "Launch" button to execute downloaded file</li>
+        <li>Fixed: 64-bit installers now available for Windows</li>
+        <li>Fixed: MD5 failing when using HTTP transfer mode</li>
+        <li>Fixed: UDP slowdown on long transfers with zero latency</li>
+        <li>Fixed: MD5 on-the-fly does not work with progressive transfers</li>
+        <li>Fixed: after zip upload, temp file is not deleted</li>
+        <li>Fixed: Upgrade of HotFolder on MAC does not maintain settings</li>
+        <li>Fixed: Servlet URL now available to HotFolder site creating wizard</li>
+        <li>Fixed: FC Applets fail to re-try in HTTP</li>
+        <li>Fixed: Express connection manager warning if you don't use congestion control</li>
+        <li>Fixed: Process verification when lauching FileCatalyst Server and HotFolder to see if one is already running.</li>
+        <li>Fixed: File filters not working with nested folders</li>
+        <li>Fixed: Transfers does not unzip when subfolders when user home is UNC path</li>
+        <li>Fixed: Files moved to Sent folder even when renames fails (locked file)</li>
+        <li>Fixed: Two-way applet upload speeds differ from upload applet</li>
+        <li>Improved:  Upload and Download documentation and javascript is improved.</li>
+        <li>Improved:  Upload live.html and download live.html javascript improved.</li>
+        <li>Experimental: Concurrent MD5 option for high speed transfers </li>
+      </ul>
+
+      <h3>Version 2.7.3</h3>
+      <ul>
+        <li>Allow the Server Remote Admin to perform a write IO test in user home directory</li>
+        <li>Allow the HotFolder to perform a write IO test hotfolder directory</li>
+        <li>Number of users of system now displayed on Remote Admin</li>
+        <li>User list paging when > 100 users are on the system </li>
+        <li>Username filter on remote admin (ctrl-f) </li>
+        <li>Multiple ActiveDirectory/OpenLDAP directory servers possible (via configuration files)</li>
+        <li>Optimization to improve throughput of single connection transfer speeds</li>
+        <li>Optimizations to allow more concurrent users to connect</li>
+        <li>Allow server to limit number of concurrent users </li>
+        <li>CLI client improvements help/usage, logging disabled by default</li>
+        <li>Ability to stop signature/delta/file rebuild and release resources</li>
+        <li>Allow server to bind to specific IP address on the server</li>
+        <li>Regular expressions now available as option for HotFolder</li>
+        <li>Improved sendLogsToURL in applets</li>
+        <li>Display transfer mode (UDP/FTP/HTTP) on applets</li>
+        <li>Added javascript call to modify remoteDir in applets</li>
+        <li>Fixed: Can detect network settings even if ICMP is blocked</li>
+        <li>Fixed: Remote admin utilizes too much memory when # of users > 500</li>
+        <li>Fixed: Upload applet showing error when cancelling</li>
+        <li>Fixed: Rebuilding file from Delta, % bar shows 0% complete </li>
+        <li>Fixed: Browser hangs when cancelling a transfer via java script on applet (GUI hidden)</li>
+        <li>Fixed: HotFolder does not run without GUI on Linux</li>
+        <li>Fixed: Deltas broken when using 2-way applet </li>
+        <li>Fixed: SSL certificate creation stores on / on Linux instead of working directory</li>
+        <li>Fixed: HotFolder e-mail notification can now use ADMIN e-mail address</li>
+        <li>Improved:  Performance tuning in HotFolder/Server user documentation</li>
+      </ul>
+
+      <h3>Version 2.7.2</h3>
+      <ul>
+        <li>Server-side API released as beta product</li>
+        <li>Added usernames on FileCatalyst server can be forced as lowercase only for integration with case insensitive directory services (ActiveDirectory)</li>
+        <li>Added download applet parameter to allow renaming of files on the fly </li>
+        <li>Added applet (upload and download) javascript methods to extract transfer information </li>
+        <li>Added applet option to eliminate drag and dropping of files in queue</li>
+        <li>Added client CLI ability to specify POST URL</li>
+        <li>Added client CLI ability to support file filtering (REGEX)</li>
+        <li>Refresh of third party libraries</li>
+        <li>Fixed: Server "Too many files open" on UNIX environments</li>
+        <li>Fixed: Uploads from write-protected directories (CD-ROM) now supports incremental transfers (Deltas)</li>
+        <li>Fixed: Directory is not created when user home directory is modified to new value</li>
+        <li>Fixed: Uploading from network drive on Mac OS does not function</li>
+        <li>Fixed: Applet "Data Uploaded" and "Speed of Upload" show zero after Pause and Resume</li>
+        <li>Fixed: Applet "Progress Window" does not show status for long file name</li>
+        <li>Fixed: FileCatalyst Express documentation included in Linux releases and on website</li>
+      </ul>
+
+      <h3>Version 2.7.1</h3>
+      <ul>
+        <li>Transfer of deltas file may now be done progressively (start to transfer data while delta file is being built)</li>
+        <li>Ability to see client type and version in Server Remote Admin</li>
+        <li>Applet confirmation dialog before canceling transfers</li>
+        <li>Ability in applet to remove browser pane in upload cart</li>
+        <li>Fixed: upload delta transfer causes exception from write-protected drive.</li>
+        <li>Fixed: Applet adding if to queue while transferring throwing exception</li>
+        <li>Fixed: potential rate detection at low speed.</li>
+        <li>Fixed: Express not will try active mode if passive mode fails</li>
+        <li>Fixed: Express default bandwidth to 45000</li>
+        <li>Fixed: Lowered default congestion control aggression</li>
+        <li>Fixed: Data retention for reports</li>
+        <li>Fixed: Large delta resume broken</li>
+        <li>Fixed: MonitoringAgent error in sending SMTP notifications using some e-mail servers</li>
+        <li>Fixed: HotFolder sent folder uses application working directory instead of hotfolder directory as parent</li>
+      </ul>
+
+      <h3>Version 2.7</h3>
+      <ul>
+        <li>Release of FileCatalyst Express Server and FileCatalyst Express Client</li>
+        <li>Added ability to pre-generate Signatures for deltas transfer</li>
+        <li>Transfer of deltas file may now be done progressively (uploads only)</li>
+        <li>Deltas file will now be resumed if the transfer is interrupted </li>
+        <li>Can now do incremental uploads/downloads with unique name</li>
+        <li>Added limited JavaScript interface to applets (add files, initiate upload) </li>
+        <li>Improved   exit codes for CLI</li>
+        <li>Fixed bug with Server admin console freezing</li>
+        <li>Fixed bug with transfers periodically freezing under high packet loss </li>
+        <li>Improved congestion control algorithms</li>
+        <li>Experimental control of congestion control aggressiveness in CLI and API </li>
+        <li>Filename now shown in Error emails in addition to error message </li>
+        <li>IP Masquerade now only overrides passive IP for external IP connections </li>
+      </ul>
+
+      <h3>Version 2.6.5</h3>
+      <ul>
+        <li>Added Hotfolder and transfers alarms now supported by MonitoringAgents</li>
+        <li>Added Improved HotFolder e-mail notifications </li>
+        <li>Added Bandwidth speed test button on HotFolder </li>
+        <li>Fixed login security issue</li>
+        <li>Fixed CLI creates zero-byte file on download if source does not exist</li>
+        <li>Fixed hitting refresh button in Applet can break downloads</li>
+        <li>Fixed initialization issue with WorkQueue/ThreadPool</li>
+        <li>Fixed HotFolder sent folder does not always delete old uploads</li>
+        <li>Fixed Hotfolder notification e-mails with SMTP Server and authentication</li>
+        <li>Fixed user bandwidth applies across multiple connections </li>
+        <li>Fixed deletion thread can be configured to run less frequently</li>
+        <li>Fixed server connection on upload when using transfer cache</li>
+        <li>Fixed single stream TCP transfer defaults to ACTIVE MODE if PASSIVE command fails</li>
+        <li>Fixed HotFolder uploads will not connect to server if transfer cache detects there are no files to update</li>
+        <li>Fixed ASAP delivery guarantee issue</li>
+      </ul>
+
+      <h3>Version 2.6</h3>
+      <ul>
+        <li>Added Guaranteed Delivery Time and on-the-fly file transfer priority assignment</li>
+        <li>Added ability to install Server, Hotfolder, and MonitoringAgent as Linux service or Solaris SMF service</li>
+        <li>Hotfolder "Sent" location can now be specified; old jobs can be deleted after specified period</li>
+        <li>Added user/IP lockout after multiple consecutive login failures</li>
+        <li>Added additional alarms for MonitoringAgent for user/IP lockout and passive mode errors</li>
+        <li>Improved thread and resource management</li>
+        <li>MonitoringAgent now supported on Mac</li>
+        <li>Fixed view entire log</li>
+        <li>Fixed canceling download task can take a long time</li>
+      </ul>
+
+      <h3>Version 2.5</h3>
+      <ul>
+        <li>Added Server MonitoringAgent with SNMP and Email alerts</li>
+        <li>Added CSV reports for Bandwidth and data usage</li>
+        <li>Fixed issue with downloads from servers with multiple NICs</li>
+        <li>Temporary filename feature now works on downloads</li>
+        <li>Ability to only &quot;Include&quot; files that match filters in Hot Folder (previously only able to Exclude) </li>
+        <li>Server admin now shows filename and percentage in session monitor   </li>
+        <li>All applications now run in IBM JDK </li>
+      </ul>
+
+      <h3>Version 2.4.3</h3>
+      <ul>
+        <li>Fixed issue with large deltas (> 4GB) not being applied </li>
+        <li>No longer need to manually adjust extended read timeout, reconnects automatically </li>
+        <li>Improved logic to detect when and when not to perform deltas </li>
+        <li>Improved recovery for certain types of network problems </li>
+        <li>Fixed several minor cosmetic bugs </li>
+      </ul>
+
+      <h3>Version 2.4.2</h3>
+      <ul>
+        <li>Major two-way applet GUI improvements </li>
+        <li>Added support for implicit FTPS for additional 3rd party clients </li>
+        <li>Lowered memory footprint of application </li>
+        <li>Fixed issue with multiple concurrent delta transfers of the same file </li>
+        <li>Fixed SYNTAX ERROR when packet recovery command exceeded command length </li>
+        <li>Fixed timeout overflow error when timeout set to above 2147 seconds </li>
+        <li>Fixed bandwidth slice to be divided only over active (ie: transferring) sessions </li>
+        <li>Fixed stability issue in Remote Administration GUI </li>
+        <li>Fixed bandwidth limitation on LAN transfers </li>
+        <li>Fixed issue regarding Windows service restart on some failures </li>
+      </ul>
+
+      <h3>Version 2.4.1</h3>
+      <ul>
+        <li>Fixed issue with files not being released after a failed download attempt </li>
+        <li>Automated additional installation steps that were required to update from v2.3.2  </li>
+        <li>Fixed issue with backups not being created properly on Linux kernel 2.6.X with Java 1.4.X</li>
+        <li>Fixed issue with remote admin reporting errors every time settings are committed  </li>
+        <li>Fixed issue with connection loss not timing out transfers for 20 minutes or more </li>
+      </ul>
+
+      <h3>Version 2.4</h3>
+      <ul>
+        <li>Added ability to calculate MD5 checksums on the fly. </li>
+        <li>Fixed issue with FTP/SSL transfer</li>
+        <li>Fixed network resource leak when performing several PASV commands</li>
+        <li>Fixed issue where bandwidth was allocated to idle sessions </li>
+        <li>Fixed issue with folders not being deleted when &quot;Delete source file&quot; option selected on download task</li>
+        <li>Fixed issue with uploads not speeding up properly</li>
+      </ul>
+
+      <h3>Version 2.3.3</h3>
+      <ul>
+        <li>Ability to specify idle timeout options available for FileCatalyst Server and HotFolder.</li>
+        <li>Fixes for Windows VISTA User Access Control (UAC) integration.</li>
+        <li>Windows NT 4.0 support for HotFolder as an NT service.</li>
+        <li>Download and Upload applet javascript errors fixed.</li>
+        <li>File deltas fix for files larger than 2 GB.</li>
+        <li>International characters in file names not working properly with HotFolder and Applet.</li>
+        <li>More accurate time estimate values in Hotfolder Activity fixed.</li>
+        <li>On-line help file fixed.</li>
+        <li>MD5 checksum errors when using FTP and compression fixed.</li>
+        <li>FileCatalyst Web Services integrated in release cycle.</li>
+      </ul>
+
+      <h3>Version 2.3.2</h3>
+      <ul>
+        <li>Fixed issue with releasing network resources (integration with FC Web 3.5.4)</li>
+        <li>Background color can now be modified in Download and Upload applets for better website integration</li>
+        <li>Unit sizes can now accept arbitrary values (previous limitation required number be power of 2)</li>
+      </ul>
+
+      <h3>Version 2.3.1</h3>
+      <ul>
+        <li>Improved performance transferring  massive numbers of files</li>
+        <li>Added ability to disable file priority</li>
+        <li>GUI enhancements for upload applet   </li>
+        <li>Double clicking system tray now minimizes/maximized HotFolder and Server GUI</li>
+        <li>Improved backup and recovery of config files </li>
+        <li>Fixed HotFolder scheduler issue where CPU rose to 100% under certain conditions </li>
+        <li>Fixed issue with file being locked by server when connection lost </li>
+        <li>Fixed issue with bandwidth not being released when session killed</li>
+        <li>Several minor bug fixes and performance enhancement</li>
+      </ul>
+
+      <h3>Version 2.3.0</h3>
+      <ul>
+        <li>Server now supports LDAP and Active directory authentication </li>
+        <li>Fixed issue with slow receive on Solaris</li>
+        <li>Fixed issue with bandwidth not being released when session killed</li>
+        <li>Several minor bug fixes and performance enhancements </li>
+      </ul>
+
+      <h3>Version 2.2.0</h3>
+      <ul>
+        <li>HotFolder can now run multiple tasks simultaneously</li>
+        <li>Compression on the fly now works with multiple TCP streams</li>
+        <li>HotFolder tasks can prioritize file based on size or date</li>
+        <li>HotFolder tasks can filter files based on a size range </li>
+        <li> Certain file extensions can be excluded from compression</li>
+        <li>Congestion control now speeds up and detects line speed more efficiently </li>
+        <li>Downloads now work with no firewall configuration on client side. </li>
+      </ul>
+
+      <h3>Version 2.1.0</h3>
+      <ul>
+        <li>Server can now  rotate logs and reset quotas at times other than midnight </li>
+        <li>Hot Folder can now specify several file filters for a given task</li>
+        <li>Ability to choose between prefix or suffix when transferring with temporary filename </li>
+      </ul>
+
+      <h3>Version 2.0.4</h3>
+      <ul>
+        <li>Fixed issue with attempting to compress files that are already compressed, .zip, .tgz, etc... </li>
+      </ul>
+
+      <h3>Version 2.0.3</h3>
+      <ul>
+        <li>Fixed issue with files not being deleted, or moved to Sent folder after uploads </li>
+      </ul>
+
+      <h3>Version 2.0.2</h3>
+      <ul><li>Fixed issue with transfer timing out at beginning of transfer </li>
+        <li>Fixed issue with starting multiple Hot Folders on one machine sending to same server </li>
+      </ul>
+
+      <h3>Version 2.0.1</h3>
+      <ul>
+        <li>Fixed memory issues, Server would run out of memory under high loads</li>
+      </ul>
+
+      <h3>Version 2.0.0 </h3>
+      <ul>
+        <li>Reduced transfer overhead to less than 1%</li>
+        <li>Introduced on the fly compression</li>
+        <li>Introduced enhanced incremental transfers, transfer only file deltas</li>
+        <li>Introduced ability to compress all files into single archive prior to transfer </li>
+        <li>Now compatible with any platform that can run Java 1.4 including HP-UX, AIX and other Unix flavors</li>
+        <li> Enhanced look and feel</li>
+        <li> MD5 sums are now cached to disk so they are persistent between invocations. </li>
+        <li>Fixed issues with transfer quotas not being reset </li>
+        <li>Several minor bug fixes and performance enhancements </li>
+      </ul>
+
+      <h3>Version 1.9.3</h3>
+      <ul>
+        <li>Fixed bug with resuming downloads at an offset greater than 2GB</li>
+        <li>Further improved  MD5 caching to alleviate CPU usage, on client side as well as when detecting if file can be resumed</li>
+        <li>Fixed issue with moving files to Sent folder which was introduced in 1.9.2</li>
+        <li>Fixed issue with transfer stopping after only one file failed. It will now log the error, and continue to next file.</li>
+      </ul>
+
+      <h3>Version 1.9.2</h3>
+      <ul>
+        <li>Fixed bug with server hanging if connection lost during MD5</li>
+        <li>Added MD5 caching to alleviate CPU usage</li>
+        <li>Added timeout to transmit, if no ack received in reasonable amount of time </li>
+      </ul>
+
+      <h3>Version 1.9.1</h3>
+      <ul>
+        <li>Various bug fixes to Server admin console.</li>
+      </ul>
+
+      <h3>Version 1.9</h3>
+      <ul>
+        <li>FileCatalyst Server can now be administered via a remote admin client.</li>
+        <li>Users can be assigned priorities, LOW MEDIUM and HIGH, and bandwidth is re-allocated on the fly </li>
+        <li>Users can be assigned a daily quota for bandwidth consumption</li>
+        <li>Improved ability for client applications to recover from random network failures </li>
+      </ul>
+
+      <h3>Version 1.8</h3>
+      <ul>
+        <li>FTP transfers can now use multiple concurrent TCP streams for acceleration in low loss environments. </li>
+        <li>Introduction of Pro edition, which supports acceleration though multiple TCP streams, but doesn't support UDP/Digital Fountain technology. This version is useful when there is little or no packet loss, and RTT is nominal. It can provide 10 -15X faster than standard FTP </li>
+        <li>Introduction of Lite edition, which uses standard FTP, but has all verification, and reliability features of Pro and Enterprise editions. This version is useful when there is little or no packet loss, and RTT is low but guaranteed delivery, and automation is still required. </li>
+        <li>Ability to set start rate when Slow Start is enabled (Enterprise version only).</li>
+        <li>Ability to delete remote files after download. </li>
+      </ul>
+
+      <h3>Version 1.7</h3>
+      <ul>
+        <li>Reduced memory and CPU usage by 50% </li>
+        <li>Added progressive transfers; if file grows during transfer it will automatically append or resume the transfer immediately after first portion is complete </li>
+        <li>File can now be uploaded with a temp name, and renamed after complete. Server hides these files for other clients until they are complete </li>
+        <li>Fixed problem with transferring hidden files on windows</li>
+      </ul>
+
+      <h3>Version 1.6.3</h3>
+      <ul>
+        <li>Fixed problem with &quot;Success&quot; emails being sent when transfer cancelled.</li>
+        <li>Fixed problem with killing FC/download sessions when slow start feature off. </li>
+        <li>Fixed problem with AES enabled transfers not functioning properly. </li>
+      </ul>
+
+      <h3>Version 1.6.2</h3>
+      <ul>
+        <li>Added blackout feature to bandwidth scheduler </li>
+        <li>Added server reply messages to server logs </li>
+        <li>Fixed issues with sessions hanging </li>
+        <li>Fixed issues with killing FTP sessions</li>
+      </ul>
+
+      <h3>Version 1.6.1</h3>
+      <ul>
+        <li>Fixed issues with permissions on user accounts.</li>
+        <li>Fixed issue with emails being sent even when no files were transferred </li>
+      </ul>
+
+      <h3>Version 1.6.0</h3>
+      <ul>
+        <li>Added FTP transfers to HotFolder.</li>
+        <li>HotFolder can auto detect when to use FC or FTP based on network conditions</li>
+        <li>Added transfer monitor with graphical display of current rates</li>
+        <li>Added ability to monitor current users on server</li>
+        <li>Added upload cache feature. </li>
+      </ul>
+
+      <h3>Version 1.5.3</h3>
+      <ul>
+        <li>Added incremental downloads </li>
+        <li>Fixed issue with files being cached when download was canceled.</li>
+        <li>Faster MD5/integrity checks</li>
+        <li>Resuming transfers is more reliable</li>
+        <li>Fixed issues with canceling/pausing Hot Folder </li>
+        <li>Added a test for incoming UDP when creating a site</li>
+        <li>Slow start and rate control improvements.</li>
+      </ul>
+
+      <h3>Version 1.5.2</h3>
+      <ul>
+        <li>Added IP Filters to the server </li>
+        <li>Added ability to disable download cache</li>
+        <li>Fixed issues with Download cache </li>
+        <li>Added ability to recover from receive timeout errors</li>
+        <li>Fixed issues with download integrity after several restarts</li>
+        <li>Various performance improvements </li>
+      </ul>
+
+      <h3>Version 1.5.1</h3>
+      <ul>
+        <li>Added rate control for downloads</li>
+        <li>Added resume for downloads </li>
+      </ul>
+
+      <h3>Version 1.5</h3>
+      <ul>
+        <li>Added user-based authentication and permissions to Server and HotFolder. </li>
+        <li>Added full FTP support to FileCatalyst Server, as standard FTP clients can now interact and manage the server directly. </li>
+        <li>Adaptive rate-control</li>
+        <li>Added Universal Plug and Play support to HotFolder task configuration . </li>
+        <li>Enhanced graphical user interface adding more routine tasks to HotFolder and Site listings for improved ease-of-use. </li>
+        <li>Added support to server for IP address masquerading. </li>
+        <li>Various  bug fixes and transfer optimization.</li>
+      </ul>
+
+      <h3>Version 1.4</h3>
+      <ul>
+        <li>Added support for multiple user-defined HotFolders and Sites.</li>
+        <li>Moved transfers to task-based configuration system, allowing advanced options to be configured per-task.</li>
+        <li>Added Wizards to help create Sites, Tasks, and HotFolders. </li>
+        <li>Updated look-and-feel to improve ease of use.</li>
+        <li>New configuration menus and options for Tasks, HotFolders, and Sites.</li>
+        <li>        Modified configuration files to fully XML-based implementation. </li>
+        <li>Enhanced e-mail functionality and options.</li>
+        <li>Refined documentation to better demonstrate XML schemas. </li>
+        <li>Added support to import/export bandwidth schedules. </li>
+        <li>Various minor bug fixes and optimization.</li>
+      </ul>
+
+      <h3>Version 1.3.1</h3>
+      <ul>
+        <li>Email notifications now sent to HotFolder and Server admins</li>
+        <li>Added ability to send email notifications for successful transfer, or failed transfers</li>
+        <li>Added ability to specify a custom email note for email notifications</li>
+        <li>Windows system tray now changes when application is active, server reports number of concurrent connections</li>
+        <li>Minimizing to system dock on OS X now shows a proper icon</li>
+        <li>Closing interface on non-Windows systems now exits the application</li>
+        <li>Fixed bug when setting transmit rate to &quot;unlimited&quot; (introduced in 1.3)</li>
+        <li>Further enhanced optimization of settings</li>
+        <li>Enhanced packet loss detection</li>
+        <li>Download no longer require UDP port forward (on most routers) </li>
+        <li>User now notified if Server can't start due to port conflict</li>
+      </ul>
+
+      <h3>Version 1.3</h3>
+      <ul>
+        <li>Added support for downloads in HotFolder.</li>
+        <li>Increased performance over high-latency connections.</li>
+        <li>Added support for e-mail notifications in HotFolder when transfer completes.</li>
+        <li>Added auto-detection utilities for Path MTU, RTT, and packet loss.</li>
+        <li>Added performance optimization tools to determine unit size, block size, and number of encoders. </li>
+      </ul>
+
+      <h3>Version 1.2</h3>
+      <ul>
+        <li>Added bandwidth scheduling tools to HotFolder. </li>
+        <li>Added task scheduler to HotFolder.</li>
+        <li>Various performance enhancements for high-latency connections.</li>
+        <li>Added support for incremental transfers.</li>
+        <li>Added option for leaving files in HotFolder after transfer or deleting them. </li>
+        <li>Various minor improvements.</li>
+      </ul>
+
+      <h3>Version 1.1</h3>
+      <ul>
+        <li>Added support for SSL encryption over the control channel.</li>
+        <li>Added support for AES encryption for data.</li>
+        <li>Added support to transfer entire directory structures.</li>
+        <li>Added password protection. </li>
+      </ul>
+
+      <h3>Version 1.0</h3>
+      <ul>
+        <li>Initial release.</li>
+      </ul>
+    </div>
+    <!--snip-->
+
+  </body>
+</html>
+

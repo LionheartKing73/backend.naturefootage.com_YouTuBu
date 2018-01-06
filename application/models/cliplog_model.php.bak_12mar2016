@@ -1,0 +1,381 @@
+<?php
+
+require_once(__DIR__ . '/../../scripts/aws/aws-autoloader.php');
+
+use Aws\S3\S3Client;
+
+/**
+ * Class Cliplog_model
+ */
+class Cliplog_model extends CI_Model {
+
+    function __construct () {
+        parent::__construct();
+        $this->db_master = $this->load->database( 'master', TRUE );
+    }
+
+    function get_terms_count () {
+        return $this->db->count_all( 'lib_pricing_terms' );
+    }
+
+    function get_terms_list ( $limit = array (), $order_by = '' ) {
+        if ( $limit )
+            $this->db->limit( $limit[ 'perpage' ], $limit[ 'start' ] );
+        if ( $order_by )
+            $this->db->order_by( $order_by );
+
+        $query = $this->db->get( 'lib_pricing_terms' );
+        $res = $query->result_array();
+        return $res;
+    }
+
+    function save_term ( $id ) {
+        $data = $this->input->post();
+        unset( $data[ 'save' ], $data[ 'id' ] );
+        if ( $id ) {
+            $this->db_master->where( 'id', $id );
+            $this->db_master->update( 'lib_pricing_terms', $data );
+            return $id;
+        } else {
+            $this->db_master->insert( 'lib_pricing_terms', $data );
+            return $this->db_master->insert_id();
+        }
+    }
+
+    function get_term ( $id ) {
+        $this->db->where( 'id', $id );
+        $query = $this->db->get( 'lib_pricing_terms' );
+        $res = $query->result_array();
+        return $res[ 0 ];
+    }
+
+    function delete_terms ( $ids ) {
+        if ( count( $ids ) ) {
+            foreach ( $ids as $id ) {
+                $this->db_master->delete( 'lib_pricing_terms', array ( 'id' => $id ) );
+            }
+        }
+    }
+
+    function get_keywords ( $section = '', $selected = '', $show_all = FALSE, $on_match = '', $collection = '', $only_new = TRUE, $clipIds=false, $templateId=false ) {
+
+        /*$user_id = $_SESSION['uid'];//($_SESSION['group']==1)?0:$_SESSION['uid'];
+
+
+        /*$where_section = '';
+        $where_selected = '';
+        $where_visible = '';
+        $where_like = '';
+        $where_new = '';
+        $where_collection = '';
+        $where_admin = '';
+        $join_admin_group = '';
+        if ( !empty($section) )
+            $where_section .= ' AND lk.section = \'' . mysql_real_escape_string( $section ) . '\' ';
+        if ( !empty($selected) )
+            $where_selected .= ' AND lk.id NOT IN (' . mysql_real_escape_string( $selected ) . ') ';
+        if ( !$show_all )
+            $where_visible .= ' AND lknv.keyword_id IS NULL';
+        if ( !empty($on_match) )
+            $where_like .= ' AND lk.keyword LIKE \'%' . mysql_real_escape_string( $on_match ) . '%\'';
+        /*if ( $user_id ) {
+            if ( $section == 'location' )
+                $where_user = ' AND lk.provider_id = ' . $user_id;
+            else
+                $where_user = '';//' AND (lk.provider_id = 0 OR lk.provider_id = ' . $user_id . ')';
+
+        }*/
+        /*$admins=$this->db->query('SELECT id FROM lib_users WHERE group_id = 1')->result_array();
+        $adminIds='';
+        foreach($admins as $admin){
+            $adminIds.=$admin['id'].',';
+        }
+        $where_collection = ' AND (lk.collection = \'' . mysql_real_escape_string( $collection ) . '\' OR (lk.collection = \'\' AND lk.provider_id IN (' . $adminIds.$user_id . ') ) ';
+
+        if(!empty($clipId)){
+            $where_collection .=' OR lck.clip_id = '.$clipId.') ';
+            $join_admin_group = ' LEFT JOIN lib_clip_keywords lck ON lck.keyword_id = lk.id AND lck.clip_id = '.$clipId.' ';
+        }else{$where_collection .=') ';}
+        /*if ( $collection && !empty($user_id)){
+            //$where_collection = ' AND lk.collection = \'' . mysql_real_escape_string( $collection ) . '\' ';
+        }else {
+            $join_admin_group = ' LEFT JOIN lib_clip_keywords lck ON lck.keyword_id = lk.id AND lck.clip_id = '.$clipId.' ';
+            //$where_collection = '';//' AND lk.collection = \'\' ';
+            //$where_collection=' GROUP BY lk.keyword ';
+        }*/
+
+
+        /* $query='SELECT lk.*, lknv.keyword_id visible FROM lib_keywords lk
+          LEFT JOIN lib_keywords_notvisible lknv ON lk.id = lknv.keyword_id AND lknv.user_id = '.$user_id.'
+          '.$join_admin_group.'
+          WHERE 1' . $where_admin . $where_visible . $where_section . $where_selected . $where_like . $where_new . $where_collection . '  ORDER BY lk.keyword'; //GROUP BY lk.keyword
+          /*
+          SELECT lk.* FROM lib_keywords lk LEFT JOIN lib_clip_keywords lck ON lck.keyword_id = lk.id AND lck.clip_id = 423398 WHERE lk.section = 'location' AND lk.old = 0 AND (lk.collection = 'Nature Footage' OR (lk.collection = '' AND lk.provider_id IN (1,9,60,67107,70330,1006367,1005946,1006447,1006673,0) ) OR lck.clip_id = 423398 ) ORDER BY lk.keyword
+         */
+        $where_collection = ' WHERE 1 ';
+        if (!empty($section))
+            $where_collection .= ' AND lk.section = \'' . mysql_real_escape_string($section) . '\'  ';
+        if (!empty($selected))
+            $where_collection .= ' AND lk.id NOT IN (' . mysql_real_escape_string($selected) . ') ';
+        if (!$show_all)
+            $where_collection .= ' AND lknv.keyword_id IS NULL';
+        if (!empty($on_match))
+            $where_collection .= ' AND lk.keyword LIKE \'%' . mysql_real_escape_string($on_match) . '%\'';
+//        if ( $only_new )
+//            $where_collection .= ' AND lk.old = 0 AND lk.hidden = 0 ';
+        if ($collection)
+            $where_collection .= ' AND lk.collection = \'' . mysql_real_escape_string($collection) . '\' ';
+        if (!empty($clipIds)) {
+            $where_collection .=' OR (lk.id IN (' . $clipIds . ')  AND lk.section = \'' . mysql_real_escape_string($section) . '\'  ) ';
+        } else {
+            $where_collection .=' ';
+        }
+        if (!empty($templateId))
+            $where_collection .= ' OR (clk.templateid = ' . $templateId . ' AND lk.section=\'' . mysql_real_escape_string($section) . '\') ';
+        $query = 'SELECT lk.*, lknv.keyword_id visible, clk.isActive FROM lib_keywords lk
+            LEFT JOIN lib_keywords_notvisible lknv ON lk.id = lknv.keyword_id
+            LEFT JOIN lib_cliplog_logging_keywords clk ON clk.keywordId = lk.id'
+        .$where_collection.' GROUP BY lk.keyword,lk.section ORDER BY lk.keyword';
+
+        $res = $this->db->query( $query )->result_array();
+/*
+SELECT lk.*, lknv.keyword_id visible,lck.* FROM lib_keywords lk
+LEFT JOIN lib_keywords_notvisible lknv ON lk.id = lknv.keyword_id
+ LEFT JOIN lib_clip_keywords lck ON lck.keyword_id = lk.id AND lck.clip_id = 164470
+ WHERE (lk.provider_id = 0 AND lk.section='location') OR (lck.clip_id = 164470 AND lk.section='location') GROUP BY lk.keyword,lk.section ORDER BY `lk`.`provider_id` DESC
+*/
+        //if($section=='subject_category') Debug::Dump([$query,$res]);
+        return $res;
+    }
+
+    function getKeywordsCustomList ( $where = NULL ) {
+        $userId = $this->session->userdata( 'uid' );
+        //$whereString = '';//" ( lib_keywords.provider_id = 0 OR lib_keywords.provider_id = {$userId} ) AND lib_keywords.hidden = 0 ";
+        if ( $where ) {
+            $where = "WHERE {$where}";
+        }
+
+        $result = $this->db->query( "
+            SELECT DISTINCT lib_keywords.*, lib_keywords_notvisible.keyword_id AS visible
+            FROM lib_keywords
+            LEFT JOIN lib_keywords_notvisible ON lib_keywords.id = lib_keywords_notvisible.keyword_id AND lib_keywords_notvisible.user_id = {$userId}
+            {$where}
+            ORDER BY lib_keywords.keyword;"
+        );
+        if ( $result ) {
+            return $result->result_array();
+        }
+        return array ();
+    }
+
+    function get_keyword ( $id ) {
+        $query = $this->db->get_where( 'lib_keywords', array ( 'id' => $id ) );
+        $rows = $query->result_array();
+        return $rows[ 0 ];
+    }
+
+    function save_keyword ( $keyword, $section = '', $collection = '' ) {
+        $keyword_id = FALSE;
+        if ( $keyword ) {
+            $keyword = array ( 'keyword' => $keyword, 'section' => $section, 'collection' => $collection );
+            if ( !empty($_SESSION['uid']) ) {
+                $keyword[ 'provider_id' ] = $_SESSION['uid'];
+            }
+            $this->db_master->insert( 'lib_keywords', $keyword );
+            $keyword_id = $this->db_master->insert_id();
+        }
+        return $keyword_id;
+    }
+
+    function switch_off_keyword ( $keyword_id ) {
+        if ( $keyword_id ) {
+            $user_id = $this->session->userdata( 'uid' );
+            $data = array ( 'keyword_id' => $keyword_id, 'user_id' => $user_id );
+            $this->db_master->insert( 'lib_keywords_notvisible', $data );
+        }
+    }
+
+    function switch_on_keyword ( $keyword_id ) {
+        if ( $keyword_id ) {
+            $user_id = $this->session->userdata( 'uid' );
+            $data = array ( 'keyword_id' => $keyword_id, 'user_id' => $user_id );
+            $this->db_master->delete( 'lib_keywords_notvisible', $data );
+        }
+    }
+
+    function get_section_options ( $section = '', $selected = '' ) {
+        $options = array ();
+        $selected = explode( ',', $selected );
+        switch ( $section ) {
+            case 'add_collection':
+                $options = $this->get_collections( $selected );
+                break;
+            case 'license_type':
+                $options = $this->get_license_types( $selected );
+                break;
+        }
+
+        return $options;
+    }
+
+    function get_collections ( $selected = '' ) {
+        if ( $selected && is_array( $selected ) )
+            $this->db->where_not_in( 'id', $selected );
+        $this->db->select( '*, name value' );
+        $query = $this->db->get( 'lib_collections' );
+        $rows = $query->result_array();
+        return $rows;
+    }
+
+    function get_brands () {
+        $this->db->select( '*, name value' );
+        $query = $this->db->get( 'lib_brands' );
+        $rows = $query->result_array();
+        return $rows;
+    }
+
+    function get_license_types ( $selected = '' ) {
+        if ( $selected && is_array( $selected ) )
+            $this->db->where_not_in( 'id', $selected );
+        $this->db->select( 'id, name, name value' );
+        $query = $this->db->get( 'lib_licensing' );
+        $rows = $query->result_array();
+        return $rows;
+    }
+
+    function get_countries () {
+        $this->db->order_by("name", "asc");
+        $query = $this->db->get( 'lib_countries' );
+        $rows = $query->result_array();
+        return $rows;
+    }
+
+    function get_pricing_page ( $lang = 'en' ) {
+        $this->db->select( 'pc.body' );
+        $this->db->from( 'lib_pages p' );
+        $this->db->join( 'lib_pages_content pc', 'p.id = pc.page_id' );
+        $this->db->where( 'p.alias1', 'pricing' );
+        $this->db->where( 'pc.lang', $lang );
+        $query = $this->db->get();
+        $res = $query->result_array();
+        return $res[ 0 ];
+    }
+
+    function delete_keyword ( $id ) {
+        if ( $id ) {
+            $this->db_master->delete( 'lib_keywords', array ( 'id' => $id ) );
+            $this->db_master->delete( 'lib_keywords_notvisible', array ( 'keyword_id' => $id ) );
+            $this->db_master->delete( 'lib_clip_keywords', array ( 'keyword_id' => $id ) );
+        }
+    }
+
+
+    function get_thumbs_list($clipid){
+
+        $clipdir = $this->db->query("SELECT path FROM lib_thumbnails WHERE clip_id = " . $clipid . " LIMIT 1");
+
+        foreach ($clipdir->result_array() as $row) {
+            $addr = parse_url($row['path']);
+        }
+
+        $store = array();
+        require(__DIR__ . '/../config/store.php');
+
+           $s3Client = S3Client::factory(array(
+                'key'    => $store['s3']['key'],
+                'secret' => $store['s3']['secret']
+            ));
+
+
+        if (isset($addr['host']) AND isset($addr['path'])){
+            $objects = $s3Client->getListObjectsIterator(array(
+                'Bucket' => $addr['host'],
+                'Prefix' => ltrim($addr['path'], '/')
+            ));
+
+            return $objects;
+        }else{
+            return false;
+        }
+
+
+    }
+
+    function get_active_thumbnail_path($clipid){
+        $clipdir = $this->db->query("SELECT location FROM lib_clips_res WHERE clip_id = '".$clipid."' AND resource = 'jpg' LIMIT 1")->result_array();
+        return $clipdir[0]['location'];
+    }
+
+    function change_active_thumb($cid, $path){
+        echo $path." || ". $cid;
+        $this->db_master->query("UPDATE lib_clips_res SET location = '".$path."' WHERE clip_id = '".$cid."' AND resource = 'jpg' ");
+    }
+
+    public function getAllClipsByUserId($id, $submission_id = NULL, $filterClip = NULL) {
+        $clip_bins = $filterClip['backend_clipbin_id'];
+        $collection_filter = $filterClip['cliplog_search_collection'];
+        $col = str_replace("'", "", $collection_filter);
+        $collection_filter = $col;
+        
+        $license_filter = $filterClip['cliplog_search_license'];
+        $license = str_replace("'", "", $license_filter);
+        $license_filter = $license;
+        
+        $budget_filter = $filterClip['cliplog_search_price_level'];
+        $budget = str_replace("'","",$budget_filter);
+        $budget_filter = $budget;
+        
+        $format_filter = $filterClip['cliplog_search_format_category'];
+        $format = str_replace("'", "", $format_filter);
+        $format_filter = $format;
+        
+        $active_filter = $filterClip['cliplog_search_active'];
+        $active = str_replace("'", "", $active_filter);
+        $active_filter = $active;
+        
+        $wordsin_filter = $filterClip['cliplog_search_wordsin'];
+        $wordsin = str_replace("'", "", $wordsin_filter);
+        $wordsin_filter = $wordsin;
+        //$clip_bins = $filterClip;
+        //echo $filterClip;exit;
+        $this->db->select('*');
+        $this->db->from('lib_clips');
+        if (!empty($clip_bins)) {
+            $query = $this->db_master->query("select * from lib_backend_lb_items where backend_lb_id='" . $clip_bins . "'");
+//            echo $this->db->last_query();exit;
+            $res = $query->result_array();
+            foreach ($res as $key => $row) {
+                $item[$key] = $row['item_id'];
+            }
+            //$item = implode(",", $item);
+//            $new_str = ltrim ($item, " ' ");
+
+            $this->db->where_in('id', $item);
+        }
+        if (!empty($collection_filter)) {
+            $this->db->where('collection', $collection_filter);
+        }
+        if(!empty($license_filter)){
+            $this->db->where('license',$license_filter);
+        }
+        if(!empty($budget_filter)){
+            $this->db->where('price_level',$budget_filter);
+        }
+        if(!empty($format_filter)){
+            $this->db->like('source_format',$format_filter);
+        }
+        if(!empty($active_filter)){
+            $this->db->where('active',$active_filter);
+        }
+        if (!empty($submission_id)) {
+            $this->db->where('submission_id', $submission_id);
+        } else {
+            $this->db->where('client_id', $id);
+        }
+        $query = $this->db->get();
+        //echo $this->db->last_query();exit;
+        $result = $query->result();
+        return $result;
+    }
+
+}

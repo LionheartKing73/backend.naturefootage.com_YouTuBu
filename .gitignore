@@ -1,0 +1,15 @@
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+.DS_Store
+
+#ignore local db
+application/config/database-local.php
+
+#ignore some local log files
+___emailer.log
+
+#ignore IDE folders
+.idea

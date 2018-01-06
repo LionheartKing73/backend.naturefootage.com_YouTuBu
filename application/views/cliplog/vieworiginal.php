@@ -1,0 +1,1 @@
+<p style="font-size:20px; padding:20px;">ClipLog is currently getting upgraded and will be back online in 48-72 hours.</p>

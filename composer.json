@@ -1,0 +1,6 @@
+{
+    "require": {
+        "phpoffice/phpexcel": "^1.8",
+        "guzzlehttp/guzzle": "~6.0"
+    }
+}

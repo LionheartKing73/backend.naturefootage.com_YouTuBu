@@ -1,0 +1,26 @@
+#Now, rewrite to HTTPS:
+#RewriteCond %{HTTPS} off
+#RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /index.php?$1 [L,QSA]
+
+#AddType  application/octet-stream  .mov
+AddType video/mp4 .mp4 .m4v .mov
+AddType video/mpeg .mpeg .mpg
+#AddType video/quicktime .mov
+AddType video/ogg .ogv
+AddType video/webm .webm
+AddType audio/mp4 .m4a .m4b .m4r
+AddType audio/mpeg .mp3
+AddType audio/playlist .m3u
+AddType audio/x-scpls .pls
+AddType audio/ogg .ogg
+AddType audio/wav .wav
+
+AddType application/vnd.ms-fontobject .eot
+AddType font/ttf .ttf
+AddType font/otf .otf
+AddType application/x-font-woff .woff

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+
+   $( "#target" ).submit(function( event ) {
+        //alert( "Handler for .submit() called." );
+        event.preventDefault();
+
+        var lines = $('#urls').val().split('\n');
+
+        for(var i = 0;i < lines.length;i++){
+           var url_text = lines[i];
+           //alert(url_text);
+           $("#outputarea").append(" refreshing URL " + url_text + "<br>" );
+           //code here using lines[i] which will give you each line
+
+
+           $.ajaxSetup({async:false});
+
+ 
+           $.post('https://graph.facebook.com', { id: url_text, scrape: true
+             
+           }, function(response) { console.log(response);
+                  $("#outputarea").append(" Facebook sucess response : " + response.responseText + "<br>");
+           })
+           .fail(function(response) { console.log(response);
+                  $("#outputarea").append(" Facebook fail response : " + response.responseText + "<br>");
+           })
+;
+
+
+        }
+    });
+});
+
+</script>
+
+</head>
+
+<body>
+
+
+
+
+
+
+
+<form id="target">
+
+ <textarea name="textarea" id="urls" rows="10" cols="50">Enter your urls here
+one per line
+</textarea>
+
+<input type="submit" value="Go" >
+
+</form>
+
+
+<pre id="outputarea">
+
+</pre>
+
+</form>
+
+</html>

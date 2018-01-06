@@ -1,0 +1,2162 @@
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+
+require APPPATH.'/libraries/REST_Controller.php';
+require APPPATH.'/libraries/SorlSearchAdapter.php';
+
+/**
+ * @property Register_model $register_model
+ * @property Clips_model $clips_model
+ * @property Search_model $search_model
+ * @property Formdata_model $formdata_model
+ * @property Collections_model $collections_model
+ * @property Cats_model $cats_model
+ * @property Bin_model $bin_model
+ * @property Tagcloud_model $tagcloud_model
+ * @property Sharedpages_model $sharedpages_model
+ * @property Frontends_model $frontends_model
+ * @property Discounts_model $discounts_model
+ * @property Pricing_model $pricing_model
+ * @property Download_model $download_model
+ * @property Deliveryoptions_model $deliveryoptions_model
+ * @property Invoices_model $invoices_model
+ * @property Galleries_model $galleries_model
+ * @property Users_model $users_model
+ * @property Tokens_model $download_tokens_model
+ * @property Upload_tokens_model $upload_tokens_model
+ * @property CI_DB_active_record $db_master
+ */
+
+class Fapi extends REST_Controller
+{
+    private $search_adapter;
+    public function __construct()
+    {
+        parent::__construct();
+	    // Логгирование запроса, отладка
+	    //$this->___SaveRequestToLog();
+        $this->load->model('clips_model');
+        $this->load->model('cats_model');
+    }
+
+	private function ___SaveRequestToLog () {
+		$get = json_encode( $this->get() );
+		$post = json_encode( $this->post() );
+		$string = PHP_EOL . date( 'd.m.Y H:i:s' ) . ' >>> ' . microtime() . ' >> ' . $_SERVER[ 'REQUEST_TIME' ] . PHP_EOL;
+		$string .= '    -    FROM: ' . $_SERVER[ 'REMOTE_ADDR' ] . PHP_EOL;
+		$string .= '    -    URI: ' . $_SERVER[ 'REQUEST_URI' ] . PHP_EOL;
+		$string .= '    ---- GET: ' . $get . PHP_EOL;
+		$string .= '    ---- POST: ' . $post . PHP_EOL;
+		file_put_contents( FCPATH . '___rest.api.log', $string, FILE_APPEND );
+	}
+    public static function debugLog ($str,$date=false) {
+        if(is_array($str) || is_object($str)) $str = json_encode($str);
+        $string = ($date) ? PHP_EOL . date( 'd.m.Y H:i:s' ) . ' >>> ' . microtime() . ' >> ' . $_SERVER[ 'REQUEST_TIME' ] . PHP_EOL : ''. PHP_EOL;
+        $string .= '    -    str: ' . $str . PHP_EOL;
+        file_put_contents( FCPATH . '___rest.api.log', $string, FILE_APPEND );
+    }
+
+	function clip_post () {
+		$this->clip_get();
+	}
+
+    function clip_get()
+    {
+        if(!$this->get('id') || !$this->get('provider'))
+        {
+            $this->response(NULL, 400);
+        }
+	    $user_login = ( $this->post( 'user_login' ) ) ? $this->post( 'user_login' ) : 'guest';
+	    //$clip_id = is_numeric($this->get('id')) ? (int)$this->get('id') : $this->_clip_id($this->get('id'));
+        $clip = $this->clips_model->get_clip_info($this->get('id'), 'en', true, $this->post('user_login'));
+        $this->clips_model->ClipLogger( $clip['id'], $this->get( 'provider' ), $user_login, Clips_model::CLIP_ACTION_VIEW );
+        if($clip)
+        {
+            $data['data'] = $clip;
+            $data['method'] = 'clip';
+            $this->response($data, 200);
+        }
+        else
+        {
+            $this->response(NULL, 404);
+        }
+    }
+
+    function clips_thumbs_post(){
+        if(!$this->get('provider'))
+        {
+            $this->response(NULL, 400);
+        }
+
+        $ids = $this->post('ids');
+        $thumbs = array();
+        foreach($ids as $id){
+            $thumbs[$id] = $this->clips_model->get_clip_path($id, 'thumb');
+        }
+        if(!empty($thumbs))
+        {
+            $this->response($thumbs, 200);
+        }
+        else
+        {
+            $this->response(NULL, 404);
+        }
+    }
+
+    function confirm_download_post(){
+
+        if (isset($_POST['user']) and isset($_POST['file'])){
+            $user = $_POST['user'];
+            $this->load->model('download_model');
+            $this->download_model->confirm_download($user, $_POST['file']);
+        }
+    }
+
+    function clips_post()
+    {
+        if(!$this->get('provider') || !$this->get('frontend'))
+        {
+            $this->response(NULL, 400);
+        }
+
+        $this->search_adapter = new SorlSearchAdapter();
+        $this->load->model('search_model');
+        $post = $this->post();
+        $collections_ids = array();
+        if ($post['collection']) {
+            $this->load->model('collections_model');
+            $collections = $this->collections_model->get_collections_list(array('search_term' => $post['collection']));
+            if($collections){
+                foreach($collections as $collection){
+                    $collections_ids[] = $collection['id'];
+                }
+            }
+            unset($post['collection']);
+        }
+
+        $brands_ids = array();
+        $this->load->model('brands_model');
+        $frontend_brands = $this->brands_model->get_brands_list(array('frontend_id' => $this->get('frontend')));
+        if($frontend_brands){
+            foreach($frontend_brands as $frontend_brand){
+                $brands_ids[] = $frontend_brand['id'];
+            }
+        }
+
+        $owner = $this->post('owner');
+        if(empty($owner)){
+            $client_id = $this->get('provider');
+            $filter = array_merge_recursive(array('active' => 1, 'client_id' => $client_id,
+                      'collection_id' => $collections_ids, 'brand_id' => $brands_ids), $post);
+        }else{
+            // owner search, contributor clips
+            $this->load->model('users_model');
+            $client_id = $this->users_model->get_id_and_login($owner,'id');
+            $filter = array_merge_recursive(array('active' => 1, 'client_id' => $client_id,
+                      'collection_id' => $collections_ids), $post);
+        }
+
+        $order = '';
+        $limit = $this->_limit();
+        $sort = array();
+        if($this->post('sort')){
+            $sort = $this->post('sort');
+            unset($filter['sort']);
+        }
+
+
+        if($this->get('category')){
+            $cat_id = is_numeric($this->get('category')) ? (int)$this->get('category') : $this->_category_id($this->get('category'));
+            if($cat_id){
+                $filter['cat_id'] = $cat_id;
+            }
+        }
+        if($this->get('words')){
+            $filter['words'] = $this->get('words');
+
+            $this->search_model->update_keyword_statistic($client_id, $this->get('words'));
+
+	        // Логгирование запроса поиска
+	        $user_login = ( $this->post( 'user_login' ) ) ? $this->post( 'user_login' ) : 'guest';
+	        $provider = $client_id;
+	        $words = $this->get( 'words' );
+	        $this->search_model->SearchLogger( $words, $provider, $user_login );
+        }
+        if($this->search_adapter->ping()){
+            $offset = $this->get('from') ? $this->get('from') : 0;
+            $limit = $this->get('limit') ? $this->get('limit') : 100;
+            $search_result = $this->search_adapter->search_clips($filter, $offset, $limit, $sort);
+            if($search_result['total'] > 0){
+                $clips = $this->clips_model->get_clips_by_ids($search_result['clips']);
+                $data['data'] = $clips;
+                $data['total'] = $search_result['total'];
+                $data['from'] = $offset + 1;
+                $data['to'] = $offset + count($search_result['clips']);
+                $data['method'] = 'clips';
+                $data['solrdata']=$search_result;
+                $data['solrkeywords']=$this->search_model->get_clip_keywords_facet($this->search_model->get_clip_keywords(1,1),$search_result['facet']);
+            }
+        }
+        else{
+            $total = $this->clips_model->get_clips_count('en', $filter);
+            $clips = $this->clips_model->get_clips_list('en', $filter, $order, $limit, true);
+            $data['data'] = $clips;
+            $data['total'] = $total;
+            $data['method'] = 'clips';
+        }
+        if(!empty($data['data']))
+        {
+            $this->response($data, 200);
+        }
+        else
+        {
+            $this->response(NULL, 404);
+        }
+
+    }
+
+    function next_prev_clip_post(){
+        if(!$this->get('provider') || !$this->post('clip_id') || !$this->post('clip_offset') || !$this->get('frontend'))
+        {
+            $this->response(NULL, 400);
+        }
+
+        $this->search_adapter = new SorlSearchAdapter();
+
+        $post = $this->post();
+        $collections_ids = array();
+        if ($post['collection']) {
+            $this->load->model('collections_model');
+            $collections = $this->collections_model->get_collections_list(array('search_term' => $post['collection']));
+            if($collections){
+                foreach($collections as $collection){
+                    $collections_ids[] = $collection['id'];
+                }
+            }
+            unset($post['collection']);
+        }
+
+        $brands_ids = array();
+        $this->load->model('brands_model');
+        $frontend_brands = $this->brands_model->get_brands_list(array('frontend_id' => $this->get('frontend')));
+        if($frontend_brands){
+            foreach($frontend_brands as $frontend_brand){
+                $brands_ids[] = $frontend_brand['id'];
+            }
+        }
+
+        $filter = array_merge_recursive(array('active' => 1, 'client_id' => $this->get('provider'),
+            'collection_id' => $collections_ids, 'brand_id' => $brands_ids), $post);
+
+        $sort = array();
+        if($this->post('sort')){
+            $sort = $this->post('sort');
+            unset($filter['sort']);
+        }
+        if($this->get('category')){
+            $cat_id = is_numeric($this->get('category')) ? (int)$this->get('category') : $this->_category_id($this->get('category'));
+            if($cat_id){
+                $filter['cat_id'] = $cat_id;
+            }
+        }
+        if($this->get('words')){
+            $this->load->model('search_model');
+            $filter['words'] = $this->get('words');
+        }
+
+        if($this->search_adapter){
+            $clip_id = (int)$this->post('clip_id');
+            $offset = (int)$this->post('clip_offset') - 1;
+            if($offset != 0){
+                $offset--;
+                $limit = 3;
+            }
+            else{
+                $limit = 2;
+            }
+            $search_result = $this->search_adapter->search_clips($filter, $offset, $limit, $sort);
+            if($search_result['total'] > 0){
+                if(count($search_result['clips']) == 1 || !count($search_result['clips']))
+                    $data['data'] = false;
+                elseif(count($search_result['clips']) == 2){
+                    if($search_result['clips'][0] == $clip_id)
+                        $data['data'] = array('prev_clip_id' => 0, 'next_clip_id' => $search_result['clips'][1]);
+                    elseif($search_result['clips'][1] == $clip_id)
+                        $data['data'] = array('prev_clip_id' => $search_result['clips'][0], 'next_clip_id' => 0);
+
+                }
+                elseif(count($search_result['clips']) == 3)
+                    $data['data'] = array('prev_clip_id' => $search_result['clips'][0], 'next_clip_id' => $search_result['clips'][2]);
+
+            }
+            foreach($data['data'] as $key => $item){
+                if($key == 'prev_clip_id')
+                    $data['data']['prev_clip_code'] = $item ? $this->clips_model->get_clip_code($item) : '';
+                elseif($key == 'next_clip_id')
+                    $data['data']['next_clip_code'] = $item ? $this->clips_model->get_clip_code($item) : '';
+            }
+        }
+
+        if($data['data']){
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+
+    }
+
+    function categories_get(){
+        if(!$this->get('provider')){
+            $this->response(NULL, 400);
+        }
+        $filter = array(
+            'c.active' => 1,
+            'c.provider_id' => $this->get('provider')
+        );
+        if($this->get('featured')){
+            $filter['c.featured'] = 1;
+        }
+        $order = 'c.parent_id, c.ord';
+        $limit = $this->_limit();
+
+        if($this->get('category')){
+            $cat_id = is_numeric($this->get('category')) ? (int)$this->get('category') : $this->_category_id($this->get('category'));
+            $filter['c.parent_id'] = $cat_id;
+        }
+
+        $total = $this->cats_model->get_api_cats_count($filter);
+        $cats = $this->cats_model->get_api_cats_list($filter, array(), $order);
+
+        $data['data'] = $cats;
+        $data['total'] = $total;
+        $data['method'] = 'categories';
+        if($cats){
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+
+    }
+
+    function adduser_post () {
+        $this->load->model( 'register_model' );
+        $this->load->model('users_model');
+        if ( $this->post( 'login' ) && $this->post( 'pass' ) && $this->post( 'email' ) && $this->post( 'provider_id' ) ) {
+            $existLogin=$this->users_model->is_username_exists($this->post( 'login' ));
+            $existEmail=$this->users_model->is_email_exists($this->post( 'email' ));
+            if(!empty($existLogin) && $existLogin>0){
+                $this->response(array ('method' => 'adduser','status' => 'existlogin','data' => array('status'=>'existlogin')),200);
+            }elseif(!empty($existEmail) && $existEmail>0){
+                $this->response(array ('method' => 'adduser','status' => 'existemail','data' => array('status'=>'existemail')),200);
+            }
+            //$this->_debugLog(json_encode($_REQUEST),true);
+            $addUser=$this->register_model->save_client();
+
+            if ( $addUser ) {
+                $this->response(
+                    array (
+                        'method' => 'adduser',
+                        'status' => 'ok',
+                        'data' => array('status'=>'ok')
+                    ),
+                    200
+                );
+            } else {
+                $this->response(
+                    array (
+                        'method' => 'adduser',
+                        'status' => 'error',
+                        'data' => array('status'=>'error')
+                    ),
+                    200
+                );
+            }
+        }else {
+            $this->response( NULL, 404 );
+        }
+    }
+
+    function updateuser_post(){
+        $this->load->model('register_model');
+        if($this->post('login') && $this->post('provider_id')){
+            $this->register_model->update_client();
+            $this->response(array('method' => 'updateuser'), 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function update_provider_views_post(){
+        if(!$this->post('provider') || !$this->post('remote_addr')){
+            $this->response(NULL, 400);
+        }
+        $this->load->model('register_model');
+        $this->register_model->update_views($this->post('provider'), $this->post('remote_addr'));
+        $views_count = $this->register_model->get_views_count($this->post('provider'));
+        if($views_count || $views_count == 0){
+            $data['data'] = $views_count;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+    function update_metauser_post(){
+        if(!$this->post('id')){
+            $this->response(NULL, 400);
+        }
+        $id=$this->post('id');
+        $meta=json_decode($this->post('meta'));
+        if($meta){
+            $metadata=array();
+            foreach($meta as $item){
+                switch($item->meta_key){
+                    case 'company_name':
+                    case 'country':
+                    case 'description':
+                    case 'email_updates':
+                    case 'frontend_url':
+                    case 'phone':
+                    case 'referral':
+                    case 'contrib-main-image':
+                    case 'contrib-main-video':
+                    case 'avatar':
+                        $metadata[$item->meta_key]=$item->meta_value;
+                    default:break;
+                }
+            }
+            $this->load->model('users_model');
+            $this->users_model->update_meta($id, $metadata);
+            $user = $this->users_model->get_user($id);
+        }
+        if(!empty($user)){
+            $data['data'] = $user;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function add_provider_follower_post(){
+        if(!$this->get('provider') || !$this->post('user')){
+            $this->response(NULL, 400);
+        }
+        $this->load->model('register_model');
+        $this->register_model->add_follower($this->post('user'), $this->get('provider'));
+        $followers_count = $this->register_model->get_followers_count($this->get('provider'));
+        if($followers_count || $followers_count == 0){
+            $data['data'] = $followers_count;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function get_provider_statistic_post(){
+        if(!$this->post('provider')){
+            $this->response(NULL, 400);
+        }
+        $this->load->model('register_model');
+        $statistic = array();
+        $statistic['views_count'] = $this->register_model->get_views_count($this->post('provider'));
+        $statistic['followers_count'] = $this->register_model->get_followers_count($this->post('provider'));
+        $statistic['likes_count'] = $this->register_model->get_likes_count($this->post('provider'));
+        $statistic['purchases_count'] = $this->register_model->get_purchases_count($this->post('provider'));
+        $statistic['downloads_count'] = $this->clips_model->get_downloads_count($this->post('provider'));
+        if($statistic){
+            $data['data'] = $statistic;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function get_user_token_post(){
+        /*$login =  $this->input->post('login', true);
+        $password = $this->input->post('password', true);*/
+        $params = $this->input->post('params', true);
+        $login =  $params['login'];
+        $password = $_REQUEST['params']['password'];
+        $token = false;
+        if($login && $password){
+            $token = $this->get_user_token($login, $password);
+            $data['token'] = $token;
+
+        }
+        if($token){
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    //Cart
+    function cartclips_post(){
+        if(!$this->get('provider')){
+            $this->response(NULL, 400);
+        }
+        $clips_ids = $this->post('cart_clips');
+        if(!$clips_ids){
+            $this->response(NULL, 400);
+        }
+        $clips = $this->clips_model->get_cart_clips($clips_ids);
+        if($clips){
+            $data['data'] = $clips;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function cartclip_post(){
+        if(!$this->get('provider')){
+            $this->response(NULL, 400);
+        }
+        $clips_id = $this->post('clip_id');
+        if(!$clips_id){
+            $this->response(NULL, 400);
+        }
+        $clips = $this->clips_model->get_cart_clips(array($clips_id));
+        if($clips){
+            $data['data'] = $clips[0];
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function license_categories_get(){
+        $this->load->model('pricing_model');
+        $categories = $this->pricing_model->get_license_categories($this->get('is_admin'));
+        if($categories){
+            $data['data'] = $categories;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function license_use_post(){
+        $this->load->model('pricing_model');
+        if($this->post('id'))
+            $uses = $this->pricing_model->get_use((int)$this->post('id'));
+        else
+            $uses = $this->pricing_model->get_license_use($this->post('category'), $this->post('is_admin'));
+        if($uses){
+            $data['data'] = $uses;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function license_term_post(){
+        $this->load->model('pricing_model');
+        if($this->post('id'))
+            $terms = $this->pricing_model->get_license_term_by_id($this->post('id'));
+        else
+            $terms = $this->pricing_model->get_license_term($this->post('use'));
+        if($terms){
+            $data['data'] = $terms;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function license_use_min_duration_post(){
+        $this->load->model('pricing_model');
+        $duration = $this->pricing_model->get_license_use_min_duration($this->post('use'));
+        if($duration){
+            $data['data'] = $duration;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function clip_price_post(){
+        $this->load->model('pricing_model');
+        $this->load->model('deliveryoptions_model');
+        $clip_id = $this->post('clip_id');
+        $license_use = $this->post('license_use');
+        $license_term = $this->post('license_term');
+        $delivery_format = $this->post('delivery_format');
+        if(!$this->get('provider') || !$clip_id || !$license_use || !$license_term){
+            $this->response(NULL, 404);
+        }
+        $price = $this->pricing_model->get_clip_price($clip_id, $license_use, $license_term, $delivery_format);
+        if($delivery_format)
+            $data['data']['delivery_price'] = $this->deliveryoptions_model->get_delivery_option_price($delivery_format, $clip_id);
+
+        if($price !== false){
+            $data['data']['license_free_price'] = $price;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function rf_clip_price_post(){
+        $this->load->model('pricing_model');
+        $clip_id = $this->post('clip_id');
+        $license_use = $this->post('license_use');
+        $delivery_format = $this->post('delivery_format');
+        if(!$this->get('provider') || !$clip_id || !$license_use){
+            $this->response(NULL, 404);
+        }
+        $price = $this->pricing_model->get_rf_clip_price($clip_id, $license_use, $delivery_format);
+        if($price !== false){
+            $data['data'] = $price;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function delivery_formats_post(){
+        $this->load->model('deliveryoptions_model');
+        $clip_id = $this->post('clip_id');
+        $method_id = $this->post('method_id');
+        if(!$this->get('provider') || !$clip_id){
+            $this->response(NULL, 404);
+        }
+        $formats = $this->deliveryoptions_model->get_delivery_formats($clip_id, $method_id);
+        if($formats){
+            $data['data'] = $formats;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function save_order_post(){
+
+        if(!$this->get('provider')){
+            $this->response(NULL, 400);
+        }
+
+        $order_id = false;
+        $order=preg_replace('/\\\\/im', '', $this->post('order'));
+
+        //$order=stripslashes($this->post('order'));
+        //Fapi::debugLog($order,true);
+        $order = json_decode($order, true);
+
+        if($order['user'] && $order['items']){
+            $this->load->model('invoices_model');
+            $order_data = $this->invoices_model->save_invoice($this->get('provider'), $order);
+	        if ( is_array( $order[ 'items' ] ) ) {
+		        foreach ( $order[ 'items' ] as $item ) {
+			        $clip_id = $item[ 'id' ];
+			        //$this->clips_model->ClipLogger( $clip_id, $this->get('provider'), $order[ 'user' ], Clips_model::CLIP_ACTION_ORDERED );
+		        }
+	        }
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+        if($order_data){
+            $order = $this->invoices_model->get_order($order_data['id']);
+            $this->invoices_model->make_pdf($order, true);
+            $data['data'] = $order_data;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function save_transaction_post(){
+        if(!$this->get('provider')){
+            $this->response(NULL, 400);
+        }
+        $this->load->model('invoices_model');
+        $transaction = json_decode($this->post('transaction'), true);
+        $transaction_id = $this->invoices_model->save_transaction($transaction);
+        if($transaction_id){
+            $data['data'] = $transaction_id;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function is_approved_post(){
+        $data = $this->input->post();
+
+        $this->load->model('invoices_model');
+
+        $this->response(json_encode($this->invoices_model->is_approved($data['order_id'])), 200);
+
+    }
+
+
+    function get_orders_post(){
+        if(!$this->get('provider') || !$this->post('user')){
+            $this->response(NULL, 400);
+        }
+        $this->load->model('invoices_model');
+        $invoices = $this->invoices_model->get_invoices_by_client_login($this->post('user'));
+        if($invoices){
+            $data['data'] = $invoices;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function get_order_post(){
+        if(!$this->get('provider') || !$this->post('order_id')){
+            $this->response(NULL, 400);
+        }
+        $this->load->model('invoices_model');
+        $invoice = $this->invoices_model->get_invoice_by_client_login($this->post('user'), $this->post('order_id'));
+        if($invoice){
+            $data['data'] = $invoice;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function get_order_client_post(){
+        if(!$this->get('provider') || !$this->post('order_id') || !$this->post('user')){
+            $this->response(NULL, 400);
+        }
+        $this->load->model('invoices_model');
+        $hasOrder = $this->invoices_model->has_order($this->post('order_id'), $this->post('user'));
+        if(!$hasOrder){
+            $this->response(NULL, 404);
+        }
+        $order = $this->invoices_model->get_order($this->post('order_id'));
+        if($order){
+            $data['data'] = $order;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function has_order_post(){
+        if(!$this->post('order_id') || !$this->post('user')){
+            $this->response(NULL, 400);
+        }
+        $this->load->model('invoices_model');
+        $has_order = $this->invoices_model->has_order($this->post('order_id'), $this->post('user'));
+        if($has_order){
+            $order = $this->invoices_model->get_order($this->post('order_id'));
+            $this->invoices_model->make_pdf($order, true);
+            $this->response(array('has_order' => $has_order), 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function disable_downloads_access_post(){
+        if(!$this->get('provider') || !$this->post('order_id') || !$this->post('user')){
+            $this->response(NULL, 400);
+        }
+        $this->load->model('invoices_model');
+        $this->load->model('tokens_model');
+        $invoice = $this->invoices_model->get_invoice_by_client_login($this->post('user'), $this->post('order_id'));
+        if($invoice){
+            $this->tokens_model->disable_order_tokens($this->post('order_id'));
+            $this->response(NULL, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function cancel_order_post(){
+        if(!$this->get('provider') || !$this->post('user') || !$this->post('order_id')){
+            $this->response(NULL, 400);
+        }
+        $this->load->model('invoices_model');
+        $res = $this->invoices_model->cancel_invoice($this->post('user'), $this->post('order_id'));
+        if($res){
+            $this->response(NULL, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function approve_order_post(){
+        if(!$this->get('provider') || !$this->post('user') || !$this->post('order_id')){
+            $this->response(NULL, 400);
+        }
+        $this->load->model('invoices_model');
+        $res = $this->invoices_model->approve_invoice($this->post('user'), $this->post('order_id'),$this->post('paid'));
+        $this->invoices_model->change_invoice_email_status(array($this->post('order_id')), 'Sent');
+        //$this->_debugLog(__FUNCTION__.$this->post('user').'='.$this->post('order_id').'='.$this->post('paid').'='.json_encode($res));
+        if($res){
+            $this->response(array('data'=>'ok'), 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+
+    function get_downloads_post(){
+        if(!$this->get('provider') || !$this->post('user')){
+            $this->response(NULL, 400);
+        }
+        $this->load->model('download_model');
+        $downloads = $this->download_model->get_downloads_by_client($this->post('user'), $this->get('provider'));
+        if($downloads){
+            $data['data'] = $downloads;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function get_not_uploaded_downloads_post(){
+        if(!$this->get('provider') || !$this->post('user')){
+            $this->response(NULL, 400);
+        }
+        $this->load->model('download_model');
+        $downloads = $this->download_model->get_not_uploaded_downloads_by_client($this->post('user'), $this->get('provider'));
+        if ($downloads) {
+            $data['data'] = $downloads;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function rf_license_uses_get(){
+        if(!$this->get('provider')){
+            $this->response(NULL, 400);
+        }
+        $this->load->model('pricing_model');
+        $uses = $this->pricing_model->get_rf_license_uses($this->get('clip'), $this->get('provider'));
+        if($uses){
+            $data['data'] = $uses;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function duration_discounts_get(){
+        $this->load->model('discounts_model');
+        $discounts = $this->discounts_model->get_duration_discounts();
+        if($discounts){
+            $data['data'] = $discounts;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function count_discounts_get(){
+        $this->load->model('discounts_model');
+        $discounts = $this->discounts_model->get_count_discounts();
+        if($discounts){
+            $data['data'] = $discounts;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function search_filters_get(){
+        $this->load->model('search_model');
+        $filters = $this->search_model->get_search_filters($this->get('provider'));
+        if($filters){
+            $data['data'] = $filters;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function add_to_bin_login_post(){
+        $this->load->model('bin_model');
+        if(!$this->get('provider') || !$this->post('user') || !$this->post('clips')){
+            $this->response(NULL, 400);
+        }
+        $bin_id = $this->bin_model->add_items_login($this->post('user'), $this->post('clips'));
+        if($bin_id){
+            $data['data']['bin_id'] = $bin_id;
+            $data['data']['items_count'] = $this->bin_model->get_clipbin_items_count($bin_id);
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function add_to_bin_post(){
+        $this->load->model('bin_model');
+        if(!$this->get('provider') || !$this->post('user') || !$this->post('clips')){
+            $this->response(NULL, 400);
+        }
+        $bin_id = $this->bin_model->add_items($this->post('user'), $this->post('clips'), $this->post('bin_id'));
+        if($bin_id){
+            $data['data']['bin_id'] = $bin_id;
+            $data['data']['items_count'] = $this->bin_model->get_clipbin_items_count($bin_id);
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function remove_from_bin_post(){
+        $this->load->model('bin_model');
+        if(!$this->get('provider') || !$this->post('clips') || !$this->post('bin_id')){
+            $this->response(NULL, 400);
+        }
+        $res = $this->bin_model->remove_items($this->post('clips'), $this->post('bin_id'));
+        if($res){
+            $data['data']['items_count'] = $this->bin_model->get_clipbin_items_count($this->post('bin_id'));
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+    function remove_all_from_bin_post(){
+        $this->load->model('bin_model');
+        if(!$this->get('provider') || !$this->post('bin_id')){
+            $this->response(NULL, 400);
+        }
+        $res = $this->bin_model->remove_all_items($this->post('bin_id'));
+        if($res){
+            $data['data']['items_count'] = $this->bin_model->get_clipbin_items_count($this->post('bin_id'));
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function clipbin_content_post(){
+        $this->load->model('bin_model');
+        if(!$this->get('provider') || (!$this->post('clipbin_clips') && !$this->post('bin_id'))){
+            $this->response(NULL, 400);
+        }
+        $perpage = $this->post('perpage');
+        $page = $this->post('page');
+        $perpage = (empty($perpage)) ? 99 : $perpage;
+        $page = (empty($page)) ? 1 : $page;
+        if($this->post('clipbin_clips') && !$this->post('bin_id')){
+            $bins = $this->bin_model->get_items_by_ids($this->post('clipbin_clips'), $this->post('sort'), $perpage, $page);
+        }else{
+            $bins = $this->bin_model->get_items($this->post('bin_id'), $this->post('sort'), $perpage, $page);
+        }
+        if($bins){
+            $data['data'] = $bins;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function get_bin_items_post(){
+        $this->load->model('bin_model');
+        if(!$this->get('provider') || !$this->post('bin_id')){
+            $this->response(NULL, 400);
+        }
+        $data['data'] = $this->bin_model->get_bin_items($this->post('bin_id'));
+        $this->response($data, 200);
+    }
+
+    function default_bin_post(){
+        $this->load->model('bin_model');
+        if(!$this->get('provider') || !$this->post('user')){
+            $this->response(NULL, 400);
+        }
+        $bin = $this->bin_model->get_defaul_bin($this->post('user'));
+        if($bin){
+            $data['data'] = $bin;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function get_bins_list_post(){
+        $this->load->model('bin_model');
+        if(!$this->get('provider') || !$this->post('user')){
+            $this->response(NULL, 400);
+        }
+        $bins = $this->bin_model->get_bins_list($this->post('user'));
+        if($bins){
+            $data['data'] = $bins;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function get_widget_bins_list_post(){
+        $this->load->model('bin_model');
+        if(!$this->get('provider') || !$this->post('user')){
+            $this->response(NULL, 400);
+        }
+        $bins = $this->bin_model->get_widget_bins_list($this->post('user'), $this->post('keyword'));
+        if($bins){
+            $data['data'] = $bins;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function get_widget_folders_list_post(){
+        $this->load->model('bin_model');
+        if(!$this->get('provider') || !$this->post('user')){
+            $this->response(NULL, 400);
+        }
+        $folders = $this->bin_model->get_widget_folders_list($this->post('user'), $this->post('keyword'));
+        if($folders){
+            $data['data'] = $folders;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function create_clipbin_post(){
+        $this->load->model('bin_model');
+        if(!$this->get('provider') || !$this->post('user') || !$this->post('title')){
+            $this->response(NULL, 400);
+        }
+        $clipbin_id = $this->bin_model->create_clipbin($this->post('user'), $this->post('title'), $this->post('folder_id'));
+        if($clipbin_id){
+            $data['data']['clipbin_id'] = $clipbin_id;
+            $bins = $this->bin_model->get_widget_bins_list($this->post('user'));
+            if($bins)
+                $data['data']['clipbins_list'] = $bins;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function save_clipbin_post(){
+        $this->load->model('bin_model');
+        if(!$this->get('provider') || !$this->post('user') || !$this->post('bin_id')){
+            $this->response(NULL, 400);
+        }
+        $clipbin_id = $this->bin_model->save_clipbin($this->post('user'), $this->post('title'), $this->post('folder_id'), $this->post('bin_id'));
+        if($clipbin_id){
+            $data['data']['clipbin_id'] = $clipbin_id;
+            $bins = $this->bin_model->get_widget_bins_list($this->post('user'));
+            if($bins)
+                $data['data']['clipbins_list'] = $bins;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function create_folder_post(){
+        $this->load->model('bin_model');
+        if(!$this->get('provider') || !$this->post('user') || !$this->post('name')){
+            $this->response(NULL, 400);
+        }
+        $folder_id = $this->bin_model->create_folder($this->post('user'), $this->post('name'));
+        if($folder_id){
+            $data['data']['folder_id'] = $folder_id;
+            $folders = $this->bin_model->get_widget_folders_list($this->post('user'));
+            if($folders)
+                $data['data']['folders_list'] = $folders;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function save_folder_post(){
+        $this->load->model('bin_model');
+        if(!$this->get('provider') || !$this->post('user') || !$this->post('folder_id')){
+            $this->response(NULL, 400);
+        }
+        $folder_id = $this->bin_model->save_folder($this->post('user'), $this->post('name'), $this->post('folder_id'));
+        if($folder_id){
+            $data['data']['folder_id'] = $folder_id;
+            $folders = $this->bin_model->get_widget_folders_list($this->post('user'));
+            if($folders)
+                $data['data']['folders_list'] = $folders;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function rename_clipbin_post(){
+        $this->load->model('bin_model');
+        if(!$this->post('title') || !$this->post('bin_id')){
+            $this->response(NULL, 400);
+        }
+        $res = $this->bin_model->rename_clipbin($this->post('title'), $this->post('bin_id'));
+        if($res){
+            $this->response(NULL, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function make_clipbin_default(){
+        $this->load->model('bin_model');
+        if(!$this->post('bin_id')){
+            $this->response(NULL, 400);
+        }
+        $this->bin_model->set_default_bin($this->post('bin_id'));
+    }
+
+    function copy_clipbin_post(){
+        $this->load->model('bin_model');
+        if(!$this->get('provider') || !$this->post('user') || !$this->post('title') || !$this->post('bin_id')){
+            $this->response(NULL, 400);
+        }
+        $clipbin_id = $this->bin_model->copy_clipbin($this->post('user'), $this->post('title'), $this->post('bin_id'));
+        if($clipbin_id){
+            $data['data']['clipbin_id'] = $clipbin_id;
+            $bins = $this->bin_model->get_bins_list($this->post('user'));
+            if($bins)
+                $data['data']['clipbins_list'] = $bins;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function delete_clipbin_post(){
+        $this->load->model('bin_model');
+        if(!$this->post('bin_id')){
+            $this->response(NULL, 400);
+        }
+        $res = $this->bin_model->delete_clipbin($this->post('bin_id'));
+        if($res){
+            $this->response(NULL, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function delete_folder_post(){
+        $this->load->model('bin_model');
+        if(!$this->post('folder_id')){
+            $this->response(NULL, 400);
+        }
+        $res = $this->bin_model->delete_folder($this->post('folder_id'));
+        if($res){
+            $this->response(NULL, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function move_clipbin_items_post(){
+        $this->load->model('bin_model');
+        if(!$this->post('from_bin_id') && !$this->post('to_bin_id') && !$this->post('items_ids')){
+            $this->response(NULL, 400);
+        }
+        $res = $this->bin_model->move_clipbin_items($this->post('from_bin_id'), $this->post('to_bin_id'), $this->post('items_ids'));
+        if($res){
+            $this->response(NULL, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function copy_clipbin_items_post(){
+        $this->load->model('bin_model');
+        if(!$this->post('from_bin_id') && !$this->post('to_bin_id') && !$this->post('items_ids')){
+            $this->response(NULL, 400);
+        }
+        $res = $this->bin_model->copy_clipbin_items($this->post('from_bin_id'), $this->post('to_bin_id'), $this->post('items_ids'));
+        if($res){
+            $this->response(NULL, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function get_clipbin_post(){
+        $this->load->model('bin_model');
+        if(!$this->get('provider') || !$this->post('bin_id')){
+            $this->response(NULL, 400);
+        }
+        $res = $this->bin_model->get_clipbin($this->post('bin_id'));
+        if($res){
+            $data['data'] = $res[0];
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function get_folder_post(){
+        $this->load->model('bin_model');
+        if(!$this->get('provider') || !$this->post('folder_id')){
+            $this->response(NULL, 400);
+        }
+        $res = $this->bin_model->get_folder($this->post('folder_id'));
+        if($res){
+            $data['data'] = $res[0];
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function provider_galleries_get(){
+        $this->load->model('galleries_model');
+        $this->load->model('clips_model');
+        if(!$this->get('provider')){
+            $this->response(NULL, 400);
+        }
+        $filter = array('client_id' => $this->get('user_id'));
+        if($this->get('featured')){
+            $filter['featured'] = 1;
+        }
+        $filter['is_gallery'] = 1;
+        $res = $this->galleries_model->get_galleries_list($filter);
+        $cloud_tags = $this->clips_model->provider_cloud_tags($filter['client_id']);
+        if($res || $cloud_tags){
+            $data['data'] = $res;
+            $data['cloud_tags'] = $cloud_tags;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+    function provider_gallery_get(){
+        if(!$this->get('gallery_id')){
+            $this->response(NULL, 400);
+        }
+        $this->load->model('galleries_model');
+        $res = $this->galleries_model->get_gallery($this->get('gallery_id'));
+        if($res){
+            $data['data'] = $res;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function top_keywords_post(){
+        $this->load->model('tagcloud_model');
+        if(!$this->get('provider')){
+            $this->response(NULL, 400);
+        }
+        $keywords = $this->tagcloud_model->get_top_keywords($this->get('provider'), $this->post('limit'));
+        if($keywords){
+            $data['data'] = $keywords;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function shared_pages_post(){
+        $this->load->model('sharedpages_model');
+        $filter = array('status' => 1);
+        if($this->post('type'))
+            $filter['type'] = $this->post('type');
+
+        $pages = $this->sharedpages_model->get_shared_pages_list($filter, array(), 'sort, id desc');
+        if($pages){
+            $data['data'] = $pages;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function shared_pages_types_get(){
+        $this->load->model('sharedpages_model');
+        $types = $this->sharedpages_model->get_shared_pages_types();
+        if($types){
+            $data['data'] = $types;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function shared_page_post(){
+        if(!$this->post('url')){
+            $this->response(NULL, 400);
+        }
+        $this->load->model('sharedpages_model');
+        $page = $this->sharedpages_model->get_shared_page_by_url($this->post('url'));
+        if($page){
+            $data['data'] = $page;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+
+    }
+
+    function get_frontends_post(){
+        if(!$this->post('provider_id')){
+            $this->response(NULL, 400);
+        }
+        $this->load->model('frontends_model');
+        $frontends = $this->frontends_model->get_frontends_list_with_providers(array(
+            'f.provider_id' => $this->post('provider_id'),
+            'f.status' => 1
+        ));
+        if($frontends){
+            $data['data'] = $frontends;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function download_token_path_post(){
+        if(!$this->get('provider') || !$this->post('token')){
+            $this->response(NULL, 400);
+        }
+        $this->load->model('tokens_model');
+        $path  = $this->tokens_model->get_token_path($this->post('token'));
+        if($path){
+            $data['data'] = $path;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function upload_token_path_post(){
+        if(!$this->get('provider') || !$this->post('token')){
+            $this->response(NULL, 400);
+        }
+        $this->load->model('upload_tokens_model');
+        $path  = $this->upload_tokens_model->get_token_path($this->post('token'));
+        if($path){
+            $data['data'] = $path;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function use_discount_display_post(){
+        if(!$this->get('provider') || !$this->post('use')){
+            $this->response(NULL, 400);
+        }
+        $this->load->model('pricing_model');
+        $discount_display = $this->pricing_model->get_use_discount_display($this->post('use'));
+        if($discount_display){
+            $data['data'] = $discount_display;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function rf_use_discount_display_post(){
+        if(!$this->get('provider') || !$this->post('use')){
+            $this->response(NULL, 400);
+        }
+        $this->load->model('pricing_model');
+        $discount_display = $this->pricing_model->get_rf_use_discount_display($this->post('use'));
+        if($discount_display){
+            $data['data'] = $discount_display;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    private function _limit() {
+        if($limit = $this->get('limit')){
+            return ' LIMIT ' . (($this->get('from')) ? ($this->get('from') . ', ') : '') . $limit;
+        }
+        else{
+            return '';
+        }
+    }
+
+    private function _clip_id($url) {
+        if (!$url) {
+            return 0;
+        }
+        $uri_parts = explode('-', $url);
+        return (count($uri_parts) ? intval($uri_parts[count($uri_parts) - 1]) : 0);
+    }
+
+    private function _category_id($url) {
+        if (!$url) {
+            return 0;
+        }
+        $uri_parts = explode('-', $url);
+        return (count($uri_parts) ? intval($uri_parts[count($uri_parts) - 1]) : 0);
+    }
+
+    private function get_user_token($login, $password){
+        $this->db_master = $this->load->database('master', TRUE);
+        $token = '';
+        $query = $this->db->query('SELECT id FROM lib_users WHERE login = ' . $this->db->escape($login)
+                . ' AND password = ' . $this->db->escape($password) . ' AND active = 1');
+        $user = $query->result_array();
+        if($user[0]['id']){
+            $token = md5(uniqid() . microtime() . rand());
+            $this->db_master->where('id', $user[0]['id']);
+            $this->db_master->update('lib_users', array('token' => $token));
+        }
+        return $token;
+    }
+
+	/**
+	 * Сохранение и отправка провайдеру сообщения от пользователя
+	 */
+	function send_clip_comment_post () {
+		$provider_id = $this->get( 'provider' );
+		$user_login = $this->post( 'user' );
+		$mesaage = $this->post( 'message' );
+		$clip_id = $this->post( 'clip_id' );
+		$this->clips_model->SendCommentToProvider( $provider_id, $user_login, $mesaage, $clip_id );
+		$this->clips_model->SaveCommentToLog( $provider_id, $user_login, $mesaage, $clip_id );
+	}
+
+    function update_resume_billing_data_post(){
+
+        $this->load->model('licensing_model');
+
+        $order_id = $_POST['order_id'];
+        $license_data = json_decode($_POST['data']);
+
+        if(isset($license_data->bill_name)){
+            $data['name'] = $license_data->bill_name;
+        }else{
+            $data['name'] = '';
+        }
+
+
+        if(isset($license_data->bill_company)){
+            $data['company'] = $license_data->bill_company;
+        }else{
+            $data['company'] = '';
+        }
+
+        if(isset($license_data->bill_street1)){
+            $data['street1'] = $license_data->bill_street1;
+        }else{
+            $data['street1'] = '';
+        }
+
+
+        if(isset($license_data->bill_street2)){
+            $data['street2'] = $license_data->bill_street2;
+        }else{
+            $data['street2'] = '';
+        }
+
+
+        if(isset($license_data->bill_city)){
+            $data['city'] = $license_data->bill_city;
+        }else{
+            $data['city'] = '';
+        }
+
+        if(isset($license_data->bill_state)){
+            $data['state'] = $license_data->bill_state;
+        }else{
+            $data['state'] = '';
+        }
+
+        if(isset($license_data->bill_zip)){
+            $data['zip'] = $license_data->bill_zip;
+        }else{
+            $data['zip'] = '';
+        }
+
+        if(isset($license_data->bill_country)){
+            $data['country'] = $license_data->bill_country;
+        }else{
+            $data['country'] = '';
+        }
+
+        if(isset($license_data->bill_phone)){
+            $data['phone'] = $license_data->bill_phone;
+        }else{
+            $data['phone'] = '';
+        }
+
+        $this->licensing_model->update_billing_by_order_id($order_id, $data);
+
+        $this->response( array( 'status' => 'ok' ), 200 );
+
+    }
+
+    function update_resume_license_data_post(){
+
+        $this->load->model('licensing_model');
+
+        $order_id = $_POST['order_id'];
+        $license_data = json_decode($_POST['data']);
+
+        $data = array();
+
+        if(isset($license_data->production_title)){
+            $data['production_title'] = $license_data->production_title;
+        }else{
+            $data['production_title'] = '';
+        }
+
+        if(isset($license_data->production_description)){
+            $data['production_description'] = $license_data->production_description;
+        }else{
+            $data['production_description'] = '';
+        }
+
+        if(isset($license_data->production_territory)){
+            $data['production_territory'] = $license_data->production_territory;
+        }else{
+            $data['production_territory'] = '';
+        }
+
+
+        if(isset($license_data->additional_notes)){
+            $data['additional_notes'] = $license_data->additional_notes;
+        }else{
+            $data['additional_notes'] = '';
+        }
+
+        if(isset($license_data->lic_name)){
+            $data['name'] = $license_data->lic_name;
+        }else{
+            $data['name'] = '';
+        }
+
+
+        if(isset($license_data->lic_company)){
+            $data['company'] = $license_data->lic_company;
+        }else{
+            $data['company'] = '';
+        }
+
+        if(isset($license_data->lic_street1)){
+            $data['street1'] = $license_data->lic_street1;
+        }else{
+            $data['street1'] = '';
+        }
+
+
+        if(isset($license_data->lic_street2)){
+            $data['street2'] = $license_data->lic_street2;
+        }else{
+            $data['street2'] = '';
+        }
+
+
+        if(isset($license_data->lic_city)){
+            $data['city'] = $license_data->lic_city;
+        }else{
+            $data['city'] = '';
+        }
+
+        if(isset($license_data->lic_state)){
+            $data['state'] = $license_data->lic_state;
+        }else{
+            $data['state'] = '';
+        }
+
+        if(isset($license_data->lic_zip)){
+            $data['zip'] = $license_data->lic_zip;
+        }else{
+            $data['zip'] = '';
+        }
+
+        if(isset($license_data->lic_country)){
+            $data['country'] = $license_data->lic_country;
+        }else{
+            $data['country'] = '';
+        }
+
+        if(isset($license_data->lic_phone)){
+            $data['phone'] = $license_data->lic_phone;
+        }else{
+            $data['phone'] = '';
+        }
+
+        $this->licensing_model->update_license_by_order_id($order_id, $data);
+
+        $this->response( array( 'status' => 'ok' ), 200 );
+    }
+
+    function get_resume_billing_data_post(){
+        $order_id = $this->post('order_id');
+
+        $this->load->model('licensing_model');
+
+        $data = json_encode($this->licensing_model->get_order_billing_info($order_id));
+
+        $this->response( $data, 200 );
+    }
+
+
+    function send_form_contactus_post () {
+        $this->load->model( 'formdata_model' );
+        $data = $this->_get_post_data(
+            array (
+                "firstname", "lastname", "companyname", "phone",
+                "email", "inquiry", "user_id", "user_login", "timestamp"
+            )
+        );
+        $data[ 'provider_id' ] = $this->get( 'provider' );
+        $data[ 'frontend_id' ] = $this->get( 'frontend' );
+        $this->formdata_model->send_contactus_notification( $this->get( 'provider' ), $data );
+        $this->formdata_model->save_form_request( 'lib_formdata_contactus', $data );
+        $this->response( array( 'status' => 'ok' ), 200 );
+    }
+
+    function send_form_shotrequest_post () {
+        $this->load->model( 'formdata_model' );
+        $data = $this->_get_post_data(
+            array (
+                "firstname", "lastname", "companyname", "companytype",
+                "jobtitle", "country", "state", "phone", "website",
+                "email", "production_description", "footage_details",
+                "format", "preview_deadline", "master_deadline",
+                "license", "budget", "user_id", "user_login", "timestamp"
+            )
+        );
+        $data[ 'provider_id' ] = $this->get( 'provider' );
+        $data[ 'frontend_id' ] = $this->get( 'frontend' );
+        $this->formdata_model->send_shotrequest_notification( $this->get( 'provider' ), $data );
+        $this->formdata_model->save_form_request( 'lib_formdata_shotrequest', $data );
+        $this->response( array( 'status' => 'ok' ), 200 );
+    }
+
+    function _get_post_data ( array $list ) {
+        $result = array ();
+        foreach ( $list as $field ) {
+            $result[ $field ] = $this->post( $field );
+        }
+        return $result;
+    }
+
+    function get_wp_userdata_post () {
+        $this->load->model( 'users_model' );
+        $response = array(
+            'status' => 'not-found'
+        );
+        $query = array(
+            'login'    => $this->post( 'username' ),
+            'password' => addslashes(preg_replace('/\\\\/i','',$this->input->post( 'password' ))),
+            'active'   => 1
+        );
+        $userdata = $this->users_model->get_wp_userdata( $query );
+        $metadata = $otherdata = array();
+        if($userdata['id']) {
+            $metadata = $this->users_model->get_wp_user_metadata($userdata['id'], $this->get('provider'));
+            $otherdata = $this->users_model->get_wp_user_otherdata($userdata['id']);
+            unset($userdata['id']);
+        }
+        if ( $userdata ) {
+            $response = array (
+                'status'    => 'ok',
+                'userdata'  => $userdata,
+                'metadata'  => $metadata,
+                'otherdata' => $otherdata
+            );
+        }
+        $this->response( $response, 200 );
+    }
+
+
+    function get_license_term_restrictions_post(){
+        if(!$this->input->post('id')){
+            $this->response(NULL, 400);
+        }
+        $id = $this->input->post('id');
+        $this->load->model('licensing_model');
+        $restrictions = $this->licensing_model->get_restrictions($id, '-1');
+        //$this->_debugLog('RESTRACTIONS: '.json_encode($restrictions),true);
+        $data=array('status'=>'ok','data'=>$restrictions);
+        $this->response( $data, 200 );
+
+    }
+
+    function update_wp_userdata_post () {
+        $this->load->model( 'users_model' );
+        $data = array();
+        if ($this->post('first_name') != null) {
+            $data['fname'] = $this->post('first_name');
+        }
+        if ($this->post('first_name') != null) {
+            $data['lname'] = $this->post('last_name');
+        }
+        if ($this->post('email') != null) {
+            $data['email'] = $this->post('email');
+        }
+        if ($this->post('url') != null) {
+            $data['site'] = $this->post('url');
+        }
+        if ($this->post('meta') != null) {
+            $data['meta'] = $this->post('meta');
+        }
+        if ($this->post('is_provider') != null) {
+            $data['is_provider'] = $this->post('is_provider');
+        }
+        $password = preg_replace('/\\\\/im','',$this->input->post( 'password' ));
+        if ( $password && ! empty( $password ) ) {
+            $data[ 'password' ] = $password;
+        }
+        $this->users_model->update_wp_userdata($this->post( 'username' ), $data);
+        $response = array(
+            'status' => 'ok'
+        );
+        $this->response( $response, 200 );
+    }
+
+    function update_wp_meta_post () {
+        if(!$this->post('username')){
+            $this->response(NULL, 400);
+        }
+        $this->load->model('users_model');
+        $data = array(
+            'meta'  => $this->post('meta'),
+            'is_provider' => $this->post('is_provider')
+        );
+        $this->users_model->update_wp_userdata($this->post('username'), $data);
+        $response = array(
+            'status' => 'ok'
+        );
+        $this->response($response, 200);
+    }
+
+    function username_exists_post() {
+        if(!$this->post('username')){
+            $this->response(NULL, 400);
+        }
+        $this->load->model('users_model');
+        $res = $this->users_model->is_username_exists($this->post('username'));
+        $data['data'] = $res;
+        $this->response($data, 200);
+    }
+
+    function email_exists_post() {
+        if(!$this->post('email')){
+            $this->response(NULL, 400);
+        }
+        $this->load->model('users_model');
+        $res = $this->users_model->is_email_exists($this->post('email'));
+        $data['data'] = $res;
+        $this->response($data, 200);
+    }
+
+    function generate_download_link_post(){
+        if(!$this->get('provider') || !$this->post('user') || !$this->post('order_id')){
+            $this->response(NULL, 400);
+        }
+        $this->load->model('invoices_model');
+        $hasOrder = $this->invoices_model->has_order($this->post('order_id'), $this->post('user'));
+        if($hasOrder){
+            $data['link'] = $this->invoices_model->get_invoice_guest_download_link($this->post('order_id'));
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function delete_download_link_post(){
+        if(!$this->get('provider') || !$this->post('user') || !$this->post('order_id')){
+            $this->response(NULL, 400);
+        }
+        $this->load->model('invoices_model');
+        $hasOrder = $this->invoices_model->has_order($this->post('order_id'), $this->post('user'));
+        if($hasOrder){
+            $this->invoices_model->delete_download_token_by_order_id($this->post('order_id'));
+            $this->response(array(), 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function user_storage_account_post(){
+        if(!$this->get('provider') || !$this->post('user')){
+            $this->response(NULL, 400);
+        }
+        $this->load->model('users_model');
+        $res = $this->users_model->get_storage_account($this->post('user'));
+        if($res){
+            $data['data'] = $res;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function upload_notification_post(){
+        if(!$this->post('user') || !$this->post('paths')){
+            $this->response(NULL, 400);
+        }
+        $this->load->model('file_manager_model');
+        $this->file_manager_model->send_upload_notification($this->post('user'), $this->post('paths'), $this->post('destination_root'));
+        $this->response(array(), 200);
+    }
+
+    function users_list_post(){
+        $id=(!$this->post('group_id')) ? 13 : $this->post('group_id');
+        $this->load->model('users_model');
+        $users = $this->users_model->getUsersListByGroupId($id,$this->post('latter'));
+        if($users){
+            $data['data'] = $users;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function get_user_by_id_post(){
+        if(!$this->post('id'))  $this->response(NULL, 404);
+        $id=$this->post('id');
+        $this->load->model('users_model');
+        $user = $this->users_model->get_user($id);
+        if($user){
+            $data['data']=$user;
+            $this->response($data, 200);
+        }else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function get_user_by_login_post(){
+        if(!$this->post('login'))  $this->response(NULL, 404);
+        $login=$this->post('login');
+        $this->load->model('users_model');
+        $user = $this->users_model->GetUserByLogin($login);
+        //$this->_debugLog(__FUNCTION__.$login.json_encode($user))
+        if($user){
+            $data['data']=$user;
+            $this->response($data, 200);
+        }else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function get_user_by_email_post(){
+        if(!$this->post('email'))  $this->response(NULL, 404);
+        $email=$this->post('email');
+        $this->load->model('users_model');
+        $user = $this->users_model->GetUserByEmail($email);
+        if($user){
+            $data['data']=$user;
+            $this->response($data, 200);
+        }else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function save_user_activation_key_post(){
+        if(!$this->post('login'))  $this->response(NULL, 404);
+        if(!$this->post('activation_key'))  $this->response(NULL, 404);
+        if(!$this->post('frontend_url'))  $this->response(NULL, 404);
+        $this->load->model('users_model');
+        $user = $this->users_model->SaveActivationKey($this->post('login'),$this->post('activation_key'),$this->post('frontend_url'));
+        if($user){
+            $data['data']=$user;
+            $this->response($data, 200);
+        }else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function get_user_activation_key_post(){
+        if(!$this->post('login'))  $this->response(NULL, 404);
+        if(!$this->post('activation_key'))  $this->response(NULL, 404);
+        $this->load->model('users_model');
+        $user = $this->users_model->GetUserByActivationKey($this->post('login'),$this->post('activation_key'));
+        if($user){
+            $data['data']=$user;
+            $this->response($data, 200);
+        }else{
+            $this->response(NULL, 404);
+        }
+    }
+    function reset_user_pass_post(){
+        /*if(!$this->post('login'))  $this->response(NULL, 404);
+        if(!$this->post('pass'))  $this->response(NULL, 404);*/
+        if(!$this->post('params'))  $this->response(NULL, 404);
+        $params=$this->input->post('params');
+        $login=$params['login'];
+        $pass=$params['pass'];
+        $this->load->model('users_model');
+        $user = $this->users_model->ResetUserPass($login,$pass);
+        if($user){
+            $data['data']=$user;
+            $this->response($data, 200);
+        }else{
+            $this->response(NULL, 404);
+        }
+    }
+    function test_post(){
+        $id= (int) $this->post('clipId');
+        $weight= (int) $this->post('weight');
+        $action=$this->post('action');
+        $this->load->model('rank_clips_model');
+        $this->rank_clips_model->set_rank($id,$weight,$action);
+        $data['data']=$_POST;
+        $this->response($data, 200);
+    }
+    function getRank_post(){
+        $id=$this->post('clipId');
+
+        $this->load->model('rank_clips_model');
+        $res = $this->rank_clips_model->get_rank($id);
+        $data['data']=$res;
+        $this->response($data, 200);
+    }
+    function setRank_post(){
+        $id= (int) $this->post('clipId');
+        $weight= (int) $this->post('weight');
+        $action=$this->post('action');
+        $this->load->model('rank_clips_model');
+        $this->rank_clips_model->set_rank($id,$weight,$action);
+        $data['data']=$id.$weight.$action;
+        $this->response($data, 200);
+    }
+
+    function clip_code_by_id_post() {
+        if(!$this->post('id')){
+            $this->response(NULL, 400);
+        }
+        $code = $this->clips_model->get_clip_code((int)$this->post('id'));
+        if($code){
+            $data['data'] = $code;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function clip_id_by_code_post() {
+        if(!$this->post('code')){
+            $this->response(NULL, 400);
+        }
+        $id = $this->clips_model->get_clip_id_by_code($this->post('code'));
+        if($id){
+            $data['data'] = $id;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function clip_thumb_post() {
+        if(!$this->post('id')){
+            $this->response(NULL, 400);
+        }
+        $thumb = $this->clips_model->get_clip_thumb((int)$this->post('id'));
+        if($thumb){
+            $data['data'] = $thumb;
+            $this->response($data, 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function send_registercp_post(){
+        if(!$this->get('provider') || !$this->post('user') || !$this->post('order_id')){
+            $this->response(NULL, 400);
+        }
+        $this->load->model('invoices_model');
+        $hasOrder = $this->invoices_model->has_order($this->post('order_id'), $this->post('user'));
+        if($hasOrder){
+            $this->invoices_model->delete_download_token_by_order_id($this->post('order_id'));
+            $this->response(array(), 200);
+        }
+        else{
+            $this->response(NULL, 404);
+        }
+    }
+
+    function add_clip_to_solr_post(){
+        if(!$this->post('clip_id')){
+            $this->response(NULL, 400);
+        }
+        $this->clips_model->add_to_index($this->post('clip_id'));
+        $this->response(array('data'=>'ok'), 200);
+    }
+
+    function send_email_post(){
+        if(!$this->post('action')){
+            $this->response(NULL, 400);
+        }
+        //$this->_debugLog(__FUNCTION__.' -> '.$this->post('action'));
+        $this->load->model('invoices_model');
+        switch($this->post('action')){
+            case 'download-email':
+                if(!$this->post('order_id')) $this->response(NULL, 400);
+                $url=$this->config->base_url();
+                $id=$this->post('order_id');
+                $touch = $url.'en/sendmail/action/download-email/order/'.$id;
+                //$this->_debugLog(__FUNCTION__.' -> '.$touch);
+                @file_get_contents( $touch );
+                break;
+            case 'clipbin':
+
+                if(!$this->post('to')) $this->response(NULL, 400);
+
+                //$this->_debugLog(__FUNCTION__.' -> '.$this->post('to').'->'.$this->post('body'));
+                $this->invoices_model->send_clipbin($this->post('to'),$this->post('body'));
+                $this->response(array('data'=>'ok'), 200);
+                break;
+            case 'submission-finished':
+                if(!$this->post('code') || !$this->post('provider_id')) $this->response(NULL, 400);
+                $this->load->model('submissions_model');
+                $this->submissions_model->SendNotificationProvider_NewSubmission($this->post('code'),$this->post('provider_id'));
+                $this->response(array('data'=>'ok'), 200);
+                break;
+        }
+
+    }
+
+    function is_lab_user_post(){
+        $user_login = $this->post('login');
+
+        $result = $this->db->query("SELECT group_id FROM lib_users WHERE login = '".$user_login."' LIMIT 1")->result_array();
+        $group_id = $result[0]['group_id'];
+
+        if($group_id == 14){
+            $this->response(array('data' => true), 200);
+        }else{
+            $this->response(array('data' => false), 200);
+        }
+    }
+
+    function clipbin_set_active_post(){
+        $bin_id = $_POST['id'];
+        $bin_owner = $this->db->query("SELECT client_id FROM lib_lb WHERE id = '".$bin_id."' LIMIT 1")->result_array();
+        $own = $bin_owner[0]['client_id'];
+        $this->db_master->query("UPDATE lib_lb SET is_default = '0' WHERE client_id = '".$own."' ");
+        $this->db_master->query("UPDATE lib_lb SET is_default = '1' WHERE id = '".$bin_id."' ");
+
+        $this->response(array('data' => true), 200);
+    }
+
+    function clips_count_post(){
+        $this->load->model('clips_model', 'cl');
+        $count = $this->cl->get_clips_count();
+
+        echo json_encode($count);
+    }
+
+    function update_cart_post(){
+        $user_login = $this->input->post('user_login');
+        $cart = $this->input->post('cart');
+        
+        if ($this->input->post('user_login')){
+        
+        $this->load->model('users_model', 'um');
+        $user = $this->um->GetUserByLogin($user_login);
+
+        $this->db_master->query("  INSERT INTO lib_cart_items (id, user_id, cart_serialized)
+                            VALUES ('', '".$user['id']."', '".$cart."')
+                            ON DUPLICATE KEY UPDATE cart_serialized = '".$cart."'
+                        ");
+        }
+
+    }
+
+    function get_user_cart_post(){
+        $user_login = $this->input->post('user_login');
+        $this->load->model('users_model', 'um');
+
+        $user = $this->um->GetUserByLogin($user_login);
+
+        $cart = $this->db->query("SELECT cart_serialized FROM lib_cart_items WHERE user_id = '".$user['id']."' LIMIT 1 ")->result_array();
+
+        $this->response(array('data' => $cart), 200);
+    }
+
+    function merge_carts_post(){
+        $user_login = $this->input->post('user_login');
+        $user_cart = $this->input->post('cart');
+        $this->load->model('users_model', 'um');                 
+                
+        $user = $this->um->GetUserByLogin($user_login);
+        $cart = $this->db_master->query("SELECT cart_serialized FROM lib_cart_items WHERE user_id = '".$user['id']."' LIMIT 1 ")->result_array();
+        
+        if(unserialize($cart[0]['cart_serialized']) > 0){        
+            $new_cart = serialize(array_merge(unserialize($user_cart), unserialize($cart[0]['cart_serialized'])));
+        }else{
+            $new_cart = $user_cart;
+        }
+
+        $this->db_master->query("  INSERT INTO lib_cart_items (id, user_id, cart_serialized)
+                            VALUES ('', '".$user['id']."', '".$new_cart."')
+                            ON DUPLICATE KEY UPDATE cart_serialized = '".$new_cart."'
+                        ");
+
+        $this->response(array('data' => true), 200);
+    }
+
+}
